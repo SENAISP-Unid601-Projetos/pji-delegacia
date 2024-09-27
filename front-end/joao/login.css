@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    flex-direction: column; 
+    gap: 20px; 
+}
+
+.navbar{
+background-color: #1662FA;
+display: center;
+padding: 16px;
+font-size: sans-serif;
+padding-bottom: 16px;   
+color: white
+}
+.navbar-content{
+    flex-grow: 1;
+    text-align: center;
+}
+#login {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: serif;
+}
+.loginus {
+    background-color: #1662FA;
+    padding: 40px;
+    border-radius: 2px;
+    width:280px;
+    color: white;
+}
+
+.login-usuario {
+    padding-bottom: 50px;
+    opacity: 0.8;
+    color: #fff;
+}
+
+.login-usuario::after {
+    content: "";
+    width: 70px;
+    height: 1px;
+    background-color: #fff;
+    display: block;
+    margin-top: -17px;
+    margin-left: -5px;
+}
+.login-usuario label {
+    color: #fff;
+    font-size: 12px;
+    opacity: 0.8;
+}
+.login-senha-area {
+    display: flex;
+    flex-direction: column;
+    padding:10px 0;
+}
+.login-senha-area input {
+    margin-top: 10px;
+    padding:0 5px;
+    background-color: transparent;
+    border:none;
+    border-bottom: 1px solid #e1e1e1;
+    outline: none;
+    color: #fff;
+}
