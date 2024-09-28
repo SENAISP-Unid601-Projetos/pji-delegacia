@@ -34,35 +34,35 @@
 
 .login-usuario {
     padding-bottom: 50px;
-    opacity: 0.8;
+    opacity: 1;
     color: #fff;
 }
 
 .login-usuario::after {
     content: "";
-    width: 70px;
-    height: 1px;
+    width: 20px;
+    height: 10px;
     background-color: #fff;
     display: block;
     margin-top: -17px;
     margin-left: -5px;
 }
 .login-usuario label {
-    color: #fff;
+    color: black;
     font-size: 12px;
-    opacity: 0.8;
+    opacity: 1;
 }
 .login-senha-area {
     display: flex;
     flex-direction: column;
-    padding:10px 0;
+    padding:10px ;
 }
 .login-senha-area input {
     margin-top: 10px;
-    padding:0 5px;
+    padding: 5px;
     background-color: transparent;
     border:none;
-    border-bottom: 1px solid #e1e1e1;
+    border-bottom: 1px solid white;
     outline: none;
     color: #fff;
 }
