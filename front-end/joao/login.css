@@ -1,68 +1,90 @@
-.container {
-    display: flex;
-    flex-direction: column; 
-    gap: 8px; 
+body {
+    font-family: 'roboto',sans-serif;
+    background-color: #f8f9fa;
+    background: linear-gradient(to right, #e0e0e0, #f8f9fa);
 }
 
-.navbar{
+.navbar {
     background-color: #1662FA;
     display: center;
     padding: 8px;
     font-size: sans-serif;
     padding-bottom: 8px;   
-    color: white
+    color: white;
+    height: 60px;
 }
-.navbar-content{
+
+.telalogin {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;  
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+.navbar-content {
     flex-grow: 1;
     text-align: center;
 }
+
 #login {
     margin-top: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    font-family: serif;
+    height: calc(100vh - 60px);
 }
+
 .loginus {
     background-color: #1662FA;
-    padding: 40px;
-    border-radius: 2px;
-    width:280px;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
     color: white;
+    text-align: center;
 }
 
 .login-usuario {
-    padding-bottom: 50px;
-    opacity: 1;
-    color: #fff;
+    margin-top: 20px;
 }
 
-.login-usuario::after {
-    content: "";
-    width: 20px;
-    height: 10px;
-    background-color: #fff;
-    display: block;
-    margin-top: -17px;
-    margin-left: -5px;
-}
-.login-usuario label {
-    color: black;
-    font-size: 12px;
-    opacity: 1;
-}
+.login-usuario-area,
 .login-senha-area {
-    display: flex;
-    flex-direction: column;
-    padding:10px ;
+    margin-bottom: 20px;
 }
-.login-senha-area input {
-    margin-top: 10px;
-    padding: 5px;
-    background-color: transparent;
-    border:none;
-    border-bottom: 1px solid white;
-    outline: none;
-    color: #fff;
+
+.login-usuario label {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.login-usuario input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    transition: border-color 0.3s ease; 
+}
+
+.login-usuario input:focus {
+    border-color: #1662FA;
+    outline: none; 
+}
+
+.btn {
+    width: 100%;
+    transition: background-color 0.3s ease;
+    background-color: #1662FA;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    display: block;
+    margin: 0 auto;
+}
+
+.btn:hover {
+    background-color: #0e4da4; 
 }
