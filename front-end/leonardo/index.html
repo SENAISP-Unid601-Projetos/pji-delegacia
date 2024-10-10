@@ -1,32 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>pji-ocorrências</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
+
 <body>
+    <header>
+        <h1> Listagem de Ocorrências e Agentes.</h1>
+    </header>
 
-    <script>
+    <main>
+        <section id="lista">
+            <h2>Ocorrências</h2>
+            <hr>
+            <div class="ocorrencias-div">
+                <div class="ocorrencia">
+                    <h3>Ocorrência #1</h3>
+                    <p>Descrição da ocorrência...</p>
+                    <p>Agente: Leonardo Valério</p>
+                </div>
+                <div class="ocorrencia">
+                    <h3>Ocorrência #2</h3>
+                    <p>Descrição da ocorrência...</p>
+                    <p>Agente: João Putin</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-const url = ''; //aqui tenho que inserir a url do sistema 
+    <footer>
+        <p>
+            pji-ocorrências - Todes direitos reservades
+        </p>
+    </footer>
 
-const data = {
-//no caso aqui eu iria utilizar se eu quiser enviar um dado
-}
 
-const fazerRequisicao = async () => {
-    try{
-        const response = await axios.post(url, data);//aqui eu uso para ver  a resposta do servidor e ver se foi feito corretamente
-        console.log('e pra funcionar',response.data);
-    }catch (error) {
-        console.log('nao funciou ',error);
-    }
-};
-fazerRequisicao; //aqui eu chamo da mesma forma que se faz no react 
-    </script>
-    
+    <script src="listar.js"></script>
+
 </body>
+
 </html>
