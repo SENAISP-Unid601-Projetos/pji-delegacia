@@ -1,3 +1,23 @@
+
+
+//Aqui irei utilizar um método GET junto com a ferramenta Axios para listar os agentes que já estão inseridos no banco
+
+
+async function listar () {// dentro de () passaria um PARAMETRO
+    const resultadoLista = await axios.get(
+        'http://localhost:8080/pji-ocorrencia/listar'
+    )
+    console.log(resultadoLista);
+
+    const ocorrencias = resultadoLista.data;
+
+    const ocorrenciasDiv = document.querySelector('.ocorrencias-div');
+
+    
+}
+
+
+
 const url = ''; //aqui tenho que inserir a url do sistema 
 
         const data = {
