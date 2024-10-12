@@ -1,0 +1,30 @@
+package com.delegacia.ocorrencia.entity;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+public class Ocorrencia implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    private String observacoes;
+
+    @ManyToOne
+    @JoinColumn(name = "id_agente", nullable = false)
+    private Agente agente;
+}
