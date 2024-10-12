@@ -1,35 +1,43 @@
+async function listar() {
+    try {
+        const resultadoLista = await axios.get('http://localhost:8080/ocorrencias/listar');
+        console.log(resultadoLista);
 
+        const ocorrencias = resultadoLista.data;
+        const ocorrenciasDiv = document.querySelector('.ocorrencias-div');
 
-//Aqui irei utilizar um método GET junto com a ferramenta Axios para listar os agentes que já estão inseridos no banco
+        // Limpa a div antes de adicionar novas ocorrências
+        ocorrenciasDiv.innerHTML = '';
 
+        // Itera sobre as ocorrências e cria os elementos
+        ocorrencias.forEach(ocorrencia => {
+            const ocorrenciaDiv = document.createElement('div');
+            ocorrenciaDiv.classList.add('ocorrencia');
 
-async function listar () {// dentro de () passaria um PARAMETRO
-    const resultadoLista = await axios.get(
-        'http://localhost:8080/pji-ocorrencia/listar'
-    )
-    console.log(resultadoLista);
+            // Cria os elementos para cada ocorrência
+            const titulo = document.createElement('h3');
+            titulo.textContent = `Ocorrência #${ocorrencia.id}`; // Supondo que exista um campo `id`
 
-    const ocorrencias = resultadoLista.data;
+            const descricao = document.createElement('p');
+            descricao.textContent = `Descrição: ${ocorrencia.observacoes}`; // Supondo que exista um campo `descricao`
 
-    const ocorrenciasDiv = document.querySelector('.ocorrencias-div');
+            const agente = document.createElement('p');
+            agente.textContent = `Agente: ${ocorrencia.agente.nome}`; // Supondo que exista um campo `agente`
 
-    
+            // Adiciona os elementos à div da ocorrência
+            ocorrenciaDiv.appendChild(titulo);
+            ocorrenciaDiv.appendChild(descricao);
+            ocorrenciaDiv.appendChild(agente);
+
+            // Adiciona a ocorrência à div principal
+            ocorrenciasDiv.appendChild(ocorrenciaDiv);
+        });
+    } catch (error) {
+        console.error('Erro ao buscar ocorrências:', error);
+    }
 }
 
-
-
-const url = ''; //aqui tenho que inserir a url do sistema 
-
-        const data = {
-            //no caso aqui eu iria utilizar se eu quiser enviar um dado
-        }
-
-        const fazerRequisicao = async () => {
-            // try{
-            //     const response = await axios.post(url, data);//aqui eu uso para ver  a resposta do servidor e ver se foi feito corretamente
-            //     console.log('e pra funcionar',response.data);
-            // }catch (error) {
-            //     console.log('nao funciou ',error);
-            // }
-        };
-        fazerRequisicao; //aqui eu chamo da mesma forma que se faz no react 
+// Chama o método listar ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+    listar();
+});
