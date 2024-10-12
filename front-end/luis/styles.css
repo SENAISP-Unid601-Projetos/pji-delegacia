@@ -16,7 +16,7 @@ body {
 
 /* Estilo do header */
 header {
-    background-color: hwb(231 42% 15%);
+    background-color: #4CAF50;
     color: white;
     padding: 20px 0;
     text-align: center;
@@ -41,7 +41,7 @@ main {
 #lista h2 {
     font-size: 1.8rem;
     margin-bottom: 10px;
-    color: hwb(0 0% 100%);
+    color: #333;
     text-align: center;
 }
 
@@ -57,11 +57,11 @@ main {
 }
 
 .ocorrencia {
-    background-color: hwb(225 93% 4%);
+    background-color: #e7f5e6;
     padding: 15px;
     border-radius: 8px;
-    border-left: 5px solid hwb(125 3% 9%);
-    box-shadow: 0 2px 4px hwb(125 3% 9%);
+    border-left: 5px solid #4CAF50;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
 }
 
@@ -72,7 +72,7 @@ main {
 .ocorrencia h3 {
     font-size: 1.4rem;
     margin-bottom: 10px;
-    color: hwb(0 0% 100%);
+    color: #2c3e50;
 }
 
 .ocorrencia p {
@@ -85,9 +85,9 @@ main {
 footer {
     text-align: center;
     padding: 10px 0;
-    background-color: hwb(231 42% 15%);
+    background-color: #4CAF50;
     color: white;
-    position:static;
+    position: fixed;
     width: 100%;
     bottom: 0;
 }
