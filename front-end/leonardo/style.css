@@ -1,3 +1,4 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -5,62 +6,88 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
     color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
+/* Estilo do header */
 header {
-    background-color: #0044cc;
+    background-color: hwb(231 42% 15%);
     color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Estilo principal */
+main {
+    max-width: 1200px;
+    margin: 20px auto;
     padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#lista h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: hwb(0 0% 100%);
     text-align: center;
 }
 
-main {
-    margin: 20px;
+#lista hr {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
 }
 
-#lista{
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-}
-
-h2{
-    margin-bottom: 5px;
-}
-
-hr{
-    margin-bottom: 25px;
-}
-
-#ocorrencias-div{
-    display: flex;
-    flex-wrap: wrap;
+.ocorrencias-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Para duas colunas */
     gap: 20px;
-    justify-content: space-around;
 }
-
 
 .ocorrencia {
-    background-color: #e8e8e8;
-    margin: 20px;
+    background-color: hwb(225 93% 4%);
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    flex: 1 1 250px; /* Flex-grow, flex-shrink, flex-basis */
-    max-width: 300px;
+    border-left: 5px solid hwb(125 3% 9%);
+    box-shadow: 0 2px 4px hwb(125 3% 9%);
+    transition: transform 0.2s ease-in-out;
 }
 
+.ocorrencia:hover {
+    transform: scale(1.03);
+}
 
+.ocorrencia h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: hwb(0 0% 100%);
+}
+
+.ocorrencia p {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* Estilo do footer */
 footer {
-    background-color: #0044cc;
-    color: white;
     text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
+    padding: 10px 0;
+    background-color: hwb(231 42% 15%);
+    color: white;
+    position:static;
     width: 100%;
+    bottom: 0;
 }
