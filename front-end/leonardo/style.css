@@ -87,7 +87,44 @@ footer {
     padding: 10px 0;
     background-color: hwb(231 42% 15%);
     color: white;
-    position:static;
+    position:fixed;
     width: 100%;
     bottom: 0;
+}
+
+
+/*css modal básico*/
+.modal {
+    display: none; /*display none que mudarei no js*/
+    position: fixed; 
+    z-index: 9999; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Fundo escuro */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; 
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

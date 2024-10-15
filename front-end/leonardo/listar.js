@@ -5,37 +5,62 @@ async function listar() {
 
         const ocorrencias = resultadoLista.data;
         const ocorrenciasDiv = document.querySelector('.ocorrencias-div');
+        ocorrenciasDiv.innerHTML = ''; // Limpa antes de adicionar
 
-        // Limpa a div antes de adicionar novas ocorrências
-        ocorrenciasDiv.innerHTML = '';
-
-        // Itera sobre as ocorrências e cria os elementos
         ocorrencias.forEach(ocorrencia => {
             const ocorrenciaDiv = document.createElement('div');
             ocorrenciaDiv.classList.add('ocorrencia');
 
-            // Cria os elementos para cada ocorrência
             const titulo = document.createElement('h3');
-            titulo.textContent = `Ocorrência #${ocorrencia.id}`; // Supondo que exista um campo `id`
+            titulo.textContent = `Ocorrência #${ocorrencia.id}`;
 
             const descricao = document.createElement('p');
-            descricao.textContent = `Descrição: ${ocorrencia.observacoes}`; // Supondo que exista um campo `descricao`
+            descricao.textContent = `Descrição: ${ocorrencia.observacoes}`;
 
             const agente = document.createElement('p');
-            agente.textContent = `Agente: ${ocorrencia.agente.nome}`; // Supondo que exista um campo `agente`
+            agente.textContent = `Agente: ${ocorrencia.agente.nome}`;
 
-            // Adiciona os elementos à div da ocorrência
             ocorrenciaDiv.appendChild(titulo);
             ocorrenciaDiv.appendChild(descricao);
             ocorrenciaDiv.appendChild(agente);
 
-            // Adiciona a ocorrência à div principal
+            // Adiciona evento de clique para abrir o modal
+            ocorrenciaDiv.addEventListener('click', () => abrirModal(ocorrencia));
+
             ocorrenciasDiv.appendChild(ocorrenciaDiv);
         });
     } catch (error) {
         console.error('Erro ao buscar ocorrências:', error);
     }
 }
+
+// Função para abrir o modal e preencher os dados
+function abrirModal(ocorrencia) {
+    const modal = document.getElementById('modalOcorrencia');
+    const modalTitulo = document.getElementById('modalTitulo');
+    const modalDescricao = document.getElementById('modalDescricao');
+    const modalAgente = document.getElementById('modalAgente');
+
+    modalTitulo.textContent = `Ocorrência #${ocorrencia.id}`;
+    modalDescricao.textContent = `Descrição: ${ocorrencia.observacoes}`;
+    modalAgente.textContent = `Agente: ${ocorrencia.agente.nome}`;
+
+    // Exibe o modal
+    modal.style.display = 'block'; //Display no css estará NONE para que ele fique invísivel e só abra quando eu mudar aq no js
+    
+    // Fecha o modal quando clicar no "X"
+    document.querySelector('.close').onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // Fecha o modal quando clicar fora da área de conteúdo
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+}
+
 async function enviarDados(dados) {
     try {
         const resposta = await fetch('http://localhost:8080/agentes/nao lembro onde ta ', { 
@@ -66,4 +91,71 @@ enviarDados(dadosParaEnviar);
 // Chama o método listar ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
     listar();
+});
+
+async function editarOcorrencia(id, novosDados) {
+    try {
+        const resposta = await axios.put(`http://localhost:8080/ocorrencias/editar/${id}`, novosDados);
+        if (resposta.status === 200) {
+            console.log('Ocorrência atualizada com sucesso:', resposta.data);
+            listar(); // Atualiza a lista de ocorrências após a edição
+        }
+    } catch (erro) {
+        console.error('Erro ao editar a ocorrência:', erro);
+    }
+}
+
+// Exemplo de como capturar o evento de clique no botão de editar:
+document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('btn-editar')) {
+        const id = event.target.getAttribute('data-id');
+        const novosDados = { observacoes: 'Nova descrição' }; // Pega os novos dados do modal/formulário
+        editarOcorrencia(id, novosDados);
+    }
+});
+
+
+async function deletarOcorrencia(id) {
+    try {
+        const resposta = await axios.delete(`http://localhost:8080/ocorrencias/deletar/${id}`);
+        if (resposta.status === 200) {
+            console.log('Ocorrência deletada com sucesso');
+            listar(); // Atualiza a lista de ocorrências após a exclusão
+        }
+    } catch (erro) {
+        console.error('Erro ao deletar a ocorrência:', erro);
+    }
+}
+
+// Exemplo de como capturar o evento de clique no botão de deletar:
+document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('btn-deletar')) {
+        const id = event.target.getAttribute('data-id');
+        if (confirm('Tem certeza que deseja deletar esta ocorrência?')) {
+            deletarOcorrencia(id);
+        }
+    }
+});
+
+async function atualizarStatusOcorrencia(id, novoStatus) {
+    try {
+        const resposta = await axios.patch(`http://localhost:8080/ocorrencias/atualizarStatus/${id}`, {
+            status: novoStatus // Envia o novo status
+        });
+        if (resposta.status === 200) {
+            console.log('Status atualizado com sucesso:', resposta.data);
+            listar(); // Atualiza a lista de ocorrências
+        }
+    } catch (erro) {
+        console.error('Erro ao atualizar o status:', erro);
+    }
+}
+
+// Exemplo de como capturar o evento de clique no botão de atualizar status:
+document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('btn-atualizar-status')) {
+        const id = event.target.getAttribute('data-id');
+        const novoStatus = 'Resolvido'; // Pode capturar o novo status de um campo ou botão
+        atualizarStatusOcorrencia(id, novoStatus);
+    }
 });
