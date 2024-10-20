@@ -7,8 +7,12 @@ document.querySelector("#form-agente").addEventListener("submit", function (even
   const nome = document.querySelector("#nomeAgente").value;
   const pessoaId = document.querySelector("#pessoaId").value;
   const dadosAgente = {
+
     nome: nome,
-    pessoa: { id: pessoaId },//aqui eu não sei se esse PessoaId vai ficar preciso ver no backend
+    cpf: cpf,
+    rg: rg,
+    
+
   };
   adicionarAgente(dadosAgente);
 });
@@ -216,8 +220,6 @@ async function deletarOcorrencia(id) {
     console.error("Erro ao deletar a ocorrência:", erro);
   }
 }
-
-
 
 
 
