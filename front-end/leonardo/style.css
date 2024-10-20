@@ -60,10 +60,26 @@ main {
     background-color: hwb(225 93% 4%);
     padding: 15px;
     border-radius: 8px;
-    border-left: 5px solid hwb(125 3% 9%);
-    box-shadow: 0 2px 4px green;
     transition: transform 0.2s ease-in-out;
-}
+  }
+  
+  /* Estilos para cada status */
+  .ocorrencia.aguardando-aprovacao {
+    border-left: 5px solid rgb(255, 165, 0); 
+    box-shadow: 0 2px 4px rgba(255, 165, 0, 0.5);
+  }
+  
+  .ocorrencia.em-andamento {
+    border-left: 5px solid rgb(0, 0, 255); 
+    box-shadow: 0 2px 4px rgba(0, 0, 255, 0.5);
+  }
+  
+  .ocorrencia.finalizada {
+    border-left: 5px solid rgb(17, 195, 17); 
+    box-shadow: 0 2px 4px rgba(17, 195, 17, 0.5);
+  }
+  
+
 
 .ocorrencia:hover {
     transform: scale(1.03);

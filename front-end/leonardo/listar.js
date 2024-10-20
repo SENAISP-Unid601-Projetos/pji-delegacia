@@ -4,25 +4,46 @@
 document.querySelector("#form-agente").addEventListener("submit", function (event) {
   event.preventDefault(); 
 
-  const nome = document.querySelector("#nomeAgente").value;
+  
   const pessoaId = document.querySelector("#pessoaId").value;
   const dadosAgente = {
 
+    
     nome: nome,
     cpf: cpf,
     rg: rg,
     
-
   };
   adicionarAgente(dadosAgente);
 });
 
+
 //Adicão de Agente 
 async function adicionarAgente(dadosAgente) {
+
+  const nome = document.querySelector("#nomeAgente").value;
+  const cpf = document.querySelector("#nomeAgente").value;
+  const rg = document.querySelector("#nomeAgente").value;
+  const departamento = document.querySelector("#nomeAgente").value;
+
+ 
+
   try {
     const resposta = await axios.post(
+      "http://localhost:8080/pessoa/adicionar",
+      {nome: nome,
+        cpf: cpf,
+        rg: rg
+      }
+    );
+
+    let idPessoa = resposta.data.id;
+
+    const resposta1 = await axios.post(
       "http://localhost:8080/agente/adicionar",
-      dadosAgente
+        {pessoa: {
+          id: idPessoa },
+        departamento: departamento}
     );
     if (resposta.status === 200) {
       console.log("Agente adicionado com sucesso:", resposta.data);
@@ -75,10 +96,10 @@ async function listar() {
     const ocorrenciasDiv = document.querySelector(".ocorrencias-div");
     ocorrenciasDiv.innerHTML = ""; // Limpa antes de adicionar
 
+
     ocorrencias.forEach((ocorrencia) => {  //forEach que percorre o Status e muda a cor
       const ocorrenciaDiv = document.createElement("div");
       ocorrenciaDiv.classList.add("ocorrencia");
-
       
       if (ocorrencia.statusOcorrencia === "AguardandoAprovacao") {
         ocorrenciaDiv.classList.add("aguardando-aprovacao");
