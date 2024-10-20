@@ -17,8 +17,11 @@ import java.io.Serializable;
 @ToString
 @EqualsAndHashCode
 public class Agente implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

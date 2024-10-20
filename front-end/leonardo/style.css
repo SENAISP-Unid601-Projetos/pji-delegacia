@@ -61,7 +61,7 @@ main {
     padding: 15px;
     border-radius: 8px;
     border-left: 5px solid hwb(125 3% 9%);
-    box-shadow: 0 2px 4px hwb(125 3% 9%);
+    box-shadow: 0 2px 4px green;
     transition: transform 0.2s ease-in-out;
 }
 
