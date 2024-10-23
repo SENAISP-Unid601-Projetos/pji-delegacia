@@ -4,16 +4,14 @@
 document.querySelector("#form-agente").addEventListener("submit", function (event) {
   event.preventDefault(); 
 
-  
   const pessoaId = document.querySelector("#pessoaId").value;
   const dadosAgente = {
-
-    
     nome: nome,
     cpf: cpf,
     rg: rg,
-    
+    departamento: departamento
   };
+
   adicionarAgente(dadosAgente);
 });
 
