@@ -16,7 +16,7 @@ document.querySelector("#form-agente").addEventListener("submit", function (even
 });
 
 
-//Adicão de Agente 
+//Adicão de Agente //remover
 async function adicionarAgente(dadosAgente) {
 
   const nome = document.querySelector("#nomeAgente").value;
@@ -267,5 +267,78 @@ async function atualizarStatusOcorrencia(id, novoStatus) {
     console.error("Erro ao atualizar o status:", erro);
   }
 }
+//
+document.querySelector("#btnAdicionarAgente").addEventListener("click", function() {
+  const nome = document.querySelector("modalagente").value;
+  const idagente = document.querySelector("idagente").value;
+
+  const dadosAgente = {
+    nome: nome,
+    id: { id: idagente }
+  };
+
+  adicionarAgente(dadosAgente);
+});
+
+document.querySelector("#btnDeletarAgente").addEventListener("click", function() {
+  const pessoaId = document.querySelector("#pessoaIdModal").value;
+  deletarAgente(idagente);
+});
+
+async function adicionarAgente(dadosAgente) {
+  try {
+    const resposta = await fetch("http://localhost:8080/agente/adicionar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dadosAgente),
+    });
+
+    if (resposta.ok) {
+      console.log("Agente adicionado com sucesso");
+    } else {
+      console.error("Erro ao adicionar agente:", resposta.status);
+    }
+  } catch (erro) {
+    console.error("Erro na requisição:", erro);
+  }
+}
+
+async function deletarAgente(idagente) {
+  try {
+    const resposta = await fetch(`http://localhost:8080/agente/deletar/${idagente}`, {
+      method: "DELETE",
+    });
+
+    if (resposta.ok) {
+      console.log("Agente deletado com sucesso");
+  
+    } else {
+      console.error("Erro ao deletar agente:", resposta.status);
+    }
+  } catch (erro) {
+    console.error("Erro na requisição:", erro);
+  }
+}
+document.getElementById("btnAdd").addEventListener("click", function() {
+  const modal = document.getElementById("modalAgente");
+  modal.style.display = "block"; 
+});
+
+document.querySelector("#modalAgente .close").onclick = function() {
+  const modal = document.getElementById("modalAgente");
+  modal.style.display = "none"; 
+};
+le
+window.onclick = function(event) {
+  const modal = document.getElementById("modalAgente");
+  if (event.target === modal) {
+      modal.style.display = "none";
+  }
+};
+
+
+
 
 
