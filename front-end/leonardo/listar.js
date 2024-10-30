@@ -1,47 +1,42 @@
+//dadosAgente
+document
+  .querySelector("#form-agente")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
 
+    const pessoaId = document.querySelector("#pessoaId").value;
+    const dadosAgente = {
+      nome: nome,
+      cpf: cpf,
+      rg: rg,
+      // departamento: departamento//
+    };
 
-//dadosAgente 
-document.querySelector("#form-agente").addEventListener("submit", function (event) {
-  event.preventDefault(); 
-
-  const pessoaId = document.querySelector("#pessoaId").value;
-  const dadosAgente = {
-    nome: nome,
-    cpf: cpf,
-    rg: rg,
-    departamento: departamento
-  };
-
-  adicionarAgente(dadosAgente);
-});
-
+    adicionarAgente(dadosAgente);
+  });
 
 //Adicão de Agente //remover
+
+adicionarAgente({ nome: "mikael", cpf: "456", rg: "654" });
 async function adicionarAgente(dadosAgente) {
-
-  const nome = document.querySelector("#nomeAgente").value;
-  const cpf = document.querySelector("#nomeAgente").value;
-  const rg = document.querySelector("#nomeAgente").value;
-  const departamento = document.querySelector("#nomeAgente").value;
-
- 
-
   try {
+    console.log(dadosAgente);
     const resposta = await axios.post(
       "http://localhost:8080/pessoa/adicionar",
-      {nome: nome,
-        cpf: cpf,
-        rg: rg
-      }
+      { nome: dadosAgente.nome, cpf: dadosAgente.cpf, rg: dadosAgente.rg }
     );
 
+    console.log(resposta.data);
     let idPessoa = resposta.data.id;
 
     const resposta1 = await axios.post(
       "http://localhost:8080/agente/adicionar",
-        {pessoa: {
-          id: idPessoa },
-        departamento: departamento}
+      {
+        pessoa: {
+          id: idPessoa,
+        },
+        departamento: departamento,
+      }
     );
     if (resposta.status === 200) {
       console.log("Agente adicionado com sucesso:", resposta.data);
@@ -51,21 +46,20 @@ async function adicionarAgente(dadosAgente) {
   }
 }
 
-document.querySelector("#form-ocorrencia").addEventListener("submit", function (event) {
-  event.preventDefault(); // Não envia o formulario padrao ( perguntar para o Mikeal dps ChatGPTSucks)
+document.querySelector("#form-ocorrencia")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Não envia o formulario padrao ( perguntar para o Mikeal dps ChatGPTSucks)
 
-  
-  const descricao = document.querySelector("#descricaoOcorrencia").value;
-  const agenteId = document.querySelector("#agenteId").value;
+    const descricao = document.querySelector("#descricaoOcorrencia").value;
+    const agenteId = document.querySelector("#agenteId").value;
 
-  
-  const dadosOcorrencia = {
-    observacoes: descricao,
-    agente: { id: agenteId }, //ver no back end esse agenteID 
-  };
+    const dadosOcorrencia = {
+      observacoes: descricao,
+      agente: { id: agenteId }, //ver no back end esse agenteID
+    };
 
-  adicionarOcorrencia(dadosOcorrencia);
-});
+    adicionarOcorrencia(dadosOcorrencia);
+  });
 
 //adição de Ocorrências
 async function adicionarOcorrencia(dadosOcorrencia) {
@@ -94,11 +88,11 @@ async function listar() {
     const ocorrenciasDiv = document.querySelector(".ocorrencias-div");
     ocorrenciasDiv.innerHTML = ""; // Limpa antes de adicionar
 
-
-    ocorrencias.forEach((ocorrencia) => {  //forEach que percorre o Status e muda a cor
+    ocorrencias.forEach((ocorrencia) => {
+      //forEach que percorre o Status e muda a cor
       const ocorrenciaDiv = document.createElement("div");
       ocorrenciaDiv.classList.add("ocorrencia");
-      
+
       if (ocorrencia.statusOcorrencia === "AguardandoAprovacao") {
         ocorrenciaDiv.classList.add("aguardando-aprovacao");
       } else if (ocorrencia.statusOcorrencia === "Em Andamento") {
@@ -129,7 +123,6 @@ async function listar() {
     console.error("Erro ao buscar ocorrências:", error);
   }
 }
-
 
 // Função para abrir o modal e preencher os dados
 function abrirModal(ocorrencia) {
@@ -187,7 +180,6 @@ async function enviarDados(dados) {
 
 const dadosParaEnviar = { nome: "Nome do Agente", pessoa: { id: "1" } }; // enviar o nome do agente pro banco
 // Chama a função para enviar os dados
-enviarDados(dadosParaEnviar);
 // Chama o método listar ao carregar a página
 document.addEventListener("DOMContentLoaded", () => {
   listar();
@@ -207,7 +199,6 @@ async function editarOcorrencia(id, novosDados) {
     console.error("Erro ao editar a ocorrência:", erro);
   }
 }
-
 
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("btn-editar")) {
@@ -240,8 +231,6 @@ async function deletarOcorrencia(id) {
   }
 }
 
-
-
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("btn-atualizar-status")) {
     const id = event.target.getAttribute("data-id");
@@ -249,7 +238,6 @@ document.addEventListener("click", (event) => {
     atualizarStatusOcorrencia(id, novoStatus);
   }
 });
-
 
 async function atualizarStatusOcorrencia(id, novoStatus) {
   try {
@@ -268,52 +256,38 @@ async function atualizarStatusOcorrencia(id, novoStatus) {
   }
 }
 //
-document.querySelector("#btnAdicionarAgente").addEventListener("click", function() {
-  const nome = document.querySelector("modalagente").value;
-  const idagente = document.querySelector("idagente").value;
+document
+  .querySelector("#btnAdicionarAgente")
+  .addEventListener("click", function () {
+    const nome = document.querySelector("modalagente").value;
+    const idagente = document.querySelector("idagente").value;
 
-  const dadosAgente = {
-    nome: nome,
-    id: { id: idagente }
-  };
+    const dadosAgente = {
+      nome: nome,
+      id: { id: idagente },
+    };
 
-  adicionarAgente(dadosAgente);
-});
+    adicionarAgente(dadosAgente);
+  });
 
-document.querySelector("#btnDeletarAgente").addEventListener("click", function() {
-  const pessoaId = document.querySelector("#pessoaIdModal").value;
-  deletarAgente(idagente);
-});
-
-async function adicionarAgente(dadosAgente) {
-  try {
-    const resposta = await fetch("http://localhost:8080/agente/adicionar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dadosAgente),
-    });
-
-    if (resposta.ok) {
-      console.log("Agente adicionado com sucesso");
-    } else {
-      console.error("Erro ao adicionar agente:", resposta.status);
-    }
-  } catch (erro) {
-    console.error("Erro na requisição:", erro);
-  }
-}
+document
+  .querySelector("#btnDeletarAgente")
+  .addEventListener("click", function () {
+    const pessoaId = document.querySelector("#pessoaIdModal").value;
+    deletarAgente(idagente);
+  });
 
 async function deletarAgente(idagente) {
   try {
-    const resposta = await fetch(`http://localhost:8080/agente/deletar/${idagente}`, {
-      method: "DELETE",
-    });
+    const resposta = await fetch(
+      `http://localhost:8080/agente/deletar/${idagente}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     if (resposta.ok) {
       console.log("Agente deletado com sucesso");
-  
     } else {
       console.error("Erro ao deletar agente:", resposta.status);
     }
@@ -321,24 +295,19 @@ async function deletarAgente(idagente) {
     console.error("Erro na requisição:", erro);
   }
 }
-document.getElementById("btnAdd").addEventListener("click", function() {
+document.getElementById("btnAdd").addEventListener("click", function () {
   const modal = document.getElementById("modalAgente");
-  modal.style.display = "block"; 
+  modal.style.display = "block";
 });
 
-document.querySelector("#modalAgente .close").onclick = function() {
+document.querySelector("#modalAgente .close").onclick = function () {
   const modal = document.getElementById("modalAgente");
-  modal.style.display = "none"; 
+  modal.style.display = "none";
 };
-le
-window.onclick = function(event) {
+le;
+window.onclick = function (event) {
   const modal = document.getElementById("modalAgente");
   if (event.target === modal) {
-      modal.style.display = "none";
+    modal.style.display = "none";
   }
 };
-
-
-
-
-
