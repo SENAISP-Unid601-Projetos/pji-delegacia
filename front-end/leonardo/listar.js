@@ -9,44 +9,34 @@ document
       nome: nome,
       cpf: cpf,
       rg: rg,
-      // departamento: departamento//
+      //departamento: departamento
     };
 
     adicionarAgente(dadosAgente);
   });
 
-//Adicão de Agente //remover
+//Adicão de Agente//remover
 
 adicionarAgente({ nome: "mikael", cpf: "456", rg: "654" });
 async function adicionarAgente(dadosAgente) {
-  try {
-    console.log(dadosAgente);
-    const resposta = await axios.post(
-      "http://localhost:8080/pessoa/adicionar",
-      { nome: dadosAgente.nome, cpf: dadosAgente.cpf, rg: dadosAgente.rg }
-    );
+  const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
+    nome: dadosAgente.nome,
+    cpf: dadosAgente.cpf,
+    rg: dadosAgente.rg,
+  });
 
-    console.log(resposta.data);
-    let idPessoa = resposta.data.id;
+  let idPessoa = resposta.data.id;
 
-    const resposta1 = await axios.post(
-      "http://localhost:8080/agente/adicionar",
-      {
-        pessoa: {
-          id: idPessoa,
-        },
-        departamento: departamento,
-      }
-    );
-    if (resposta.status === 200) {
-      console.log("Agente adicionado com sucesso:", resposta.data);
-    }
-  } catch (erro) {
-    console.error("Erro ao adicionar agente:", erro);
-  }
+  const resposta1 = await axios.post("http://localhost:8080/agente/adicionar", {
+    pessoa: {
+      id: idPessoa,
+    },
+    departamento: departamento,
+  });
 }
 
-document.querySelector("#form-ocorrencia")
+document
+  .querySelector("#form-ocorrencia")
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Não envia o formulario padrao ( perguntar para o Mikeal dps ChatGPTSucks)
 
@@ -63,28 +53,23 @@ document.querySelector("#form-ocorrencia")
 
 //adição de Ocorrências
 async function adicionarOcorrencia(dadosOcorrencia) {
-  try {
+  
     const resposta = await axios.post(
       "http://localhost:8080/ocorrencia/adicionar",
       dadosOcorrencia
     );
-    if (resposta.status === 200) {
-      console.log("Ocorrência adicionada com sucesso:", resposta.data);
-      listar(); // Atualiza a lista de ocorrências após adicionar
-    }
-  } catch (erro) {
-    console.error("Erro ao adicionar ocorrência:", erro);
-  }
-}
+    // if (resposta.status === 200) {
+    //   console.log("Ocorrência adicionada com sucesso:", resposta.data);
+    //   listar(); // Atualiza a lista de ocorrências após adicionar
+    // }
+  } 
 
 async function listar() {
-  try {
     const resultadoLista = await axios.get(
       "http://localhost:8080/ocorrencia/listar"
     );
 
     const ocorrencias = resultadoLista.data;
-    console.log(ocorrencias);
     const ocorrenciasDiv = document.querySelector(".ocorrencias-div");
     ocorrenciasDiv.innerHTML = ""; // Limpa antes de adicionar
 
@@ -93,13 +78,13 @@ async function listar() {
       const ocorrenciaDiv = document.createElement("div");
       ocorrenciaDiv.classList.add("ocorrencia");
 
-      if (ocorrencia.statusOcorrencia === "AguardandoAprovacao") {
-        ocorrenciaDiv.classList.add("aguardando-aprovacao");
-      } else if (ocorrencia.statusOcorrencia === "Em Andamento") {
-        ocorrenciaDiv.classList.add("em-andamento");
-      } else if (ocorrencia.statusOcorrencia === "Finalizada") {
-        ocorrenciaDiv.classList.add("finalizada");
-      }
+      // if (ocorrencia.statusOcorrencia === "AguardandoAprovacao") {
+      //   ocorrenciaDiv.classList.add("aguardando-aprovacao");
+      // } else if (ocorrencia.statusOcorrencia === "Em Andamento") {
+      //   ocorrenciaDiv.classList.add("em-andamento");
+      // } else if (ocorrencia.statusOcorrencia === "Finalizada") {
+      //   ocorrenciaDiv.classList.add("finalizada");
+      // }
 
       const titulo = document.createElement("h3");
       titulo.textContent = `Ocorrência #${ocorrencia.id}`;
@@ -119,9 +104,7 @@ async function listar() {
 
       ocorrenciasDiv.appendChild(ocorrenciaDiv);
     });
-  } catch (error) {
-    console.error("Erro ao buscar ocorrências:", error);
-  }
+  
 }
 
 // Função para abrir o modal e preencher os dados
@@ -151,32 +134,32 @@ function abrirModal(ocorrencia) {
   };
 }
 
-async function enviarDados(dados) {
-  try {
-    const resposta = await fetch("http://localhost:8080/agente/adicionar", {
-      method: "POST", // post server para adicionar os dados se quiser editar dados existentes ja eu adiciono o put
-      headers: {
-        //objeto utilizado para definir cabeçalho
-        "Content-Type": "application/json", //informar ao servidor que esta em formato json
-      },
-      body: JSON.stringify(dados), //enviando os dados que Desejamos e convertendo ele para json
-    });
+// async function enviarDados(dados) {
+//   try {
+//     const resposta = await fetch("http://localhost:8080/agente/adicionar", {
+//       method: "POST", // post server para adicionar os dados se quiser editar dados existentes ja eu adiciono o put
+//       headers: {
+//         //objeto utilizado para definir cabeçalho
+//         "Content-Type": "application/json", //informar ao servidor que esta em formato json
+//       },
+//       body: JSON.stringify(dados), //enviando os dados que Desejamos e convertendo ele para json
+//     });
 
-    // Verifica se a resposta foi bem-sucedida
-    if (resposta.ok) {
-      const resultado = await resposta.json(); // Converte a resposta para JSON
-      console.log("Dados enviados com sucesso:", resultado);
-    } else {
-      console.error(
-        "Erro ao enviar dados:",
-        resposta.status,
-        resposta.statusText
-      );
-    }
-  } catch (erro) {
-    console.error("Erro na requisição:", erro);
-  }
-}
+//     // Verifica se a resposta foi bem-sucedida
+//     if (resposta.ok) {
+//       const resultado = await resposta.json(); // Converte a resposta para JSON
+//       console.log("Dados enviados com sucesso:", resultado);
+//     } else {
+//       console.error(
+//         "Erro ao enviar dados:",
+//         resposta.status,
+//         resposta.statusText
+//       );
+//     }
+//   } catch (erro) {
+//     console.error("Erro na requisição:", erro);
+//   }
+// }
 
 const dadosParaEnviar = { nome: "Nome do Agente", pessoa: { id: "1" } }; // enviar o nome do agente pro banco
 // Chama a função para enviar os dados
