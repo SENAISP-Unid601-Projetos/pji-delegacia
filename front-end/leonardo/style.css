@@ -1,145 +1,225 @@
 /* Reset básico */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
 /* Estilo do header */
 header {
-    background-color: hwb(231 42% 15%);
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: hwb(231 42% 15%);
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
 /* Estilo principal */
 main {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #lista h2 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: hwb(0 0% 100%);
-    text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: hwb(0 0% 100%);
+  text-align: center;
 }
 
 #lista hr {
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
 }
 
 .ocorrencias-div {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Para duas colunas */
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Para duas colunas */
+  gap: 20px;
 }
 
 .ocorrencia {
-    background-color: hwb(225 93% 4%);
-    padding: 15px;
-    border-radius: 8px;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  /* Estilos para cada status */
-  .ocorrencia.aguardando-aprovacao {
-    border-left: 5px solid rgb(255, 165, 0); 
-    box-shadow: 0 2px 4px rgba(255, 165, 0, 0.5);
-  }
-  
-  .ocorrencia.em-andamento {
-    border-left: 5px solid rgb(0, 0, 255); 
-    box-shadow: 0 2px 4px rgba(0, 0, 255, 0.5);
-  }
-  
-  .ocorrencia.finalizada {
-    border-left: 5px solid rgb(17, 195, 17); 
-    box-shadow: 0 2px 4px rgba(17, 195, 17, 0.5);
-  }
-  
+  background-color: hwb(225 93% 4%);
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+}
 
+/* Estilos para cada status */
+.ocorrencia.aguardando-aprovacao {
+  border-left: 5px solid rgb(255, 165, 0);
+  box-shadow: 0 2px 4px rgba(255, 165, 0, 0.5);
+}
+
+.ocorrencia.em-andamento {
+  border-left: 5px solid rgb(0, 0, 255);
+  box-shadow: 0 2px 4px rgba(0, 0, 255, 0.5);
+}
+
+.ocorrencia.finalizada {
+  border-left: 5px solid rgb(17, 195, 17);
+  box-shadow: 0 2px 4px rgba(17, 195, 17, 0.5);
+}
 
 .ocorrencia:hover {
-    transform: scale(1.03);
+  transform: scale(1.03);
 }
 
 .ocorrencia h3 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: hwb(0 0% 100%);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: hwb(0 0% 100%);
 }
 
 .ocorrencia p {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    color: #555;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #555;
 }
 
 /* Estilo do footer */
 footer {
-    text-align: center;
-    padding: 10px 0;
-    background-color: hwb(231 42% 15%);
-    color: white;
-    position:fixed;
-    width: 100%;
-    bottom: 0;
+  text-align: center;
+  padding: 10px 0;
+  background-color: hwb(231 42% 15%);
+  color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
-
-.modal {
-    display: none; 
-    position: fixed; /* Fica fixo na tela */
-    z-index: 1; /* Fica acima de outros elementos */
-    left: 0;
-    top: 0;
-    width: 100%; /* Largura total */
-    height: 100%; /* Altura total */
-    overflow: auto; /* Habilita rolagem se necessário */
-    background-color: rgb(0, 0, 0); /* Cor de fundo */
-    background-color: rgba(0, 0, 0, 0.4); /* Fundo com opacidade */
+.agenteMod {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 43%;
+  top: 30%;
+  width: 210px;
+  height: 200px;
+  border: black solid;
+  background-color: rgb(0, 0, 0);
+  background-color: rgb(87, 85, 85);
+  margin: 0;
+  border-radius: 5px;
+  padding: 10px;
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% da parte superior e centralizado */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Largura do modal */
+.background-open-modal {
+  display: none;
+  position: fixed;
+  width: 50%;
+  height: 50%;
+  z-index: 1;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+.ocorrenciaMod {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 43%;
+  top: 30%;
+  width: 210px;
+  height: 200px;
+  border: black solid;
+  background-color: rgb(0, 0, 0);
+  background-color: rgb(87, 85, 85);
+  margin: 0;
+  border-radius: 5px;
+  padding: 10px;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.background-open-mod {
+  display: none;
+  position: fixed;
+  width: 50%;
+  height: 50%;
+  z-index: 1;
+}
+
+.listaMod {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 43%;
+  top: 30%;
+  width: 210px;
+  height: 250px;
+  border: black solid;
+  background-color: rgb(0, 0, 0);
+  background-color: rgb(87, 85, 85);
+  margin: 0;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.background-open-modalLista {
+  display: none;
+  position: fixed;
+  width: 50%;
+  height: 50%;
+  z-index: 1;
+}
+
+form button {
+  height: 26px;
+  margin-top: 5px;
+  cursor: pointer;
+  background-color: #334455;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #6a829b;
+}
+
+/*estilização criada pelo gpt */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+th,
+td {
+  background-color: #f2f2f2;
+  padding: 9px;
+  text-align: left;
+}
+th {
+  background-color: #f2f2f2;
+}
+button {
+  margin-top: 5px;
+  color: white;
+  background-color: #334455;
+  border: none;
+  cursor: pointer;
+}
+/* Contêiner para a lista com rolagem */
+.scroll-container {
+  max-height: 200px; /* Altura fixa para a lista */
+  overflow-y: auto; /* Adiciona rolagem vertical */
+  border: 1px solid #ddd; /* Borda ao redor da lista */
 }

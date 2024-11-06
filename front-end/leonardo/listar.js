@@ -1,3 +1,75 @@
+function openAgenteModal() {
+  let agenteMod = document.querySelector(".agenteMod");
+  let backGroudModal = document.querySelector(".background-open-modalAgente");
+
+  if (agenteMod.style.display == "none" || agenteMod.style.display == "") {
+    agenteMod.style.display = "block";
+    backGroudModal.style.display = "block";
+  } else {
+    backGroudModal.style.display = "none";
+    agenteMod.style.display = "none";
+  }
+}
+
+function openOcorrenciaMod() {
+  let ocorrenciaMod = document.querySelector(".ocorrenciaMod");
+  let backGroudMod = document.querySelector(".background-open-mod");
+
+  if (
+    ocorrenciaMod.style.display == "none" ||
+    ocorrenciaMod.style.display == ""
+  ) {
+    ocorrenciaMod.style.display = "block";
+    backGroudMod.style.display = "block";
+  } else {
+    backGroudMod.style.display = "none";
+    ocorrenciaMod.style.display = "none";
+  }
+}
+
+function listaAgenteModal() {
+  let listaMod = document.querySelector(".listaMod");
+  let backGroudModalLista = document.querySelector(
+    ".background-open-modalLista"
+  );
+
+  if (listaMod.style.display == "none" || listaMod.style.display == "") {
+    listaMod.style.display = "block";
+    backGroudModalLista.style.display = "block";
+  } else {
+    backGroudModalLista.style.display = "none";
+    listaMod.style.display = "none";
+  }
+}
+
+//lista criada pelo gpt
+let agentes = ["Agente 1", "Agente 2", "Agente 3", "Agente 4"];
+
+// Função para exibir a lista de agentes
+function atualizarLista() {
+  const agenteBody = document.getElementById("agenteBody");
+  agenteBody.innerHTML = ""; // Limpa a tabela
+
+  agentes.forEach((agente, index) => {
+    const row = document.createElement("tr");
+
+    // Coluna do nome do agente
+    const nomeCell = document.createElement("td");
+    nomeCell.textContent = agente;
+    row.appendChild(nomeCell);
+
+    // Coluna do botão deletar
+    const acaoCell = document.createElement("td");
+    const deletarBtn = document.createElement("button");
+    deletarBtn.textContent = "Deletar";
+    deletarBtn.onclick = () => deletarAgente(index);
+    acaoCell.appendChild(deletarBtn);
+    row.appendChild(acaoCell);
+
+    agenteBody.appendChild(row);
+  });
+}
+
 //dadosAgente
 document
   .querySelector("#form-agente")
@@ -53,58 +125,56 @@ document
 
 //adição de Ocorrências
 async function adicionarOcorrencia(dadosOcorrencia) {
-  
-    const resposta = await axios.post(
-      "http://localhost:8080/ocorrencia/adicionar",
-      dadosOcorrencia
-    );
-    // if (resposta.status === 200) {
-    //   console.log("Ocorrência adicionada com sucesso:", resposta.data);
-    //   listar(); // Atualiza a lista de ocorrências após adicionar
-    // }
-  } 
+  const resposta = await axios.post(
+    "http://localhost:8080/ocorrencia/adicionar",
+    dadosOcorrencia
+  );
+  // if (resposta.status === 200) {
+  //   console.log("Ocorrência adicionada com sucesso:", resposta.data);
+  //   listar(); // Atualiza a lista de ocorrências após adicionar
+  // }
+}
 
 async function listar() {
-    const resultadoLista = await axios.get(
-      "http://localhost:8080/ocorrencia/listar"
-    );
+  const resultadoLista = await axios.get(
+    "http://localhost:8080/ocorrencia/listar"
+  );
 
-    const ocorrencias = resultadoLista.data;
-    const ocorrenciasDiv = document.querySelector(".ocorrencias-div");
-    ocorrenciasDiv.innerHTML = ""; // Limpa antes de adicionar
+  const ocorrencias = resultadoLista.data;
+  const ocorrenciasDiv = document.querySelector(".ocorrencias-div");
+  ocorrenciasDiv.innerHTML = ""; // Limpa antes de adicionar
 
-    ocorrencias.forEach((ocorrencia) => {
-      //forEach que percorre o Status e muda a cor
-      const ocorrenciaDiv = document.createElement("div");
-      ocorrenciaDiv.classList.add("ocorrencia");
+  ocorrencias.forEach((ocorrencia) => {
+    //forEach que percorre o Status e muda a cor
+    const ocorrenciaDiv = document.createElement("div");
+    ocorrenciaDiv.classList.add("ocorrencia");
 
-      // if (ocorrencia.statusOcorrencia === "AguardandoAprovacao") {
-      //   ocorrenciaDiv.classList.add("aguardando-aprovacao");
-      // } else if (ocorrencia.statusOcorrencia === "Em Andamento") {
-      //   ocorrenciaDiv.classList.add("em-andamento");
-      // } else if (ocorrencia.statusOcorrencia === "Finalizada") {
-      //   ocorrenciaDiv.classList.add("finalizada");
-      // }
+    // if (ocorrencia.statusOcorrencia === "AguardandoAprovacao") {
+    //   ocorrenciaDiv.classList.add("aguardando-aprovacao");
+    // } else if (ocorrencia.statusOcorrencia === "Em Andamento") {
+    //   ocorrenciaDiv.classList.add("em-andamento");
+    // } else if (ocorrencia.statusOcorrencia === "Finalizada") {
+    //   ocorrenciaDiv.classList.add("finalizada");
+    // }
 
-      const titulo = document.createElement("h3");
-      titulo.textContent = `Ocorrência #${ocorrencia.id}`;
+    const titulo = document.createElement("h3");
+    titulo.textContent = `Ocorrência #${ocorrencia.id}`;
 
-      const descricao = document.createElement("p");
-      descricao.textContent = `Descrição: ${ocorrencia.observacoes}`;
+    const descricao = document.createElement("p");
+    descricao.textContent = `Descrição: ${ocorrencia.observacoes}`;
 
-      const agente = document.createElement("p");
-      agente.textContent = `Agente: ${ocorrencia.agente.nome}`;
+    const agente = document.createElement("p");
+    agente.textContent = `Agente: ${ocorrencia.agente.nome}`;
 
-      ocorrenciaDiv.appendChild(titulo);
-      ocorrenciaDiv.appendChild(descricao);
-      ocorrenciaDiv.appendChild(agente);
+    ocorrenciaDiv.appendChild(titulo);
+    ocorrenciaDiv.appendChild(descricao);
+    ocorrenciaDiv.appendChild(agente);
 
-      // Adiciona evento de clique para abrir o modal
-      ocorrenciaDiv.addEventListener("click", () => abrirModal(ocorrencia));
+    // Adiciona evento de clique para abrir o modal
+    ocorrenciaDiv.addEventListener("click", () => abrirModal(ocorrencia));
 
-      ocorrenciasDiv.appendChild(ocorrenciaDiv);
-    });
-  
+    ocorrenciasDiv.appendChild(ocorrenciaDiv);
+  });
 }
 
 // Função para abrir o modal e preencher os dados
