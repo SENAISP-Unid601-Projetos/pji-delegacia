@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pji-ocorrências</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <div class="background-open-modalAgente"></div>
+    <div class="contain-form-modal">
+      <form id="form-agente">
+        <h1>Adicionar Agente</h1>
+        <div class="contain-inputs-modal">
+          <label>Nome: </label>
+          <input
+            type="text"
+            id="nomeAgente"
+            placeholder="Nome do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>CPF: </label>
+          <input
+            type="text"
+            id="cpfAgente"
+            placeholder="CPF do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>RG: </label>
+          <input
+            type="text"
+            id="rgAgente"
+            placeholder="RG do Agente"
+            required
+          />
+        </div>
+        <div class="contain-buttons-modal">
+          <button onclick="openAgenteModal()">Fechar</button>
+          <button id="btnAdicionarAgente">Adicionar</button>
+        </div>
+      </form>
+    </div>
+
+    <header>
+      <h1>Listagem de Ocorrências e Agentes.</h1>
+    </header>
+
+    <main>
+      <section id="lista">
+        <h2>Ocorrências</h2>
+
+        <!-- icones -->
+        <img
+          src="icons8-policial-32.png"
+          onclick="openAgenteModal()"
+          style="border: black solid"
+        />
+        <img
+          src="icons8-relatório-32.png"
+          onclick="openOcorrenciaMod()"
+          style="border: black solid"
+        />
+        <img
+          src="icons8-police-lista-32.png"
+          onclick="listaAgenteModal()"
+          style="border: black solid"
+        />
+        <hr />
+
+        <div class="listaMod">
+          <!-- Modal Listar Agente -->
+          <div class="scroll-container">
+            <table id="agenteTable">
+              <thead>
+                <tr>
+                  <th>Agente</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="agenteBody">
+                <!-- Os agentes serão adicionados aqui -->
+              </tbody>
+            </table>
+          </div>
+          <button onclick="listaAgenteModal()">Fechar</button>
+        </div>
+
+        <div class="ocorrenciaMod">
+          <!-- Modal Ocorrencia -->
+          <form id="form-ocorrencia">
+            <input
+              type="text"
+              id="nomeAgente"
+              placeholder="Nome do Agente"
+              required
+            />
+            <input
+              type="text"
+              id="cpfAgente"
+              placeholder="CPF do Agente"
+              required
+            />
+            <input
+              type="text"
+              id="rgAgente"
+              placeholder="RG do Agente"
+              required
+            />
+            <button id="btnAdicionarAgente">Adicionar</button>
+            <button onclick="openOcorrenciaMod()">Fechar</button>
+          </form>
+        </div>
+      </section>
+      <div class="ocorrencias-div"></div>
+    </main>
+    <footer>
+      <p>pji-ocorrências - Todos direitos reservados</p>
+    </footer>
+
+    <script src="lista.js"></script>
+  </body>
+</html>

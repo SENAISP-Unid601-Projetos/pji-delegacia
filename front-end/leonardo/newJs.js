@@ -61,3 +61,4 @@ async function adicionarAgente(dadosAgente) {
     departamento: dadosAgente.departamento,
   })
 }
+
