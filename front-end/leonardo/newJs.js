@@ -57,11 +57,13 @@ function inputAgente() {
   const nomeAgente = document.querySelector("#nomeAgente").value;
   const cpfAgente = document.querySelector("#cpfAgente").value;
   const rgAgente = document.querySelector("#rgAgente").value;
+  const departamentoAgente = document.querySelector("#DepartamentoAgente").value;
 
-  adicionarAgente(nomeAgente, cpfAgente, rgAgente);
+  adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente);
 }
 
-async function adicionarAgente(nomeAgente, cpfAgente, rgAgente) {
+
+async function adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente) {
   const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
     nome: nomeAgente,
     cpf: cpfAgente,
@@ -74,7 +76,7 @@ async function adicionarAgente(nomeAgente, cpfAgente, rgAgente) {
     pessoa: {
       id: idPessoa,
     },
-    departamento: dadosAgente.departamento,
+    departamento: departamentoAgente,
   });
 }
 
