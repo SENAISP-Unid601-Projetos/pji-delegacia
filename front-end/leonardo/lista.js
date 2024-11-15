@@ -19,7 +19,6 @@ function createCardOcorrencia(dados) {
       dataAtualizacao,
       agente,
     } = ocorrencia;
-
     containCards.innerHTML += `
       <div class="ocorrencia" data-id="${id}">
         <div class="contain-header-ocorrencia">
@@ -53,19 +52,11 @@ function selectColorStatusOcorrencia(statusOcorrencia) {
   }
 }
 
-function inputAgente() {
-  const nomeAgente = document.querySelector("#nomeAgente").value;
-  const cpfAgente = document.querySelector("#cpfAgente").value;
-  const rgAgente = document.querySelector("#rgAgente").value;
-
-  adicionarAgente(nomeAgente, cpfAgente, rgAgente);
-}
-
-async function adicionarAgente(nomeAgente, cpfAgente, rgAgente) {
+async function adicionarAgente(dadosAgente) {
   const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
-    nome: nomeAgente,
-    cpf: cpfAgente,
-    rg: rgAgente,
+    nome: dadosAgente.nome,
+    cpf: dadosAgente.cpf,
+    rg: dadosAgente.rg,
   });
 
   let idPessoa = resposta.data.id;

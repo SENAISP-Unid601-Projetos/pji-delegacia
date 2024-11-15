@@ -9,6 +9,46 @@
   </head>
 
   <body>
+    <div class="background-open-modalAgente"></div>
+    <div class="contain-form-modal">
+      <div id="form-agente">
+        <h1>Adicionar Agente</h1>
+        <div class="contain-inputs-modal">
+          <label>Nome: </label>
+          <input
+            type="text"
+            id="nomeAgente"
+            placeholder="Nome do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>CPF: </label>
+          <input
+            type="text"
+            id="cpfAgente"
+            placeholder="CPF do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>RG: </label>
+          <input
+            type="text"
+            id="rgAgente"
+            placeholder="RG do Agente"
+            required
+          />
+        </div>
+        <div class="contain-buttons-modal">
+          <button onclick="openAgenteModal()">Fechar</button>
+          <button onclick="inputAgente()" id="btnAdicionarAgente">
+            Adicionar
+          </button>
+        </div>
+      </div>
+    </div>
+
     <header>
       <h1>Listagem de Ocorrências e Agentes.</h1>
     </header>
@@ -18,7 +58,11 @@
         <h2>Ocorrências</h2>
 
         <!-- icones -->
-        <img src="icons8-policial-32.png" onclick="openAgenteModal()" style="border: black solid" />
+        <img
+          src="icons8-policial-32.png"
+          onclick="openAgenteModal()"
+          style="border: black solid"
+        />
         <img
           src="icons8-relatório-32.png"
           onclick="openOcorrenciaMod()"
@@ -30,20 +74,6 @@
           style="border: black solid"
         />
         <hr />
-
-        <div class="background-open-modalAgente"></div>
-
-        <div class="agenteMod">
-          <!-- Modal Agente -->
-          <form id="form-agente">
-            <input type="text" id="nomeAgente" placeholder="Nome do Agente" required />
-            <input type="text" id="cpfAgente" placeholder="CPF do Agente" required />
-            <input type="text" id="rgAgente" placeholder="RG do Agente" required />
-            <button id="btnAdicionarAgente">Adicionar</button>
-            <button onclick="openAgenteModal()">Fechar</button>
-          </form>
-        </div>
-        <div class="background-open-modalLista"></div>
 
         <div class="listaMod">
           <!-- Modal Listar Agente -->
@@ -63,14 +93,27 @@
           <button onclick="listaAgenteModal()">Fechar</button>
         </div>
 
-        <div class="background-open-mod"></div>
-
         <div class="ocorrenciaMod">
           <!-- Modal Ocorrencia -->
           <form id="form-ocorrencia">
-            <input type="text" id="nomeAgente" placeholder="Nome do Agente" required />
-            <input type="text" id="cpfAgente" placeholder="CPF do Agente" required />
-            <input type="text" id="rgAgente" placeholder="RG do Agente" required />
+            <input
+              type="text"
+              id="nomeAgente"
+              placeholder="Nome do Agente"
+              required
+            />
+            <input
+              type="text"
+              id="cpfAgente"
+              placeholder="CPF do Agente"
+              required
+            />
+            <input
+              type="text"
+              id="rgAgente"
+              placeholder="RG do Agente"
+              required
+            />
             <button id="btnAdicionarAgente">Adicionar</button>
             <button onclick="openOcorrenciaMod()">Fechar</button>
           </form>
@@ -82,7 +125,6 @@
       <p>pji-ocorrências - Todos direitos reservados</p>
     </footer>
 
-    <script src="listar.js"></script>
     <script src="newJs.js"></script>
   </body>
 </html>
