@@ -81,3 +81,16 @@ function openAgenteModal() {
     agenteMod.style.display = "none";
   }
 }
+
+function openOcorrenciaModal() {
+  let ocorrenciaMod = document.querySelector(".contain-form-modal");
+  let backGroudModal = document.querySelector(".background-open-modalAgente");
+
+  if (ocorrenciaMod.style.display == "none" || ocorrenciaMod.style.display == "") {
+    ocorrenciaMod.style.display = "flex";
+    backGroudModal.style.display = "block";
+  } else {
+    backGroudModal.style.display = "none";
+    ocorrenciaMod.style.display = "none";
+  }
+}

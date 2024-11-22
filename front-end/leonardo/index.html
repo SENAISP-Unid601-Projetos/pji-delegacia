@@ -40,27 +40,34 @@
   </div>
 
 
-  <div class="background-open-modalOcorrencia" style="display: none;"></div>
-<div class="contain-form-modal-ocorrencia" style="display: none;">
-  <form id="formAddOcorrencia">
-    <h2>Adicionar Ocorrência</h2>
-    <label for="observacoes">Observações:</label>
-    <textarea id="observacoes" required></textarea>
-
-    <label for="statusOcorrencia">Status:</label>
-    <select id="statusOcorrencia" required>
-      <option value="Pendente">Pendente</option>
-      <option value="Em Andamento">Em Andamento</option>
-      <option value="Concluído">Concluído</option>
-    </select>
-
-    <label for="agente">Agente:</label>
-    <input id="agente" type="text" required />
-
-    <button type="submit">Adicionar</button>
-    <button type="button" onclick="closeOcorrenciaMod()">Cancelar</button>
-  </form>
-</div>
+  <div class="background-open-modalAgente"></div>
+  <div class="contain-form-modal">
+    <div id="form-ocorrencia">
+      <h1>Adicionar Agente</h1>
+      <div class="contain-inputs-modal">
+        <label>Nome: </label>
+        <input type="text" id="nomeAgente" placeholder="Nome do Agente" required />
+      </div>
+      <div class="contain-inputs-modal">
+        <label>CPF: </label>
+        <input type="text" id="cpfAgente" placeholder="CPF do Agente" required />
+      </div>
+      <div class="contain-inputs-modal">
+        <label>RG: </label>
+        <input type="text" id="rgAgente" placeholder="RG do Agente" required />
+      </div>
+      <div class="contain-inputs-modal">
+        <label>Departamento: </label>
+        <input type="text" id="DepartamentoAgente" placeholder="Departamento do Agente" required />
+      </div>
+      <div class="contain-buttons-modal">
+        <button onclick="openOcorrenciaModal()">Fechar</button>
+        <button onclick="inputOcorrencia()" id="btnAdicionarOcorrencia">
+          Adicionar
+        </button>
+      </div>
+    </div>
+  </div>
 
 
   <div class="background-open-modalListaAgente"></div>
