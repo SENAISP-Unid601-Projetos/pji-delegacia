@@ -100,7 +100,7 @@ main {
 footer {
     text-align: center;
     padding: 10px 0;
-    background-color: hwb(231 42% 15%);
+    background-color: hwb(231 17% 15%);
     color: white;
     position: fixed;
     width: 100%;
@@ -156,7 +156,7 @@ footer {
 
 .contain-inputs-modal {
     display: grid;
-    grid-template-columns: 60px 1fr;
+    grid-template-columns: 1fr 2fr;
     align-items: center;
 }
 

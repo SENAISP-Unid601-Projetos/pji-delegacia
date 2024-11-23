@@ -40,8 +40,58 @@
             required
           />
         </div>
+        <div class="contain-inputs-modal">
+          <label>Departamento: </label>
+          <input
+            type="text"
+            id="DepartamentoAgente"
+            placeholder="Departamento do Agente"
+            required
+          />
+        </div>
         <div class="contain-buttons-modal">
           <button onclick="openAgenteModal()">Fechar</button>
+          <button id="btnAdicionarAgente">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  
+    <div class="background-open-modalAgente"></div>
+    <div class="contain-form-modal">
+      <form id="form-ocorrencia">
+        <h1>Adicionar Ocorrencia</h1>
+        <div class="contain-inputs-modal">
+          <label>Ocorrencia: </label>
+          <input
+            type="text"
+            id="statusOcorrencia"
+            placeholder="Nome do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>Observações: </label>
+          <input
+            type="text"
+            id="Observacoes"
+            placeholder="Dados da Ocorrencia"
+            required
+          />
+        </div>
+      
+
+        <div class="contain-inputs-modal">
+          <label>Nome: </label>
+          <input
+            type="text"
+            id="nomeAgente"
+            placeholder="Nome do Agente"
+            required
+          />
+        </div>
+
+        <div class="contain-buttons-modal">
+          <button onclick="openOcorrenciaModal()">Fechar</button>
           <button id="btnAdicionarAgente">Adicionar</button>
         </div>
       </form>
@@ -63,7 +113,7 @@
         />
         <img
           src="icons8-relatório-32.png"
-          onclick="openOcorrenciaMod()"
+          onclick="openOcorrenciaModal()"
           style="border: black solid"
         />
         <img
