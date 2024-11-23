@@ -1,0 +1,249 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Arial", sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Estilo do header */
+  header {
+    background-color: hwb(231 17% 15%);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo principal */
+  main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #lista h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: hwb(0 0% 100%);
+    text-align: center;
+  }
+  
+  #lista hr {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  
+  .ocorrencias-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Para duas colunas */
+    gap: 20px;
+  }
+  
+  .ocorrencia {
+    background-color: hwb(225 93% 4%);
+    padding: 15px;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Estilos para cada status */
+  .ocorrencia.aguardando-aprovacao {
+    border-left: 5px solid rgb(255, 165, 0);
+    box-shadow: 0 2px 4px rgba(255, 165, 0, 0.5);
+  }
+  
+  .ocorrencia.em-andamento {
+    border-left: 5px solid rgb(0, 0, 255);
+    box-shadow: 0 2px 4px rgba(0, 0, 255, 0.5);
+  }
+  
+  .ocorrencia.finalizada {
+    border-left: 5px solid rgb(17, 195, 17);
+    box-shadow: 0 2px 4px rgba(17, 195, 17, 0.5);
+  }
+  
+  .ocorrencia:hover {
+    transform: scale(1.03);
+  }
+  
+  .ocorrencia h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: hwb(0 0% 100%);
+  }
+  
+  .ocorrencia p {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  /* Estilo do footer */
+  footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: hwb(231 17% 15%);
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }
+  
+  .background-open-modalAgente {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.256);
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    display: none;
+  }
+  
+  .contain-form-modal {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    display: none;
+  }
+  
+  .contain-form-modal-ocorrencia {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    display: none;
+  }
+  
+  .contain-form-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    padding: 20px 40px;
+    border-radius: 5px;
+  }
+  
+  .contain-form-modal-ocorrencia form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    padding: 20px 40px;
+    border-radius: 5px;
+  }
+  
+  .contain-form-modal form h1 {
+    font-size: 19px;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .contain-form-modal-ocorrencia form h1 {
+    font-size: 19px;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .contain-buttons-modal {
+    display: flex;
+    justify-content: end;
+    padding: 10px 0;
+    gap: 10px;
+  }
+  
+  .contain-buttons-modal button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: hwb(231 17% 15% / 0.466);
+  }
+  
+  .button-inicial  {
+      padding: 10px 10px;
+      
+    }
+  
+  .button-inicial button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: hwb(231 17% 15% / 0.466);
+    border: none;
+  }
+  
+  .contain-inputs-modal {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+  }
+  
+  .contain-inputs-modal select {
+    height: 35px;
+    border-radius: 5px  ;
+  }
+  
+  .contain-inputs-modal label {
+    text-align: right;
+    padding-right: 10px;
+  }
+  
+  .contain-inputs-modal input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid rgb(198, 198, 198);
+    outline: none;
+    font-size: 15px;
+  }
+  
+  .background-open-modal {
+    display: none;
+    position: fixed;
+    width: 50%;
+    height: 50%;
+    z-index: 1;
+  }
+
+
+  .btn-ocorrencia {
+    background-color: yellow;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  .btn-ocorrencia-delete {
+    background-color: red;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  .btn-ocorrencia-status{
+    background-color: green;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px;
+  }

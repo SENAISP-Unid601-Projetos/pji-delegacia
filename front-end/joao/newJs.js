@@ -60,43 +60,8 @@ function openOcorrenciaMod() {
 
   modal.style.display = "block";
   background.style.display = "block";
-
-  carregarAgentes();
 }
 
-async function carregarAgentes() {
-  const selectAgente = document.getElementById('agente');
-
-  try {
-      const response = await fetch('http://localhost:8080/agente/listar');
-      if (!response.ok) {
-          throw new Error(`Erro ao carregar agentes: ${response.statusText}`);
-      }
-
-      const agentes = await response.json();
-
-      // Limpa o conteúdo do <select> antes de popular
-      selectAgente.innerHTML = '';
-
-      // Adiciona uma opção padrão
-      const opcaoPadrao = document.createElement('option');
-      opcaoPadrao.value = '';
-      opcaoPadrao.textContent = 'Selecione um agente';
-      opcaoPadrao.disabled = true;
-      opcaoPadrao.selected = true;
-      selectAgente.appendChild(opcaoPadrao);
-
-      // Popula o <select> com os dados dos agentes
-      agentes.forEach(agente => {
-          const opcao = document.createElement('option');
-          opcao.value = agente.id;
-          opcao.textContent = agente.pessoa.nome; // Utiliza o nome da pessoa
-          selectAgente.appendChild(opcao);
-      });
-  } catch (error) {
-      console.error('Erro ao carregar agentes:', error);
-  }
-}
 
 function closeOcorrenciaMod() {
   const modal = document.querySelector(".contain-form-modal-ocorrencia");
@@ -217,6 +182,13 @@ function selectColorStatusOcorrencia(statusOcorrencia) {
 
 
 
+
+
+
+
+
+
+
 function inputAgente() {
   const nomeAgente = document.querySelector("#nomeAgente").value;
   const cpfAgente = document.querySelector("#cpfAgente").value;
@@ -297,8 +269,6 @@ async function listarAgentes() {
 
   
 }
-
-
 
 
 

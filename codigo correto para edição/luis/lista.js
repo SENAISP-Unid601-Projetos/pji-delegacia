@@ -1,0 +1,127 @@
+getAllOcorrencias();
+async function getAllOcorrencias() {
+  const response = await axios.get("http://127.0.0.1:8080/ocorrencia/listar");
+
+  const dados = response.data;
+
+  createCardOcorrencia(dados);
+}
+
+function createCardOcorrencia(dados) {
+  const containCards = document.querySelector(".ocorrencias-div");
+
+  dados.forEach((ocorrencia) => {
+    const {
+      id,
+      observacoes,
+      statusOcorrencia,
+      dataCriacao,
+      dataAtualizacao,
+      agente,
+    } = ocorrencia;
+    containCards.innerHTML += `
+      <div class="ocorrencia" data-id="${id}">
+        <div class="contain-header-ocorrencia">
+          <h3>Ocorrência  ${id}</h3>
+          <div class="contain-indicator-status-ocorrencia">
+            <div class="indicador-status-ocorrencia ${selectColorStatusOcorrencia(
+              statusOcorrencia
+            )}"></div>
+          </div>
+        </div>
+        <p>Status: ${statusOcorrencia}</p>
+        <p>Observações: ${observacoes}</p>
+        <p>Data de Criação: ${dataCriacao}</p>
+        <p>Ultima Atualização: ${dataAtualizacao}</p>
+        <p>Agente: ${agente.pessoa.nome}</p>
+        <button class="btn-ocorrencia">Editar</button>
+        <button class="btn-ocorrencia-delete">Deletar</button>
+        <button class="btn-ocorrencia-status">Atualizar Status</button>
+      </div>
+    `;
+  });
+}
+
+function selectColorStatusOcorrencia(statusOcorrencia) {
+  if (statusOcorrencia == "Pendente") {
+    return "background-orange-indicator";
+  } else if (statusOcorrencia == "Concluído") {
+    return "background-green-indicator";
+  } else if (statusOcorrencia == "Em Andamento") {
+    return "background-yellow-indicator";
+  }
+}
+
+async function adicionarAgente(dadosAgente) {
+  const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
+    nome: dadosAgente.nome,
+    cpf: dadosAgente.cpf,
+    rg: dadosAgente.rg,
+  });
+
+  let idPessoa = resposta.data.id;
+
+  const resposta1 = await axios.post("http://localhost:8080/agente/adicionar", {
+    pessoa: {
+      id: idPessoa,
+    },
+    departamento: dadosAgente.departamento,
+  });
+}
+
+function openAgenteModal() {
+  let agenteMod = document.querySelector(".contain-form-modal");
+  let backGroudModal = document.querySelector(".background-open-modalAgente");
+
+  if (agenteMod.style.display == "none" || agenteMod.style.display == "") {
+    agenteMod.style.display = "flex";
+    backGroudModal.style.display = "block";
+  } else {
+    backGroudModal.style.display = "none";
+    agenteMod.style.display = "none";
+  }
+}
+
+function openOcorrenciaModal() {
+  let ocorrenciaMod = document.querySelector(".contain-form-modal-ocorrencia");
+  let backGroudModal = document.querySelector(".background-open-modalAgente");
+
+  if (ocorrenciaMod.style.display == "none" || ocorrenciaMod.style.display == "") {
+    ocorrenciaMod.style.display = "flex";
+    backGroudModal.style.display = "block";
+  } else {
+    backGroudModal.style.display = "none";
+    ocorrenciaMod.style.display = "none";
+  }
+  carregarAgentes();
+}
+async function carregarAgentes() {
+  const selectAgente = document.getElementById('agente');
+
+  try {
+      const response = await fetch('http://localhost:8080/agente/listar');
+      if (!response.ok) {
+          throw new Error(`Erro ao carregar agentes: ${response.statusText}`);
+      }
+
+      const agentes = await response.json();
+
+      selectAgente.innerHTML = '';
+
+      const opcaoPadrao = document.createElement('option');
+      opcaoPadrao.value = '';
+      opcaoPadrao.textContent = 'Selecione um agente';
+      opcaoPadrao.disabled = true;
+      opcaoPadrao.selected = true;
+      selectAgente.appendChild(opcaoPadrao);
+
+      agentes.forEach(agente => {
+          const opcao = document.createElement('option');
+          opcao.value = agente.id;
+          opcao.textContent = agente.pessoa.nome; 
+          selectAgente.appendChild(opcao);
+      });
+  } catch (error) {
+      console.error('Erro ao carregar agentes:', error);
+  }
+}

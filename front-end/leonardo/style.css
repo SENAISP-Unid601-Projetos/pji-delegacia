@@ -16,7 +16,7 @@ body {
 
 /* Estilo do header */
 header {
-    background-color: hwb(231 42% 15%);
+    background-color: hwb(231 17% 15%);
     color: white;
     padding: 20px 0;
     text-align: center;
@@ -100,7 +100,7 @@ main {
 footer {
     text-align: center;
     padding: 10px 0;
-    background-color: hwb(231 42% 15%);
+    background-color: hwb(231 17% 15%);
     color: white;
     position: fixed;
     width: 100%;

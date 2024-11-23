@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pji-ocorrências</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <div class="background-open-modalAgente"></div>
+    <div class="contain-form-modal">
+      <form id="form-agente">
+        <h1>Adicionar Agente</h1>
+        <div class="contain-inputs-modal">
+          <label>Nome: </label>
+          <input
+            type="text"
+            id="nomeAgente"
+            placeholder="Nome do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>CPF: </label>
+          <input
+            type="text"
+            id="cpfAgente"
+            placeholder="CPF do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>RG: </label>
+          <input
+            type="text"
+            id="rgAgente"
+            placeholder="RG do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>Departamento: </label>
+          <select id="DepartamentoAgente" required></select>
+        </div>
+        <div class="contain-buttons-modal">
+          <button onclick="openAgenteModal()">Fechar</button>
+          <button id="btnAdicionarAgente">Adicionar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="background-open-modalAgente"></div>
+    <div class="contain-form-modal-ocorrencia">
+      <form id="form-ocorrencia">
+        <h1>Adicionar Ocorrencia</h1>
+        <div class="contain-inputs-modal">
+          <label>Ocorrencia: </label>
+          <input
+            type="text"
+            id="statusOcorrencia"
+            placeholder="Ocorrência"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>Observações: </label>
+          <input
+            type="text"
+            id="Observacoes"
+            placeholder="Observações"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>Data da Criação: </label>
+          <input
+            type="text"
+            id="dataCriacao"
+            placeholder="Data da Criação"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>Data de Atualização: </label>
+          <input
+            type="text"
+            id="dataAtualizacao"
+            placeholder="Data de Atualização"
+            required
+          />
+        </div>
+
+        <div class="contain-inputs-modal">
+          <label>Agente: </label>
+          <select id="agente" required></select>
+        </div>
+
+        <div class="contain-inputs-modal">
+          <label>Status: </label>
+          <select id="statusOcorrencia" required>
+            <option>Satus da Ocorrência</option>
+          <option>Pendente</option>
+          <option>Em Andamento</option>
+          <option>Finalizado</option>
+          </select>
+        </div>
+
+        <div class="contain-buttons-modal">
+          <button onclick="openOcorrenciaModal()">Fechar</button>
+          <button id="btnAdicionarAgente">Adicionar</button>
+        </div>
+      </form>
+    </div>
+
+    <header>
+      <h1>Listagem de Ocorrências e Agentes.</h1>
+    </header>
+
+    <div class="button-inicial">
+      <button class="button" onclick="openAgenteModal()">
+        Adicionar Agente
+      </button>
+      <button class="button" onclick="openOcorrenciaModal()">
+        Adicionar Ocorrência
+      </button>
+      <button class="button" onclick="listaAgenteModal()">
+        Lista de Agentes
+      </button>
+    </div>
+    <main>
+      <section id="lista">
+        <h2>Ocorrências</h2>
+      </section>
+      <div class="ocorrencias-div"></div>
+    </main>
+    <footer>
+      <p>pji-ocorrências - Todos direitos reservados</p>
+    </footer>
+
+    <script src="lista.js"></script>
+  </body>
+</html>
