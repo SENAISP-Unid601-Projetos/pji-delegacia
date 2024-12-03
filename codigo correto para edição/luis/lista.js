@@ -52,11 +52,23 @@ function selectColorStatusOcorrencia(statusOcorrencia) {
   }
 }
 
-async function adicionarAgente(dadosAgente) {
+
+function inputAgente() {
+  const nomeAgente = document.querySelector("#nomeAgente").value;
+  const cpfAgente = document.querySelector("#cpfAgente").value;
+  const rgAgente = document.querySelector("#rgAgente").value;
+  const departamentoAgente = document.querySelector("#DepartamentoAgente").value;
+
+  adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente);
+}
+
+async function adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente) {
+
+  
   const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
-    nome: dadosAgente.nome,
-    cpf: dadosAgente.cpf,
-    rg: dadosAgente.rg,
+    nome: nomeAgente,
+    cpf: cpfAgente,
+    rg: rgAgente,
   });
 
   let idPessoa = resposta.data.id;
@@ -65,9 +77,10 @@ async function adicionarAgente(dadosAgente) {
     pessoa: {
       id: idPessoa,
     },
-    departamento: dadosAgente.departamento,
+    departamento: departamentoAgente,
   });
 }
+
 
 function openAgenteModal() {
   let agenteMod = document.querySelector(".contain-form-modal");
@@ -95,33 +108,44 @@ function openOcorrenciaModal() {
   }
   carregarAgentes();
 }
-async function carregarAgentes() {
-  const selectAgente = document.getElementById('agente');
 
-  try {
-      const response = await fetch('http://localhost:8080/agente/listar');
-      if (!response.ok) {
-          throw new Error(`Erro ao carregar agentes: ${response.statusText}`);
-      }
+function openListaAgenteModal() {
+  const listaAgenteMod = document.querySelector(".contain-form-modal-lista");
+  const backGroudModal = document.querySelector(".background-open-modalListaAgente");
 
-      const agentes = await response.json();
-
-      selectAgente.innerHTML = '';
-
-      const opcaoPadrao = document.createElement('option');
-      opcaoPadrao.value = '';
-      opcaoPadrao.textContent = 'Selecione um agente';
-      opcaoPadrao.disabled = true;
-      opcaoPadrao.selected = true;
-      selectAgente.appendChild(opcaoPadrao);
-
-      agentes.forEach(agente => {
-          const opcao = document.createElement('option');
-          opcao.value = agente.id;
-          opcao.textContent = agente.pessoa.nome; 
-          selectAgente.appendChild(opcao);
-      });
-  } catch (error) {
-      console.error('Erro ao carregar agentes:', error);
+  if (listaAgenteMod.style.display === "none" || listaAgenteMod.style.display === "") {
+    listaAgenteMod.style.display = "block"; // Mostra o modal
+    backGroudModal.style.display = "block"; // Ativa o fundo escuro
+    listarAgentes(); // chama a função para listar os agentes
+  } else {
+    listaAgenteMod.style.display = "none"; // Esconde o modal
+    backGroudModal.style.display = "none"; // Esconde o fundo escuro
   }
 }
+
+async function listarAgentes() {
+  
+  const response = await axios.get("http://localhost:8080/agente/listar");
+  const agentes = response.data;
+
+  const tabelaCorpo = document.querySelector("#tabela-corpo");
+  tabelaCorpo.innerHTML = ""; // Limpa a tabela antes de adicionar novos dados SE TIRAR DÁ RUIM
+
+  agentes.forEach((agente) => {
+    const { pessoa, departamento } = agente;
+
+    // Criação das linhas da tabela
+    const linhaHTML = `
+      <tr>
+        <td>${pessoa.nome}</td>
+        <td>${pessoa.cpf}</td>
+        <td>${departamento}</td>
+      </tr>
+    `;
+    //adicionar mais um <td>button para deletear os agents</td>
+
+    tabelaCorpo.innerHTML += linhaHTML; // Adiciona a linha à tabela
+  });
+
+}
+

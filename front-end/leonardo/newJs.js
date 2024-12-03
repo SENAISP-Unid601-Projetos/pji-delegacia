@@ -280,7 +280,7 @@ async function listarAgentes() {
     const tabelaCorpo = document.querySelector("#tabela-corpo");
     tabelaCorpo.innerHTML = ""; // Limpa a tabela antes de adicionar novos dados SE TIRAR DÁ RUIM
 
-    agentes.forEach((agente) => {s
+    agentes.forEach((agente) => {
       const { pessoa, departamento } = agente;
 
       // Criação das linhas da tabela
@@ -291,11 +291,11 @@ async function listarAgentes() {
           <td>${departamento}</td>
         </tr>
       `;
+      //adicionar mais um <td>button para deletear os agents</td>
 
       tabelaCorpo.innerHTML += linhaHTML; // Adiciona a linha à tabela
     });
 
-  
 }
 
 
