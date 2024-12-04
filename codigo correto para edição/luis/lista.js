@@ -9,6 +9,7 @@ async function getAllOcorrencias() {
 
 function createCardOcorrencia(dados) {
   const containCards = document.querySelector(".ocorrencias-div");
+  containCards.innerHTML = ""; // Limpa o container antes de adicionar novos cards
 
   dados.forEach((ocorrencia) => {
     const {
@@ -19,10 +20,11 @@ function createCardOcorrencia(dados) {
       dataAtualizacao,
       agente,
     } = ocorrencia;
+
     containCards.innerHTML += `
       <div class="ocorrencia" data-id="${id}">
         <div class="contain-header-ocorrencia">
-          <h3>Ocorrência  ${id}</h3>
+          <h3>Ocorrência ${id}</h3>
           <div class="contain-indicator-status-ocorrencia">
             <div class="indicador-status-ocorrencia ${selectColorStatusOcorrencia(
               statusOcorrencia
@@ -32,15 +34,43 @@ function createCardOcorrencia(dados) {
         <p>Status: ${statusOcorrencia}</p>
         <p>Observações: ${observacoes}</p>
         <p>Data de Criação: ${dataCriacao}</p>
-        <p>Ultima Atualização: ${dataAtualizacao}</p>
+        <p>Última Atualização: ${dataAtualizacao}</p>
         <p>Agente: ${agente.pessoa.nome}</p>
         <button class="btn-ocorrencia">Editar</button>
-        <button class="btn-ocorrencia-delete">Deletar</button>
+        <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})">Deletar</button>
         <button class="btn-ocorrencia-status">Atualizar Status</button>
       </div>
     `;
   });
 }
+
+function deletarOcorrencia(id) {
+  const confirmar = confirm("Tem certeza de que deseja deletar esta ocorrência?");
+  if (confirmar) {
+    fetch(`http://127.0.0.1:8080/ocorrencia/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao deletar a ocorrência.");
+        }
+        return response.json();
+      })
+      .then(() => {
+        const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
+        ocorrenciaDiv.remove();
+        alert("Ocorrência deletada com sucesso!");
+      })
+      .catch((error) => {
+        console.error("Erro ao deletar:", error);
+        alert("Erro ao deletar a ocorrência. Tente novamente.");
+      });
+  }
+}
+
 
 function selectColorStatusOcorrencia(statusOcorrencia) {
   if (statusOcorrencia == "Pendente") {
@@ -106,7 +136,7 @@ function openOcorrenciaModal() {
     backGroudModal.style.display = "none";
     ocorrenciaMod.style.display = "none";
   }
-  carregarAgentes();
+  listarAgentes();
 }
 
 function openListaAgenteModal() {
