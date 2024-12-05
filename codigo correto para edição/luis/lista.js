@@ -9,7 +9,7 @@ async function getAllOcorrencias() {
 
 function createCardOcorrencia(dados) {
   const containCards = document.querySelector(".ocorrencias-div");
-  containCards.innerHTML = ""; // Limpa o container antes de adicionar novos cards
+  containCards.innerHTML = ""; 
 
   dados.forEach((ocorrencia) => {
     const {
@@ -71,7 +71,6 @@ function deletarOcorrencia(id) {
   }
 }
 
-
 function selectColorStatusOcorrencia(statusOcorrencia) {
   if (statusOcorrencia == "Pendente") {
     return "background-orange-indicator";
@@ -81,7 +80,6 @@ function selectColorStatusOcorrencia(statusOcorrencia) {
     return "background-yellow-indicator";
   }
 }
-
 
 function inputAgente() {
   const nomeAgente = document.querySelector("#nomeAgente").value;
@@ -178,4 +176,3 @@ async function listarAgentes() {
   });
 
 }
-
