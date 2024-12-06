@@ -33,7 +33,8 @@
           <option value="PM">PM</option>
           <option value="BM">BM</option>
           <option value="Civil">Civil</option>
-          <option value="Outros">Outros</option></select>
+          <option value="Outros">Outros</option>
+        </select>
       </div>
       <div class="contain-buttons-modal">
         <button onclick="openAgenteModal()">Fechar</button>
@@ -42,33 +43,52 @@
     </form>
   </div>
 
-  <div class="background-open-modalAgente"></div>
+  <!-- Modal para selecionar agentes para ocorrência -->
+  <div class="background-open-modalListaAgenteSelect"></div>
+  <div class="contain-form-modal-lista-select">
+
+    <div class="modal-agente" id="modalAgente" style="display: none;">
+      <h2>Selecione um Agente</h2>
+      <table id="tabelaAgentes">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Departamento</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Os dados dos agentes serão inseridos aqui dinamicamente -->
+        </tbody>
+      </table>
+      <button onclick="fecharModalAgente()">Fechar</button>
+    </div>
+  </div>
+
+  <div class="background-open-modalOcorrencia"></div>
   <div class="contain-form-modal-ocorrencia">
     <form id="form-ocorrencia">
-      <h1>Adicionar Ocorrencia</h1>
-      
+      <h1>Adicionar Ocorrência</h1>
+
       <div class="contain-inputs-modal">
         <label>Descrição: </label>
         <input type="text" id="descricao" placeholder="Descrição" required />
       </div>
-      <div class="contain-inputs-modal">
-        <label>Data da Criação: </label>
-        <input type="text" id="dataCriacao" placeholder="Data da Criação" required />
-      </div>
-      <div class="contain-inputs-modal">
-        <label>Data de Atualização: </label>
-        <input type="text" id="dataAtualizacao" placeholder="Data de Atualização" required />
+      <div class="contain-buttons-modal-selectLista">
+
+        <p id="agenteSelecionado">Agente:</p>
+        <button type="button" class="btn-agent-Ocorrencia" onclick="openListAgenteEmOcorrencia()"
+          style="cursor: pointer; ">
+          Selecione um Agente
+        </button>
       </div>
 
-      <div class="contain-inputs-modal">
-        <label>Agente: </label>
-        <select id="agente" required></select>
-      </div>
 
       <div class="contain-inputs-modal">
         <label>Status: </label>
         <select id="statusOcorrencia" required>
-          <option>Satus da Ocorrência</option>
+          <option value="" disabled selected>Status da Ocorrência</option>
           <option>Pendente</option>
           <option>Em Andamento</option>
           <option>Finalizado</option>
@@ -77,50 +97,54 @@
 
       <div class="contain-buttons-modal">
         <button onclick="openOcorrenciaModal()">Fechar</button>
-        <button id="btnAdicionarAgente">Adicionar</button>
+        <button id="btnAdicionarOcorrencia">Adicionar</button>
       </div>
     </form>
   </div>
 
 
+
   <!--teste modal agente-->
-  
+
   <div class="background-open-modalListaAgente"></div>
   <div class="contain-form-modal-lista">
-    <div id="form-lista-agente">
+    <div class="fundo">
+
       <h1>Lista de Agentes</h1>
-      <div id="listaAgentes" class="contain-list-modal">
-        <table class="tabela-agentes">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>CPF</th>
-              <th>Departamento</th>
-            </tr>
-          </thead>
-          <tbody id="tabela-corpo">
-            <!-- Linhas adicionadas dinamicamente -->
-          </tbody>
-        </table>
-      </div>
-      <div class="contain-buttons-modal">
-        <button onclick="openListaAgenteModal()">Fechar</button>
+      <div id="form-lista-agente">
+        <div id="listaAgentes" class="contain-list-modal">
+          <table class="tabela-agentes">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Departamento</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-corpo">
+              <!-- Linhas adicionadas dinamicamente -->
+            </tbody>
+          </table>
+        </div>
+        <div class="contain-buttons-modal">
+          <button onclick="openListaAgenteModal()">Fechar</button>
+        </div>
       </div>
     </div>
-  </div>
+    </div>
 
   <header>
     <h1>Listagem de Ocorrências e Agentes.</h1>
   </header>
 
   <div class="button-inicial">
-    <button class="button" onclick="openAgenteModal()">
+    <button class="button" onclick="openAgenteModal()" style="cursor: pointer;">
       Adicionar Agente
     </button>
-    <button class="button" onclick="openOcorrenciaModal()">
+    <button class="button" onclick="openOcorrenciaModal()" style="cursor: pointer;">
       Adicionar Ocorrência
     </button>
-    <button class="button" onclick="openListaAgenteModal()">
+    <button class="button" onclick="openListaAgenteModal()" style="cursor: pointer;">
       Lista de Agentes
     </button>
   </div>

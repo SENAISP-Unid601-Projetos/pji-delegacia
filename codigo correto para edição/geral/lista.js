@@ -9,6 +9,7 @@ async function getAllOcorrencias() {
 
 function createCardOcorrencia(dados) {
   const containCards = document.querySelector(".ocorrencias-div");
+  containCards.innerHTML = "";
 
   dados.forEach((ocorrencia) => {
     const {
@@ -19,14 +20,15 @@ function createCardOcorrencia(dados) {
       dataAtualizacao,
       agente,
     } = ocorrencia;
+
     containCards.innerHTML += `
       <div class="ocorrencia" data-id="${id}">
         <div class="contain-header-ocorrencia">
           <h3>Ocorrência  ${id}</h3>
           <div class="contain-indicator-status-ocorrencia">
             <div class="indicador-status-ocorrencia ${selectColorStatusOcorrencia(
-              statusOcorrencia
-            )}"></div>
+      statusOcorrencia
+    )}"></div>
           </div>
         </div>
         <p>Status: ${statusOcorrencia}</p>
@@ -41,6 +43,31 @@ function createCardOcorrencia(dados) {
     `;
   });
 }
+
+document.getElementById("form-ocorrencia").addEventListener("submit", async function (event) {
+  event.preventDefault(); // Evita o recarregamento da página
+
+  const descricao = document.querySelector("#descricao").value;
+  const statusOcorrencia = document.querySelector("#statusOcorrencia").value;
+  const agenteId = document.getElementById("agenteSelecionado").dataset.id;
+
+  if (!agenteId) {
+    alert("Por favor, selecione um agente.");
+    return;
+  }
+
+  await axios.post("http://127.0.0.1:8080/ocorrencia/adicionar", {
+    observacoes: descricao,
+    statusOcorrencia: statusOcorrencia,
+    agente: { id: agenteId },
+  });
+
+  alert("Ocorrência adicionada com sucesso!");
+  getAllOcorrencias(); // Atualiza a lista de ocorrências
+  openOcorrenciaModal(); // Fecha o modal de ocorrências
+});
+
+
 
 function selectColorStatusOcorrencia(statusOcorrencia) {
   if (statusOcorrencia == "Pendente") {
@@ -64,7 +91,7 @@ function inputAgente() {
 
 async function adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente) {
 
-  
+
   const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
     nome: nomeAgente,
     cpf: cpfAgente,
@@ -97,7 +124,7 @@ function openAgenteModal() {
 
 function openOcorrenciaModal() {
   let ocorrenciaMod = document.querySelector(".contain-form-modal-ocorrencia");
-  let backGroudModal = document.querySelector(".background-open-modalAgente");
+  let backGroudModal = document.querySelector(".background-open-modalOcorrencia");
 
   if (ocorrenciaMod.style.display == "none" || ocorrenciaMod.style.display == "") {
     ocorrenciaMod.style.display = "flex";
@@ -106,8 +133,81 @@ function openOcorrenciaModal() {
     backGroudModal.style.display = "none";
     ocorrenciaMod.style.display = "none";
   }
-  carregarAgentes();
 }
+
+
+function openListAgenteEmOcorrencia() {
+  const selectAgenteMod = document.querySelector(".contain-form-modal-lista-select");
+  const backGroudModal = document.querySelector(".background-open-modalListaAgenteSelect");
+  const selectAgente = document.getElementById("modalAgente");
+
+  document.body.style.overflowY = "hidden"
+  // Garante que nenhum outro modal esteja visível
+  selectAgente.style.display = "none"; // Fecha o modal de agentes se estiver aberto
+  selectAgenteMod.style.display = "none"; // Fecha qualquer outra lista
+  backGroudModal.style.display = "block"; // Fecha o fundo escuro
+
+  // Agora abre o modal de seleção de agentes
+  selectAgenteMod.style.display = "block";
+  backGroudModal.style.display = "none";
+
+  // Chama a função para listar os agentes
+  listAgenteEmOcorrencia();
+}
+
+async function listAgenteEmOcorrencia() {
+  const modal = document.getElementById("modalAgente");
+  const tabela = document.querySelector("#tabelaAgentes tbody");
+
+  // Limpa a tabela antes de adicionar os agentes
+  tabela.innerHTML = "";
+
+  // Faz a requisição para obter a lista de agentes
+  const response = await axios.get("http://127.0.0.1:8080/agente/listar");
+  const agentes = response.data;
+
+  // Preenche a tabela com os agentes
+  agentes.forEach((agente) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${agente.id}</td>
+      <td>${agente.pessoa.nome}</td>
+      <td>${agente.departamento}</td>
+      <td>
+        <button onclick="selecionarAgente(${agente.id}, '${agente.pessoa.nome}')">
+          Selecionar
+        </button>
+      </td>
+    `;
+    tabela.appendChild(row);
+  });
+
+  // Exibe o modal
+  modal.style.display = "block";
+}
+
+
+// Vincular o agente selecionado ao formulário de ocorrência
+function selecionarAgente(id, nome) {
+  // Exibe o agente selecionado no formulário
+  const agenteSelecionado = document.getElementById("agenteSelecionado");
+  agenteSelecionado.textContent = `Agente Selecionado: ${nome}`;
+  agenteSelecionado.dataset.id = id;
+
+  // Fecha o modal
+  fecharModalAgente();
+}
+
+// Fechar o modal de seleção de agentes
+function fecharModalAgente() {
+  const modal = document.getElementById("modalAgente");
+  modal.style.display = "none";
+  const listaAgenteMod = document.querySelector(".contain-form-modal-lista-select");
+  listaAgenteMod.style.display = "none";
+  const backGroudModal = document.querySelector(".background-open-modalListaAgente");
+  backGroudModal.style.display = "none";
+}
+
 
 function openListaAgenteModal() {
   const listaAgenteMod = document.querySelector(".contain-form-modal-lista");
@@ -124,7 +224,7 @@ function openListaAgenteModal() {
 }
 
 async function listarAgentes() {
-  
+
   const response = await axios.get("http://localhost:8080/agente/listar");
   const agentes = response.data;
 
