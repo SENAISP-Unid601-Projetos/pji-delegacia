@@ -21,6 +21,7 @@ function createCardOcorrencia(dados) {
       agente,
     } = ocorrencia;
 
+
     containCards.innerHTML += `
       <div class="ocorrencia" data-id="${id}">
         <div class="contain-header-ocorrencia">
