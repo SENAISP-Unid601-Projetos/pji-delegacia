@@ -1,162 +1,187 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pji-ocorrências</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pji-ocorrências</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-
-<body>
-  <div class="background-open-modalAgente"></div>
-  <div class="contain-form-modal">
-    <form id="form-agente">
-      <h1>Adicionar Agente</h1>
-      <div class="contain-inputs-modal">
-        <label>Nome: </label>
-        <input type="text" id="nomeAgente" placeholder="Nome do Agente" required />
-      </div>
-      <div class="contain-inputs-modal">
-        <label>CPF: </label>
-        <input type="text" id="cpfAgente" placeholder="CPF do Agente" required />
-      </div>
-      <div class="contain-inputs-modal">
-        <label>RG: </label>
-        <input type="text" id="rgAgente" placeholder="RG do Agente" required />
-      </div>
-      <div class="contain-inputs-modal">
-        <label>Departamento: </label>
-        <select id="DepartamentoAgente" required>
-          <option value="" disabled selected>Selecione o Departamento</option>
-          <option value="PM">PM</option>
-          <option value="BM">BM</option>
-          <option value="Civil">Civil</option>
-          <option value="Outros">Outros</option>
-        </select>
-      </div>
-      <div class="contain-buttons-modal">
-        <button onclick="openAgenteModal()">Fechar</button>
-        <button onclick="inputAgente()" id="btnAdicionarAgente" type="button">Adicionar</button>
-      </div>
-    </form>
-  </div>
-
-  <!-- Modal para selecionar agentes para ocorrência -->
-  <div class="background-open-modalListaAgenteSelect"></div>
-  <div class="contain-form-modal-lista-select">
-
-    <div class="modal-agente" id="modalAgente" style="display: none;">
-      <h2>Selecione um Agente</h2>
-      <table id="tabelaAgentes">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Departamento</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Os dados dos agentes serão inseridos aqui dinamicamente -->
-        </tbody>
-      </table>
-      <button onclick="fecharModalAgente()">Fechar</button>
+  <body>
+    <div class="background-open-modalAgente"></div>
+    <div class="contain-form-modal">
+      <form id="form-agente">
+        <h1>Adicionar Agente</h1>
+        <div class="contain-inputs-modal">
+          <label>Nome: </label>
+          <input
+            type="text"
+            id="nomeAgente"
+            placeholder="Nome do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>CPF: </label>
+          <input
+            type="text"
+            id="cpfAgente"
+            placeholder="CPF do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>RG: </label>
+          <input
+            type="text"
+            id="rgAgente"
+            placeholder="RG do Agente"
+            required
+          />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>Departamento: </label>
+          <select id="DepartamentoAgente" required>
+            <option value="" disabled selected>Selecione o Departamento</option>
+            <option value="PM">PM</option>
+            <option value="BM">BM</option>
+            <option value="Civil">Civil</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </div>
+        <div class="contain-buttons-modal">
+          <button onclick="openAgenteModal()">Fechar</button>
+          <button onclick="inputAgente()" id="btnAdicionarAgente" type="button">
+            Adicionar
+          </button>
+        </div>
+      </form>
     </div>
-  </div>
 
-  <div class="background-open-modalOcorrencia"></div>
-  <div class="contain-form-modal-ocorrencia">
-    <form id="form-ocorrencia">
-      <h1>Adicionar Ocorrência</h1>
-
-      <div class="contain-inputs-modal">
-        <label>Descrição: </label>
-        <input type="text" id="descricao" placeholder="Descrição" required />
-      </div>
-      <div class="contain-buttons-modal-selectLista">
-
-        <p id="agenteSelecionado">Agente:</p>
-        <button type="button" class="btn-agent-Ocorrencia" onclick="openListAgenteEmOcorrencia()"
-          style="cursor: pointer; ">
-          Selecione um Agente
-        </button>
-      </div>
-
-
-      <div class="contain-inputs-modal">
-        <label>Status: </label>
-        <select id="statusOcorrencia" required>
-          <option value="" disabled selected>Status da Ocorrência</option>
-          <option>Pendente</option>
-          <option>Em Andamento</option>
-          <option>Finalizado</option>
-        </select>
-      </div>
-
-      <div class="contain-buttons-modal">
-        <button onclick="openOcorrenciaModal()">Fechar</button>
-        <button id="btnAdicionarOcorrencia">Adicionar</button>
-      </div>
-    </form>
-  </div>
-
-
-
-  <!--teste modal agente-->
-
-  <div class="background-open-modalListaAgente"></div>
-  <div class="contain-form-modal-lista">
-    <div class="fundo"></div>
-    <h1>Lista de Agentes</h1>
-    <div id="form-lista-agente">
-      <div id="listaAgentes" class="contain-list-modal">
-        <table class="tabela-agentes">
+    <!-- Modal para selecionar agentes para ocorrência -->
+    <div class="background-open-modalListaAgenteSelect"></div>
+    <div class="contain-form-modal-lista-select">
+      <div class="modal-agente" id="modalAgente" style="display: none">
+        <h2>Selecione um Agente</h2>
+        <table id="tabelaAgentes">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Nome</th>
-              <th>CPF</th>
               <th>Departamento</th>
             </tr>
           </thead>
-          <tbody id="tabela-corpo">
-            <!-- Linhas adicionadas dinamicamente -->
+          <tbody>
+            <!-- Os dados dos agentes serão inseridos aqui dinamicamente -->
           </tbody>
         </table>
-      </div>
-      <div class="contain-buttons-modal">
-        <button onclick="openListaAgenteModal()">Fechar</button>
+        <button onclick="fecharModalAgente()">Fechar</button>
       </div>
     </div>
-  </div>
 
-  <header>
-    <h1>Listagem de Ocorrências e Agentes.</h1>
-  </header>
+    <div class="background-open-modalOcorrencia"></div>
+    <div class="contain-form-modal-ocorrencia">
+      <form id="form-ocorrencia">
+        <h1>Adicionar Ocorrência</h1>
 
-  <div class="button-inicial">
-    <button class="button" onclick="openAgenteModal()" style="cursor: pointer;">
-      Adicionar Agente
-    </button>
-    <button class="button" onclick="openOcorrenciaModal()" style="cursor: pointer;">
-      Adicionar Ocorrência
-    </button>
-    <button class="button" onclick="openListaAgenteModal()" style="cursor: pointer;">
-      Lista de Agentes
-    </button>
-  </div>
-  <main>
-    <section id="lista">
-      <h2>Ocorrências</h2>
-    </section>
-    <div class="ocorrencias-div"></div>
-  </main>
-  <footer>
-    <p>pji-ocorrências - Todos direitos reservados</p>
-  </footer>
+        <div class="contain-inputs-modal">
+          <label>Descrição: </label>
+          <input type="text" id="descricao" placeholder="Descrição" required />
+        </div>
+        <div class="contain-inputs-modal">
+          <label>Agente:</label>
+          <button
+            type="button"
+            class="btn-agent-Ocorrencia"
+            onclick="openListAgenteEmOcorrencia()"
+            style="cursor: pointer"
+          >
+            Selecione um Agente
+          </button>
+        </div>
 
-  <script src="lista.js"></script>
-</body>
+        <div class="contain-inputs-modal">
+          <label>Status: </label>
+          <select id="statusOcorrencia" required>
+            <option value="" disabled selected>Status da Ocorrência</option>
+            <option>Pendente</option>
+            <option>Em Andamento</option>
+            <option>Finalizado</option>
+          </select>
+        </div>
 
+        <div class="contain-buttons-modal">
+          <button onclick="openOcorrenciaModal()">Fechar</button>
+          <button id="btnAdicionarOcorrencia">Adicionar</button>
+        </div>
+      </form>
+    </div>
+
+    <!--teste modal agente-->
+
+    <div class="background-open-modalListaAgente"></div>
+    <div class="contain-form-modal-lista">
+      <div class="fundo"></div>
+      <h1>Lista de Agentes</h1>
+      <div id="form-lista-agente">
+        <div id="listaAgentes" class="contain-list-modal">
+          <table class="tabela-agentes">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Departamento</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-corpo">
+              <!-- Linhas adicionadas dinamicamente -->
+            </tbody>
+          </table>
+        </div>
+        <div class="contain-buttons-modal">
+          <button onclick="openListaAgenteModal()">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <header>
+      <h1>Listagem de Ocorrências e Agentes.</h1>
+    </header>
+
+    <div class="button-inicial">
+      <button
+        class="button"
+        onclick="openAgenteModal()"
+        style="cursor: pointer"
+      >
+        Adicionar Agente
+      </button>
+      <button
+        class="button"
+        onclick="openOcorrenciaModal()"
+        style="cursor: pointer"
+      >
+        Adicionar Ocorrência
+      </button>
+      <button
+        class="button"
+        onclick="openListaAgenteModal()"
+        style="cursor: pointer"
+      >
+        Lista de Agentes
+      </button>
+    </div>
+    <main>
+      <section id="lista">
+        <h2>Ocorrências</h2>
+      </section>
+      <div class="ocorrencias-div"></div>
+    </main>
+    <footer>
+      <p>pji-ocorrências - Todos direitos reservados</p>
+    </footer>
+
+    <script src="lista.js"></script>
+  </body>
 </html>

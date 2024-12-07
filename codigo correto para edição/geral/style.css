@@ -320,7 +320,7 @@ footer {
   max-width: 600px;
   display: none;
   /* Inicialmente escondido */
-  
+
 }
 
 /* Tabela */
@@ -352,26 +352,25 @@ footer {
 }
 
 
-/* Fundo escurecido do modal */
-#modalAgente {
+.modal-agente {
   display: none;
-  /* Oculta o modal por padrão */
   position: fixed;
-  top: 15%;
-  left: 25%;
-  width: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
   height: 600px;
-  background-color: rgba(0, 0, 0, 0.5);
-  /* Fundo semi-transparente */
+  padding: 20px 30px;
   z-index: 3;
-  /* Garante que o modal fique acima de outros elementos */
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
-  /* Adiciona rolagem caso o conteúdo ultrapasse a altura da tela */
   border-radius: 10px;
   background: white;
-  overflow-x: hidden;
+}
+
+.modal-agente button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  cursor: pointer;
 }
 
 /* Container do modal */
@@ -400,11 +399,15 @@ footer {
   text-align: left;
 }
 
+#tabelaAgentes tr:hover {
+  cursor: pointer;
+  background-color: rgba(43, 69, 217, 0.147);
+}
+
 #tabelaAgentes th {
   background-color: #f4f4f4;
 }
 
-/* Botão de fechar no modal */
 #modalAgente .close-btn {
   position: absolute;
   top: 10px;
