@@ -190,7 +190,6 @@ async function listAgenteEmOcorrencia() {
 
 function selecionarAgente(tr) {
   const buttonAddAgente = document.querySelector('.btn-agent-Ocorrencia')
-  console.log(buttonAddAgente)
   buttonAddAgente.setAttribute(
     'data-id',
     tr.querySelectorAll('td')[0].innerHTML

@@ -300,12 +300,9 @@ footer {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;
   display: none;
-  /* Inicialmente escondido */
 }
 
-/* Contêiner do modal */
 .contain-form-modal-lista {
-
   position: fixed;
   top: 50%;
   left: 50%;
@@ -382,9 +379,14 @@ footer {
   border: 1px solid grey;
   cursor: pointer;
   margin-left: auto;
+  background-color: white;
+  transition: 0.2s;
 }
 
-/* Container do modal */
+.modal-agente button:hover {
+  background-color: rgba(255, 0, 0, 0.593);
+}
+
 #modalAgente .modal-content {
   background-color: #fff;
   padding: 20px;
@@ -397,7 +399,6 @@ footer {
   overflow-x: hidden;
 }
 
-/* Estilo da tabela */
 #tabelaAgentes {
   width: 100%;
   border-collapse: collapse;
