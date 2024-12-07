@@ -31,7 +31,19 @@ function createCardOcorrencia(dados) {
             )}"></div>
           </div>
         </div>
-        <p>Status: ${statusOcorrencia}</p>
+        <p>Status: 
+          <select onChange="alterarStatusOcorrencia(this)">
+            <option value="Pendente" ${
+              statusOcorrencia == 'Pendente' ? 'select' : ''
+            }>Pendente</option>
+            <option value="Em Andamento" ${
+              statusOcorrencia == 'Em Andamento' ? 'select' : ''
+            }>Em Andamento</option>
+            <option value="Finalizado" ${
+              statusOcorrencia == 'Finalizado' ? 'select' : ''
+            }>Finalizado</option>
+          </select>
+        </p>
         <p>Observações: ${observacoes}</p>
         <p>Data de Criação: ${dataCriacao}</p>
         <p>Ultima Atualização: ${dataAtualizacao}</p>
@@ -42,6 +54,17 @@ function createCardOcorrencia(dados) {
       </div>
     `
   })
+}
+
+function alterarStatusOcorrencia(select) {
+  const statusOcorrencia = select.value
+  const idOcorrencia = select.parentElement.parentElement.getAttribute('da')
+  console.log(idOcorrencia)
+  console.log(statusOcorrencia)
+
+  //Criar método PUT para alterar status da ocorrencia via requisição HTTP
+  //Acima estão as variaveis necessarias para a implementação do método PUT para alterar o status de uma ocorrencia...
+  //Caso julgue necessario, altere o funcionamento do codigo
 }
 
 document
