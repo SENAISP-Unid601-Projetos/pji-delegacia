@@ -156,16 +156,13 @@ function openListAgenteEmOcorrencia() {
   )
   const selectAgente = document.getElementById('modalAgente')
 
-  // Garante que nenhum outro modal esteja visível
   selectAgente.style.display = 'none' // Fecha o modal de agentes se estiver aberto
   selectAgenteMod.style.display = 'none' // Fecha qualquer outra lista
   backGroudModal.style.display = 'block' // Fecha o fundo escuro
 
-  // Agora abre o modal de seleção de agentes
   selectAgenteMod.style.display = 'block'
   backGroudModal.style.display = 'none'
 
-  // Chama a função para listar os agentes
   listAgenteEmOcorrencia()
 }
 
@@ -188,7 +185,7 @@ async function listAgenteEmOcorrencia() {
     `
   })
 
-  modal.style.display = 'block'
+  modal.style.display = 'flex'
 }
 
 function selecionarAgente(tr) {
@@ -206,7 +203,6 @@ function selecionarAgente(tr) {
   fecharModalAgente()
 }
 
-// Fechar o modal de seleção de agentes
 function fecharModalAgente() {
   const modal = document.getElementById('modalAgente')
   modal.style.display = 'none'
@@ -251,7 +247,6 @@ async function listarAgentes() {
   agentes.forEach((agente) => {
     const { pessoa, departamento } = agente
 
-    // Criação das linhas da tabela
     const linhaHTML = `
       <tr>
         <td>${pessoa.nome}</td>
@@ -259,8 +254,6 @@ async function listarAgentes() {
         <td>${departamento}</td>
       </tr>
     `
-    //adicionar mais um <td>button para deletear os agents</td>
-
-    tabelaCorpo.innerHTML += linhaHTML // Adiciona a linha à tabela
+    tabelaCorpo.innerHTML += linhaHTML
   })
 }

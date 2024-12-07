@@ -59,23 +59,22 @@
       </form>
     </div>
 
-    <!-- Modal para selecionar agentes para ocorrência -->
     <div class="background-open-modalListaAgenteSelect"></div>
     <div class="contain-form-modal-lista-select">
       <div class="modal-agente" id="modalAgente" style="display: none">
-        <h2>Selecione um Agente</h2>
-        <table id="tabelaAgentes">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Departamento</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Os dados dos agentes serão inseridos aqui dinamicamente -->
-          </tbody>
-        </table>
+        <div>
+          <h2>Selecione um Agente</h2>
+          <table id="tabelaAgentes">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Departamento</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
         <button onclick="fecharModalAgente()">Fechar</button>
       </div>
     </div>
@@ -118,8 +117,6 @@
       </form>
     </div>
 
-    <!--teste modal agente-->
-
     <div class="background-open-modalListaAgente"></div>
     <div class="contain-form-modal-lista">
       <div class="fundo"></div>
@@ -134,9 +131,7 @@
                 <th>Departamento</th>
               </tr>
             </thead>
-            <tbody id="tabela-corpo">
-              <!-- Linhas adicionadas dinamicamente -->
-            </tbody>
+            <tbody id="tabela-corpo"></tbody>
           </table>
         </div>
         <div class="contain-buttons-modal">
