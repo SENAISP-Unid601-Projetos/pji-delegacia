@@ -279,3 +279,30 @@ async function listarAgentes() {
     tabelaCorpo.innerHTML += linhaHTML
   })
 }
+
+function deletarOcorrencia(id) {
+  const confirmar = confirm("Tem certeza de que deseja deletar esta ocorrência?");
+  if (confirmar) {
+    fetch(`http://127.0.0.1:8080/ocorrencia/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao deletar a ocorrência.");
+        }
+        return response.json();
+      })
+      .then(() => {
+        const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
+        ocorrenciaDiv.remove();
+        alert("Ocorrência deletada com sucesso!");
+      })
+      .catch((error) => {
+        console.error("Erro ao deletar:", error);
+        alert("Erro ao deletar a ocorrência. Tente novamente.");
+      });
+  }
+}
