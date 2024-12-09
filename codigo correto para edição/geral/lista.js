@@ -185,6 +185,7 @@ function openListAgenteEmOcorrencia() {
 
   selectAgenteMod.style.display = 'block'
   backGroudModal.style.display = 'none'
+  
 
   listAgenteEmOcorrencia()
 }
@@ -192,6 +193,7 @@ function openListAgenteEmOcorrencia() {
 async function listAgenteEmOcorrencia() {
   const modal = document.getElementById('modalAgente')
   let tbody = document.querySelector('#tabelaAgentes tbody')
+  
 
   tbody.innerHTML = ''
 
@@ -206,9 +208,12 @@ async function listAgenteEmOcorrencia() {
         <td>${agente.departamento}</td>
       </tr>
     `
+    
   })
 
   modal.style.display = 'flex'
+  
+  
 }
 
 function selecionarAgente(tr) {

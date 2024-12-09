@@ -292,6 +292,7 @@ footer {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;
   display: none;
+  
   /* Inicialmente escondido */
 }
 
@@ -305,6 +306,7 @@ footer {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;
   display: none;
+  
 }
 
 .contain-form-modal-lista {
@@ -317,10 +319,12 @@ footer {
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 3;
+  max-height: 600px;
   width: 80%;
   /* Ajuste conforme necessário */
   max-width: 600px;
   display: none;
+  
   /* Inicialmente escondido */
 
 }
@@ -330,6 +334,7 @@ footer {
 
   border-collapse: collapse;
   margin-top: 10px;
+ 
 
 }
 
