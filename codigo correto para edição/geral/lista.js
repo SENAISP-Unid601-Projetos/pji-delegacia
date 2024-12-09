@@ -303,8 +303,10 @@ async function deletarOcorrencia(id) {
     }
   }
 }
+
 const cpfInput = document.querySelector('#cpfAgente');
 const rgInput = document.querySelector('#rgAgente');
+
 
 cpfInput.addEventListener('input', () => {
   let value = cpfInput.value.replace(/\D/g, ''); 
@@ -318,6 +320,7 @@ cpfInput.addEventListener('input', () => {
   }
 
   cpfInput.value = value.slice(0, 14); 
+});
 
 rgInput.addEventListener('input', () => {
   let value = rgInput.value.replace(/\D/g, ''); 
