@@ -62,6 +62,14 @@ function alterarStatusOcorrencia(select) {
   console.log(idOcorrencia)
   console.log(statusOcorrencia)
 
+ /* try{ mexer aqui
+
+    const response = await axios.put('http://localhost:8080/ocorrencia/adicionar',{
+      statusOcorrencia: adicionarocorrencia ,
+    });
+  }
+catch   */ 
+
   //Criar método PUT para alterar status da ocorrencia via requisição HTTP
   //Acima estão as variaveis necessarias para a implementação do método PUT para alterar o status de uma ocorrencia...
   //Caso julgue necessario, altere o funcionamento do codigo
@@ -279,7 +287,7 @@ async function listarAgentes() {
     tabelaCorpo.innerHTML += linhaHTML
   })
 }
-
+//delete
 async function deletarOcorrencia(id) {
   const confirmar = confirm("Tem certeza de que deseja deletar esta ocorrência?");
   if (confirmar) {
@@ -303,22 +311,16 @@ async function deletarOcorrencia(id) {
     }
   }
 }
- /*Seria a  mascara mais tenho que testa 
-  function mascaraCPF(input) {
- let valor = input.value;
-  valor = valor.replace(/\D/g, "");
-valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
- valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
- valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+//mascara 
+const input = document.querySelector('input')
 
-  input.value = valor;
-}
-function mascaraRG(input) {
-  let valor = input.value;
-valor = valor.replace(/\D/g, "");
-  valor = valor.replace(/(\d{2})(\d)/, "$1.$2");
- valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
- valor = valor.replace(/(\d{3})(\d{1})$/, "$1-$2");
-  input.value = valor;
-}
-*/ 
+input.addEventListener('keypress', () => {
+  let inputlenght = input.value.length  
+
+  if(inputlenght === 3 || inputlenght === 7) {
+    input.value += '.'
+  }else if (inputlenght === 11) {
+    input.value += '-'
+  }
+})
+
