@@ -1,6 +1,6 @@
 getAllOcorrencias()
 async function getAllOcorrencias() {
-  const response = await axios.get('http://10.110.12.40:8080/ocorrencia/listar')
+  const response = await axios.get('http://localhost:8080/ocorrencia/listar')
 
   const dados = response.data
 
@@ -62,14 +62,6 @@ function alterarStatusOcorrencia(select) {
   console.log(idOcorrencia)
   console.log(statusOcorrencia)
 
- /* try{ mexer aqui
-
-    const response = await axios.put('http://localhost:8080/ocorrencia/adicionar',{
-      statusOcorrencia: adicionarocorrencia ,
-    });
-  }
-catch   */ 
-
   //Criar método PUT para alterar status da ocorrencia via requisição HTTP
   //Acima estão as variaveis necessarias para a implementação do método PUT para alterar o status de uma ocorrencia...
   //Caso julgue necessario, altere o funcionamento do codigo
@@ -91,7 +83,7 @@ document
       return
     }
 
-    await axios.post('http://10.110.12.40:8080/ocorrencia/adicionar', {
+    await axios.post('http://localhost:8080/ocorrencia/adicionar', {
       observacoes: descricao,
       statusOcorrencia: statusOcorrencia,
       agente: { id: agenteId },
@@ -203,7 +195,7 @@ async function listAgenteEmOcorrencia() {
 
   tbody.innerHTML = ''
 
-  const response = await axios.get('http://10.110.12.40:8080/agente/listar')
+  const response = await axios.get('http://localhost:8080/agente/listar')
   const agentes = response.data
 
   agentes.forEach((agente) => {
@@ -292,10 +284,10 @@ async function deletarOcorrencia(id) {
   const confirmar = confirm("Tem certeza de que deseja deletar esta ocorrência?");
   if (confirmar) {
     try {
-      const resposta = await axios.get(`http://localhost:8080/ocorrencia/listar`, {
+      const resposta = await axios.delete(`http://localhost:8080/ocorrencia/delete`, {
         headers: {
           'Content-Type': 'application/json',
-        },
+        }
       });
 
       if (resposta.status !== 200) {
@@ -311,16 +303,32 @@ async function deletarOcorrencia(id) {
     }
   }
 }
-//mascara 
-const input = document.querySelector('input')
+const cpfInput = document.querySelector('#cpfAgente');
+const rgInput = document.querySelector('#rgAgente');
 
-input.addEventListener('keypress', () => {
-  let inputlenght = input.value.length  
+cpfInput.addEventListener('input', () => {
+  let value = cpfInput.value.replace(/\D/g, ''); 
 
-  if(inputlenght === 3 || inputlenght === 7) {
-    input.value += '.'
-  }else if (inputlenght === 11) {
-    input.value += '-'
+  if (value.length > 3 && value.length <= 6) {
+    value = value.replace(/^(\d{3})(\d+)/, '$1.$2');
+  } else if (value.length > 6 && value.length <= 9) {
+    value = value.replace(/^(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
+  } else if (value.length > 9) {
+    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
   }
-})
 
+  cpfInput.value = value.slice(0, 14); 
+
+rgInput.addEventListener('input', () => {
+  let value = rgInput.value.replace(/\D/g, ''); 
+
+  if (value.length > 2 && value.length <= 5) {
+    value = value.replace(/^(\d{2})(\d+)/, '$1.$2');
+  } else if (value.length > 5 && value.length <= 8) {
+    value = value.replace(/^(\d{2})(\d{3})(\d+)/, '$1.$2.$3');
+  } else if (value.length > 8) {
+    value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
+  }
+
+  rgInput.value = value.slice(0, 12); 
+});
