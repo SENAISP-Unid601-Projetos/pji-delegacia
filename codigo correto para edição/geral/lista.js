@@ -49,7 +49,7 @@ function createCardOcorrencia(dados) {
         <p>Ultima Atualização: ${dataAtualizacao}</p>
         <p>Agente: ${agente.pessoa.nome}</p>
         <button class="btn-ocorrencia">Editar</button>
-        <button class="btn-ocorrencia-delete">Deletar</button>
+        <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})">Deletar</button>
         <button class="btn-ocorrencia-status">Atualizar Status</button>
       </div>
     `
@@ -284,25 +284,22 @@ async function deletarOcorrencia(id) {
   const confirmar = confirm("Tem certeza de que deseja deletar esta ocorrência?");
   if (confirmar) {
     try {
-      const resposta = await axios.delete(`http://localhost:8080/ocorrencia/delete`, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
-      if (resposta.status !== 200) {
+      const resposta = await axios.delete(`http://localhost:8080/ocorrencia/delete/${id}`);
+      
+      if (resposta.status === 200) {
+        const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
+        ocorrenciaDiv.remove();
+        alert("Ocorrência deletada com sucesso!");
+      } else {
         throw new Error("Erro ao deletar a ocorrência.");
       }
-
-      const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
-      ocorrenciaDiv.remove();
-      alert("Ocorrência deletada com sucesso!");
     } catch (error) {
       console.error("Erro ao deletar:", error);
       alert("Erro ao deletar a ocorrência. Tente novamente.");
     }
   }
 }
+
 
 const cpfInput = document.querySelector('#cpfAgente');
 const rgInput = document.querySelector('#rgAgente');
