@@ -280,29 +280,26 @@ async function listarAgentes() {
   })
 }
 
-function deletarOcorrencia(id) {
+async function deletarOcorrencia(id) {
   const confirmar = confirm("Tem certeza de que deseja deletar esta ocorrência?");
   if (confirmar) {
-    fetch(`http://127.0.0.1:8080/ocorrencia/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erro ao deletar a ocorrência.");
-        }
-        return response.json();
-      })
-      .then(() => {
-        const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
-        ocorrenciaDiv.remove();
-        alert("Ocorrência deletada com sucesso!");
-      })
-      .catch((error) => {
-        console.error("Erro ao deletar:", error);
-        alert("Erro ao deletar a ocorrência. Tente novamente.");
+    try {
+      const resposta = await axios.get(`http://localhost:8080/ocorrencia/listar`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+
+      if (resposta.status !== 200) {
+        throw new Error("Erro ao deletar a ocorrência.");
+      }
+
+      const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
+      ocorrenciaDiv.remove();
+      alert("Ocorrência deletada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao deletar:", error);
+      alert("Erro ao deletar a ocorrência. Tente novamente.");
+    }
   }
 }
