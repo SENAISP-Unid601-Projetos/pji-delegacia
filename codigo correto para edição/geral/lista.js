@@ -303,3 +303,22 @@ async function deletarOcorrencia(id) {
     }
   }
 }
+ /*Seria a  mascara mais tenho que testa 
+  function mascaraCPF(input) {
+ let valor = input.value;
+  valor = valor.replace(/\D/g, "");
+valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+ valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+ valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+  input.value = valor;
+}
+function mascaraRG(input) {
+  let valor = input.value;
+valor = valor.replace(/\D/g, "");
+  valor = valor.replace(/(\d{2})(\d)/, "$1.$2");
+ valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+ valor = valor.replace(/(\d{3})(\d{1})$/, "$1-$2");
+  input.value = valor;
+}
+*/ 
