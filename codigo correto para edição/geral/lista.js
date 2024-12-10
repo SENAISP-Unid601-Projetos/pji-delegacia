@@ -49,22 +49,54 @@ function createCardOcorrencia(dados) {
         <p>Ultima Atualização: ${dataAtualizacao}</p>
         <p>Agente: ${agente.pessoa.nome}</p>
         <button class="btn-ocorrencia">Editar</button>
-        <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})">Deletar</button>
+         <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})">Deletar</button>
         <button class="btn-ocorrencia-status">Atualizar Status</button>
       </div>
     `;
   });
 }
 
-function alterarStatusOcorrencia(select) {
-  const statusOcorrencia = select.value
-  const idOcorrencia = select.parentElement.parentElement.getAttribute('da')
-  console.log(idOcorrencia)
-  console.log(statusOcorrencia)
+async function deletarOcorrencia(id) {
+  const confirmar = confirm("Tem certeza de que deseja deletar esta ocorrência?");
+  if (confirmar) {
+    const resposta = await axios.delete(`http://localhost:8080/ocorrencia/delete/${id}`);
+    if (resposta.status === 200) {
+      const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
+      ocorrenciaDiv.remove();
+      alert("Ocorrência deletada com sucesso!");
+    } else {
+      alert("Erro ao deletar a ocorrência. Tente novamente.");
+    }
+  }
+}
 
-  //Criar método PUT para alterar status da ocorrencia via requisição HTTP
-  //Acima estão as variaveis necessarias para a implementação do método PUT para alterar o status de uma ocorrencia...
-  //Caso julgue necessario, altere o funcionamento do codigo
+async function alterarStatusOcorrencia(select) {
+  const statusOcorrencia = select.value;
+  const idOcorrencia =
+    select.parentElement.parentElement.getAttribute("data-id");
+
+  console.log(idOcorrencia);
+  console.log(statusOcorrencia);
+
+  await axios.put(`http://localhost:8080/ocorrencia/updateStatus`, {
+    id: idOcorrencia,
+    statusOcorrencia: statusOcorrencia,
+  });
+
+  alert(
+    `Status da ocorrência ${idOcorrencia} alterado para: ${statusOcorrencia}`
+  );
+
+  const cardOcorrencia = select.closest(".ocorrencia");
+  const bolinhaStatus = cardOcorrencia.querySelector(".bolinha-status");
+
+  bolinhaStatus.classList.remove(
+    "background-orange-indicator",
+    "background-green-indicator",
+    "background-yellow-indicator"
+  );
+
+  bolinhaStatus.classList.add(selectColorStatusOcorrencia(statusOcorrencia));
 }
 
 document
@@ -94,15 +126,15 @@ document
     openOcorrenciaModal(); // Fecha o modal de ocorrências
   });
 
-function selectColorStatusOcorrencia(statusOcorrencia) {
-  if (statusOcorrencia == "Pendente") {
-    return "background-orange-indicator";
-  } else if (statusOcorrencia == "Finalizado") {
-    return "background-green-indicator";
-  } else if (statusOcorrencia == "Em Andamento") {
-    return "background-yellow-indicator";
+  function selectColorStatusOcorrencia(statusOcorrencia) {
+    if (statusOcorrencia == "Pendente") {
+      return "background-orange-indicator";
+    } else if (statusOcorrencia == "Finalizado") {
+      return "background-green-indicator";
+    } else if (statusOcorrencia == "Em Andamento") {
+      return "background-yellow-indicator";
+    }
   }
-}
 
 function inputAgente() {
   const nomeAgente = document.querySelector("#nomeAgente").value;
