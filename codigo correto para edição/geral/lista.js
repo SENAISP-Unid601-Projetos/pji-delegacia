@@ -48,9 +48,9 @@ function createCardOcorrencia(dados) {
         <p>Data de Criação: ${dataCriacao}</p>
         <p>Ultima Atualização: ${dataAtualizacao}</p>
         <p>Agente: ${agente.pessoa.nome}</p>
-        <button class="btn-ocorrencia">Editar</button>
-         <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})">Deletar</button>
-        <button class="btn-ocorrencia-status">Atualizar Status</button>
+        
+        <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})">Deletar</button>
+        
       </div>
     `;
   });
@@ -310,6 +310,7 @@ async function listarAgentes() {
         <td>${pessoa.nome}</td>
         <td>${pessoa.cpf}</td>
         <td>${departamento}</td>
+        
       </tr>
     `;
     tabelaCorpo.innerHTML += linhaHTML;
