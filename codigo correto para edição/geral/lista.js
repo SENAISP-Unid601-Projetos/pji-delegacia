@@ -24,9 +24,9 @@ function createCardOcorrencia(dados) {
     containCards.innerHTML += `
       <div class="ocorrencia" data-id="${id}">
         <div class="contain-header-ocorrencia">
-          <h3>Ocorrência  ${id}</h3>
+          <h3>Ocorrência${id}</h3>
           <div class="contain-indicator-status-ocorrencia">
-            <div class="indicador-status-ocorrencia ${selectColorStatusOcorrencia(
+            <div class="bolinha-status ${selectColorStatusOcorrencia(
               statusOcorrencia
             )}"></div>
           </div>
@@ -57,10 +57,10 @@ function createCardOcorrencia(dados) {
 }
 
 function alterarStatusOcorrencia(select) {
-  const statusOcorrencia = select.value;
-  const idOcorrencia = select.parentElement.parentElement.getAttribute("da");
-  console.log(idOcorrencia);
-  console.log(statusOcorrencia);
+  const statusOcorrencia = select.value
+  const idOcorrencia = select.parentElement.parentElement.getAttribute('da')
+  console.log(idOcorrencia)
+  console.log(statusOcorrencia)
 
   //Criar método PUT para alterar status da ocorrencia via requisição HTTP
   //Acima estão as variaveis necessarias para a implementação do método PUT para alterar o status de uma ocorrencia...
@@ -97,7 +97,7 @@ document
 function selectColorStatusOcorrencia(statusOcorrencia) {
   if (statusOcorrencia == "Pendente") {
     return "background-orange-indicator";
-  } else if (statusOcorrencia == "Concluído") {
+  } else if (statusOcorrencia == "Finalizado") {
     return "background-green-indicator";
   } else if (statusOcorrencia == "Em Andamento") {
     return "background-yellow-indicator";
@@ -310,33 +310,35 @@ async function deletarOcorrencia(id) {
   }
 }
 
-const cpfInput = document.querySelector("#cpfAgente");
-const rgInput = document.querySelector("#rgAgente");
 
-cpfInput.addEventListener("input", () => {
-  let value = cpfInput.value.replace(/\D/g, "");
+const cpfInput = document.querySelector('#cpfAgente');
+const rgInput = document.querySelector('#rgAgente');
+
+
+cpfInput.addEventListener('input', () => {
+  let value = cpfInput.value.replace(/\D/g, ''); 
 
   if (value.length > 3 && value.length <= 6) {
-    value = value.replace(/^(\d{3})(\d+)/, "$1.$2");
+    value = value.replace(/^(\d{3})(\d+)/, '$1.$2');
   } else if (value.length > 6 && value.length <= 9) {
-    value = value.replace(/^(\d{3})(\d{3})(\d+)/, "$1.$2.$3");
+    value = value.replace(/^(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
   } else if (value.length > 9) {
-    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d+)/, "$1.$2.$3-$4");
+    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
   }
 
-  cpfInput.value = value.slice(0, 14);
+  cpfInput.value = value.slice(0, 14); 
 });
 
-rgInput.addEventListener("input", () => {
-  let value = rgInput.value.replace(/\D/g, "");
+rgInput.addEventListener('input', () => {
+  let value = rgInput.value.replace(/\D/g, ''); 
 
   if (value.length > 2 && value.length <= 5) {
-    value = value.replace(/^(\d{2})(\d+)/, "$1.$2");
+    value = value.replace(/^(\d{2})(\d+)/, '$1.$2');
   } else if (value.length > 5 && value.length <= 8) {
-    value = value.replace(/^(\d{2})(\d{3})(\d+)/, "$1.$2.$3");
+    value = value.replace(/^(\d{2})(\d{3})(\d+)/, '$1.$2.$3');
   } else if (value.length > 8) {
-    value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d+)/, "$1.$2.$3-$4");
+    value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
   }
 
-  rgInput.value = value.slice(0, 12);
+  rgInput.value = value.slice(0, 12); 
 });
