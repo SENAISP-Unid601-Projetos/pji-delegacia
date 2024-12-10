@@ -147,6 +147,8 @@ function inputAgente() {
   adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente);
 }
 
+
+
 async function adicionarAgente(
   nomeAgente,
   cpfAgente,
@@ -236,7 +238,7 @@ async function listAgenteEmOcorrencia() {
 
   agentes.forEach((agente) => {
     tbody.innerHTML += `
-      <tr onClick="selecionarAgente(this)">
+      <tr onClick="selecionarAgente(this)" >
         <td>${agente.id}</td>
         <td>${agente.pessoa.nome}</td>
         <td>${agente.departamento}</td>
@@ -303,7 +305,7 @@ async function listarAgentes() {
   tabelaCorpo.innerHTML = "";
 
   agentes.forEach((agente) => {
-    const { pessoa, departamento } = agente;
+    const { id, pessoa, departamento} = agente;
 
     const linhaHTML = `
       <tr>
@@ -311,11 +313,30 @@ async function listarAgentes() {
         <td>${pessoa.cpf}</td>
         <td>${departamento}</td>
         
+        <td>
+          <div class="div-delete">
+            <button onclick="deletarAgente(${id})" class="btn-deletar"> x </button>
+          </div>
+        </td>
       </tr>
     `;
     tabelaCorpo.innerHTML += linhaHTML;
   });
 }
+
+async function deletarAgente(id) {
+  const confirmar = confirm("Tem certeza de que deseja deletar este agente?");
+  if (confirmar) {
+    const response = await axios.delete(`http://localhost:8080/agente/delete/${id}`);
+    if (response.status === 200) {
+      alert("Agente deletado com sucesso!");
+      listarAgentes(); // Atualiza a lista após a exclusão
+    } else {
+      alert("Erro ao deletar o agente. Tente novamente.");
+    }
+  }
+}
+
 //delete
 async function deletarOcorrencia(id) {
   const confirmar = confirm(

@@ -359,6 +359,7 @@ footer {
 }
 
 
+
 .modal-agente {
   display: none;
   position: fixed;
@@ -466,4 +467,18 @@ footer {
 
 .background-yellow-indicator {
   background-color: yellow;
+}
+
+.btn-deletar{
+  border-radius: 5px;
+  padding: 2px;
+  background-color: rgba(53, 96, 124, 0.531);
+ 
+
+
+}
+
+.div-delete {
+  padding-left: 2px;
+  text-align: center;
 }

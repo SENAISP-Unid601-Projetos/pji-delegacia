@@ -9,6 +9,8 @@
   </head>
 
   <body>
+
+    
     <div class="background-open-modalAgente"></div>
     <div class="contain-form-modal">
       <form id="form-agente">
@@ -60,6 +62,8 @@
         </div>
       </form>
     </div>
+
+    
 
     <div class="background-open-modalListaAgenteSelect"></div>
     <div class="contain-form-modal-lista-select">
@@ -131,6 +135,7 @@
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Departamento</th>
+                <th>Deletar</th>
               </tr>
             </thead>
             <tbody id="tabela-corpo"></tbody>
@@ -147,6 +152,13 @@
     </header>
 
     <div class="button-inicial">
+      <button
+        class="button"
+        onclick="openEncarregadoModal()"
+        style="cursor: pointer"
+      >
+        Adicionar Encarregado
+      </button>
       <button
         class="button"
         onclick="openAgenteModal()"
