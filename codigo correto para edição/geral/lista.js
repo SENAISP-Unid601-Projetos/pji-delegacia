@@ -1,15 +1,15 @@
-getAllOcorrencias()
+getAllOcorrencias();
 async function getAllOcorrencias() {
-  const response = await axios.get('http://10.110.12.40:8080/ocorrencia/listar')
+  const response = await axios.get("http://localhost:8080/ocorrencia/listar");
 
-  const dados = response.data
+  const dados = response.data;
 
-  createCardOcorrencia(dados)
+  createCardOcorrencia(dados);
 }
 
 function createCardOcorrencia(dados) {
-  const containCards = document.querySelector('.ocorrencias-div')
-  containCards.innerHTML = ''
+  const containCards = document.querySelector(".ocorrencias-div");
+  containCards.innerHTML = "";
 
   dados.forEach((ocorrencia) => {
     const {
@@ -19,14 +19,14 @@ function createCardOcorrencia(dados) {
       dataCriacao,
       dataAtualizacao,
       agente,
-    } = ocorrencia
+    } = ocorrencia;
 
     containCards.innerHTML += `
       <div class="ocorrencia" data-id="${id}">
         <div class="contain-header-ocorrencia">
-          <h3>Ocorrência  ${id}</h3>
+          <h3>Ocorrência${id}</h3>
           <div class="contain-indicator-status-ocorrencia">
-            <div class="indicador-status-ocorrencia ${selectColorStatusOcorrencia(
+            <div class="bolinha-status ${selectColorStatusOcorrencia(
               statusOcorrencia
             )}"></div>
           </div>
@@ -34,13 +34,13 @@ function createCardOcorrencia(dados) {
         <p>Status: 
           <select onChange="alterarStatusOcorrencia(this)">
             <option value="Pendente" ${
-              statusOcorrencia == 'Pendente' ? 'select' : ''
+              statusOcorrencia == "Pendente" ? "select" : ""
             }>Pendente</option>
             <option value="Em Andamento" ${
-              statusOcorrencia == 'Em Andamento' ? 'select' : ''
+              statusOcorrencia == "Em Andamento" ? "select" : ""
             }>Em Andamento</option>
             <option value="Finalizado" ${
-              statusOcorrencia == 'Finalizado' ? 'select' : ''
+              statusOcorrencia == "Finalizado" ? "select" : ""
             }>Finalizado</option>
           </select>
         </p>
@@ -52,73 +52,85 @@ function createCardOcorrencia(dados) {
         <button class="btn-ocorrencia-delete">Deletar</button>
         <button class="btn-ocorrencia-status">Atualizar Status</button>
       </div>
-    `
-  })
+    `;
+  });
 }
 
-function alterarStatusOcorrencia(select) {
-  const statusOcorrencia = select.value
-  const idOcorrencia = select.parentElement.parentElement.getAttribute('da')
-  console.log(idOcorrencia)
-  console.log(statusOcorrencia)
+async function alterarStatusOcorrencia(select) {
+  const statusOcorrencia = select.value;
+  const idOcorrencia =
+    select.parentElement.parentElement.getAttribute("data-id");
 
- /* try{ mexer aqui
+  console.log(idOcorrencia);
+  console.log(statusOcorrencia);
 
-    const response = await axios.put('http://localhost:8080/ocorrencia/adicionar',{
-      statusOcorrencia: adicionarocorrencia ,
-    });
-  }
-catch   */ 
+  await axios.put(`http://localhost:8080/ocorrencia/updateStatus`, {
+    id: idOcorrencia,
+    statusOcorrencia: statusOcorrencia,
+  });
 
-  //Criar método PUT para alterar status da ocorrencia via requisição HTTP
-  //Acima estão as variaveis necessarias para a implementação do método PUT para alterar o status de uma ocorrencia...
-  //Caso julgue necessario, altere o funcionamento do codigo
+  alert(
+    `Status da ocorrência ${idOcorrencia} alterado para: ${statusOcorrencia}`
+  );
+
+  const cardOcorrencia = select.closest(".ocorrencia");
+  const bolinhaStatus = cardOcorrencia.querySelector(".bolinha-status");
+
+  bolinhaStatus.classList.remove(
+    "background-orange-indicator",
+    "background-green-indicator",
+    "background-yellow-indicator"
+  );
+
+  bolinhaStatus.classList.add(selectColorStatusOcorrencia(statusOcorrencia));
 }
 
 document
-  .getElementById('form-ocorrencia')
-  .addEventListener('submit', async function (event) {
-    event.preventDefault() // Evita o recarregamento da página
+  .getElementById("form-ocorrencia")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Evita o recarregamento da página
 
-    const descricao = document.querySelector('#descricao').value
-    const statusOcorrencia = document.querySelector('#statusOcorrencia').value
+    const descricao = document.querySelector("#descricao").value;
+    const statusOcorrencia = document.querySelector("#statusOcorrencia").value;
     const agenteId = document
-      .querySelector('.btn-agent-Ocorrencia')
-      .getAttribute('data-id')
+      .querySelector(".btn-agent-Ocorrencia")
+      .getAttribute("data-id");
 
     if (!agenteId) {
-      alert('Por favor, selecione um agente.')
-      return
+      alert("Por favor, selecione um agente.");
+      return;
     }
 
-    await axios.post('http://10.110.12.40:8080/ocorrencia/adicionar', {
+    await axios.post("http://localhost:8080/ocorrencia/adicionar", {
       observacoes: descricao,
       statusOcorrencia: statusOcorrencia,
       agente: { id: agenteId },
-    })
+    });
 
-    alert('Ocorrência adicionada com sucesso!')
-    getAllOcorrencias() // Atualiza a lista de ocorrências
-    openOcorrenciaModal() // Fecha o modal de ocorrências
-  })
+    alert("Ocorrência adicionada com sucesso!");
+    getAllOcorrencias(); // Atualiza a lista de ocorrências
+    openOcorrenciaModal(); // Fecha o modal de ocorrências
+  });
 
 function selectColorStatusOcorrencia(statusOcorrencia) {
-  if (statusOcorrencia == 'Pendente') {
-    return 'background-orange-indicator'
-  } else if (statusOcorrencia == 'Concluído') {
-    return 'background-green-indicator'
-  } else if (statusOcorrencia == 'Em Andamento') {
-    return 'background-yellow-indicator'
+  if (statusOcorrencia == "Pendente") {
+    return "background-orange-indicator";
+  } else if (statusOcorrencia == "Finalizado") {
+    return "background-green-indicator";
+  } else if (statusOcorrencia == "Em Andamento") {
+    return "background-yellow-indicator";
   }
 }
 
 function inputAgente() {
-  const nomeAgente = document.querySelector('#nomeAgente').value
-  const cpfAgente = document.querySelector('#cpfAgente').value
-  const rgAgente = document.querySelector('#rgAgente').value
-  const departamentoAgente = document.querySelector('#DepartamentoAgente').value
+  const nomeAgente = document.querySelector("#nomeAgente").value;
+  const cpfAgente = document.querySelector("#cpfAgente").value;
+  const rgAgente = document.querySelector("#rgAgente").value;
+  const departamentoAgente = document.querySelector(
+    "#DepartamentoAgente"
+  ).value;
 
-  adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente)
+  adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente);
 }
 
 async function adicionarAgente(
@@ -127,84 +139,84 @@ async function adicionarAgente(
   rgAgente,
   departamentoAgente
 ) {
-  const resposta = await axios.post('http://localhost:8080/pessoa/adicionar', {
+  const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
     nome: nomeAgente,
     cpf: cpfAgente,
     rg: rgAgente,
-  })
+  });
 
-  let idPessoa = resposta.data.id
+  let idPessoa = resposta.data.id;
 
-  const resposta1 = await axios.post('http://localhost:8080/agente/adicionar', {
+  const resposta1 = await axios.post("http://localhost:8080/agente/adicionar", {
     pessoa: {
       id: idPessoa,
     },
     departamento: departamentoAgente,
-  })
+  });
 }
 
 function openAgenteModal() {
-  let agenteMod = document.querySelector('.contain-form-modal')
-  let backGroudModal = document.querySelector('.background-open-modalAgente')
+  let agenteMod = document.querySelector(".contain-form-modal");
+  let backGroudModal = document.querySelector(".background-open-modalAgente");
 
-  if (agenteMod.style.display == 'none' || agenteMod.style.display == '') {
-    agenteMod.style.display = 'flex'
-    backGroudModal.style.display = 'block'
-    document.body.style.overflowY = 'hidden'
+  if (agenteMod.style.display == "none" || agenteMod.style.display == "") {
+    agenteMod.style.display = "flex";
+    backGroudModal.style.display = "block";
+    document.body.style.overflowY = "hidden";
   } else {
-    backGroudModal.style.display = 'none'
-    agenteMod.style.display = 'none'
-    document.body.style.overflowY = 'scroll'
+    backGroudModal.style.display = "none";
+    agenteMod.style.display = "none";
+    document.body.style.overflowY = "scroll";
   }
 }
 
 function openOcorrenciaModal() {
-  let ocorrenciaMod = document.querySelector('.contain-form-modal-ocorrencia')
+  let ocorrenciaMod = document.querySelector(".contain-form-modal-ocorrencia");
   let backGroudModal = document.querySelector(
-    '.background-open-modalOcorrencia'
-  )
+    ".background-open-modalOcorrencia"
+  );
 
   if (
-    ocorrenciaMod.style.display == 'none' ||
-    ocorrenciaMod.style.display == ''
+    ocorrenciaMod.style.display == "none" ||
+    ocorrenciaMod.style.display == ""
   ) {
-    ocorrenciaMod.style.display = 'flex'
-    backGroudModal.style.display = 'block'
-    document.body.style.overflowY = 'hidden'
+    ocorrenciaMod.style.display = "flex";
+    backGroudModal.style.display = "block";
+    document.body.style.overflowY = "hidden";
   } else {
-    backGroudModal.style.display = 'none'
-    ocorrenciaMod.style.display = 'none'
-    document.body.style.overflowY = 'scroll'
+    backGroudModal.style.display = "none";
+    ocorrenciaMod.style.display = "none";
+    document.body.style.overflowY = "scroll";
   }
 }
 
 function openListAgenteEmOcorrencia() {
   const selectAgenteMod = document.querySelector(
-    '.contain-form-modal-lista-select'
-  )
+    ".contain-form-modal-lista-select"
+  );
   const backGroudModal = document.querySelector(
-    '.background-open-modalListaAgenteSelect'
-  )
-  const selectAgente = document.getElementById('modalAgente')
+    ".background-open-modalListaAgenteSelect"
+  );
+  const selectAgente = document.getElementById("modalAgente");
 
-  selectAgente.style.display = 'none' // Fecha o modal de agentes se estiver aberto
-  selectAgenteMod.style.display = 'none' // Fecha qualquer outra lista
-  backGroudModal.style.display = 'block' // Fecha o fundo escuro
+  selectAgente.style.display = "none"; // Fecha o modal de agentes se estiver aberto
+  selectAgenteMod.style.display = "none"; // Fecha qualquer outra lista
+  backGroudModal.style.display = "block"; // Fecha o fundo escuro
 
-  selectAgenteMod.style.display = 'block'
-  backGroudModal.style.display = 'none'
+  selectAgenteMod.style.display = "block";
+  backGroudModal.style.display = "none";
 
-  listAgenteEmOcorrencia()
+  listAgenteEmOcorrencia();
 }
 
 async function listAgenteEmOcorrencia() {
-  const modal = document.getElementById('modalAgente')
-  let tbody = document.querySelector('#tabelaAgentes tbody')
+  const modal = document.getElementById("modalAgente");
+  let tbody = document.querySelector("#tabelaAgentes tbody");
 
-  tbody.innerHTML = ''
+  tbody.innerHTML = "";
 
-  const response = await axios.get('http://10.110.12.40:8080/agente/listar')
-  const agentes = response.data
+  const response = await axios.get("http://localhost:8080/agente/listar");
+  const agentes = response.data;
 
   agentes.forEach((agente) => {
     tbody.innerHTML += `
@@ -213,69 +225,69 @@ async function listAgenteEmOcorrencia() {
         <td>${agente.pessoa.nome}</td>
         <td>${agente.departamento}</td>
       </tr>
-    `
-  })
+    `;
+  });
 
-  modal.style.display = 'flex'
+  modal.style.display = "flex";
 }
 
 function selecionarAgente(tr) {
-  const buttonAddAgente = document.querySelector('.btn-agent-Ocorrencia')
+  const buttonAddAgente = document.querySelector(".btn-agent-Ocorrencia");
   buttonAddAgente.setAttribute(
-    'data-id',
-    tr.querySelectorAll('td')[0].innerHTML
-  )
+    "data-id",
+    tr.querySelectorAll("td")[0].innerHTML
+  );
 
   buttonAddAgente.innerText = `Agente Selecionado: ${
-    tr.querySelectorAll('td')[1].innerText
-  }`
+    tr.querySelectorAll("td")[1].innerText
+  }`;
 
-  fecharModalAgente()
+  fecharModalAgente();
 }
 
 function fecharModalAgente() {
-  const modal = document.getElementById('modalAgente')
-  modal.style.display = 'none'
+  const modal = document.getElementById("modalAgente");
+  modal.style.display = "none";
   const listaAgenteMod = document.querySelector(
-    '.contain-form-modal-lista-select'
-  )
-  listaAgenteMod.style.display = 'none'
+    ".contain-form-modal-lista-select"
+  );
+  listaAgenteMod.style.display = "none";
   const backGroudModal = document.querySelector(
-    '.background-open-modalListaAgente'
-  )
-  backGroudModal.style.display = 'none'
+    ".background-open-modalListaAgente"
+  );
+  backGroudModal.style.display = "none";
 }
 
 function openListaAgenteModal() {
-  const listaAgenteMod = document.querySelector('.contain-form-modal-lista')
+  const listaAgenteMod = document.querySelector(".contain-form-modal-lista");
   const backGroudModal = document.querySelector(
-    '.background-open-modalListaAgente'
-  )
+    ".background-open-modalListaAgente"
+  );
 
   if (
-    listaAgenteMod.style.display === 'none' ||
-    listaAgenteMod.style.display === ''
+    listaAgenteMod.style.display === "none" ||
+    listaAgenteMod.style.display === ""
   ) {
-    listaAgenteMod.style.display = 'block' // Mostra o modal
-    backGroudModal.style.display = 'block' // Ativa o fundo escuro
-    document.body.style.overflowY = 'hidden'
-    listarAgentes() // chama a função para listar os agentes
+    listaAgenteMod.style.display = "block"; // Mostra o modal
+    backGroudModal.style.display = "block"; // Ativa o fundo escuro
+    document.body.style.overflowY = "hidden";
+    listarAgentes(); // chama a função para listar os agentes
   } else {
-    listaAgenteMod.style.display = 'none' // Esconde o modal
-    backGroudModal.style.display = 'none' // Esconde o fundo escuro
-    document.body.style.overflowY = 'scroll'
+    listaAgenteMod.style.display = "none"; // Esconde o modal
+    backGroudModal.style.display = "none"; // Esconde o fundo escuro
+    document.body.style.overflowY = "scroll";
   }
 }
 
 async function listarAgentes() {
-  const response = await axios.get('http://localhost:8080/agente/listar')
-  const agentes = response.data
+  const response = await axios.get("http://localhost:8080/agente/listar");
+  const agentes = response.data;
 
-  const tabelaCorpo = document.querySelector('#tabela-corpo')
-  tabelaCorpo.innerHTML = ''
+  const tabelaCorpo = document.querySelector("#tabela-corpo");
+  tabelaCorpo.innerHTML = "";
 
   agentes.forEach((agente) => {
-    const { pessoa, departamento } = agente
+    const { pessoa, departamento } = agente;
 
     const linhaHTML = `
       <tr>
@@ -283,26 +295,33 @@ async function listarAgentes() {
         <td>${pessoa.cpf}</td>
         <td>${departamento}</td>
       </tr>
-    `
-    tabelaCorpo.innerHTML += linhaHTML
-  })
+    `;
+    tabelaCorpo.innerHTML += linhaHTML;
+  });
 }
 //delete
 async function deletarOcorrencia(id) {
-  const confirmar = confirm("Tem certeza de que deseja deletar esta ocorrência?");
+  const confirmar = confirm(
+    "Tem certeza de que deseja deletar esta ocorrência?"
+  );
   if (confirmar) {
     try {
-      const resposta = await axios.get(`http://localhost:8080/ocorrencia/listar`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const resposta = await axios.get(
+        `http://localhost:8080/ocorrencia/listar`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (resposta.status !== 200) {
         throw new Error("Erro ao deletar a ocorrência.");
       }
 
-      const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
+      const ocorrenciaDiv = document.querySelector(
+        `.ocorrencia[data-id="${id}"]`
+      );
       ocorrenciaDiv.remove();
       alert("Ocorrência deletada com sucesso!");
     } catch (error) {
@@ -311,16 +330,15 @@ async function deletarOcorrencia(id) {
     }
   }
 }
-//mascara 
-const input = document.querySelector('input')
+//mascara
+const input = document.querySelector("input");
 
-input.addEventListener('keypress', () => {
-  let inputlenght = input.value.length  
+input.addEventListener("keypress", () => {
+  let inputlenght = input.value.length;
 
-  if(inputlenght === 3 || inputlenght === 7) {
-    input.value += '.'
-  }else if (inputlenght === 11) {
-    input.value += '-'
+  if (inputlenght === 3 || inputlenght === 7) {
+    input.value += ".";
+  } else if (inputlenght === 11) {
+    input.value += "-";
   }
-})
-
+});
