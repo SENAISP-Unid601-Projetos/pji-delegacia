@@ -1,6 +1,6 @@
 getAllOcorrencias();
 async function getAllOcorrencias() {
-  const response = await axios.get("http://localhost:8080/ocorrencia/listar");
+  const response = await axios.get('http://10.110.12.40:8080/ocorrencia/listar')
 
   const dados = response.data;
 
@@ -49,40 +49,30 @@ function createCardOcorrencia(dados) {
         <p>Ultima Atualização: ${dataAtualizacao}</p>
         <p>Agente: ${agente.pessoa.nome}</p>
         <button class="btn-ocorrencia">Editar</button>
-        <button class="btn-ocorrencia-delete">Deletar</button>
+        <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})">Deletar</button>
         <button class="btn-ocorrencia-status">Atualizar Status</button>
       </div>
     `;
   });
 }
 
-async function alterarStatusOcorrencia(select) {
-  const statusOcorrencia = select.value;
-  const idOcorrencia =
-    select.parentElement.parentElement.getAttribute("data-id");
+function alterarStatusOcorrencia(select) {
+  const statusOcorrencia = select.value
+  const idOcorrencia = select.parentElement.parentElement.getAttribute('da')
+  console.log(idOcorrencia)
+  console.log(statusOcorrencia)
 
-  console.log(idOcorrencia);
-  console.log(statusOcorrencia);
+ /* try{ mexer aqui
 
-  await axios.put(`http://localhost:8080/ocorrencia/updateStatus`, {
-    id: idOcorrencia,
-    statusOcorrencia: statusOcorrencia,
-  });
+    const response = await axios.put('http://localhost:8080/ocorrencia/adicionar',{
+      statusOcorrencia: adicionarocorrencia ,
+    });
+  }
+catch   */ 
 
-  alert(
-    `Status da ocorrência ${idOcorrencia} alterado para: ${statusOcorrencia}`
-  );
-
-  const cardOcorrencia = select.closest(".ocorrencia");
-  const bolinhaStatus = cardOcorrencia.querySelector(".bolinha-status");
-
-  bolinhaStatus.classList.remove(
-    "background-orange-indicator",
-    "background-green-indicator",
-    "background-yellow-indicator"
-  );
-
-  bolinhaStatus.classList.add(selectColorStatusOcorrencia(statusOcorrencia));
+  //Criar método PUT para alterar status da ocorrencia via requisição HTTP
+  //Acima estão as variaveis necessarias para a implementação do método PUT para alterar o status de uma ocorrencia...
+  //Caso julgue necessario, altere o funcionamento do codigo
 }
 
 document
@@ -101,7 +91,7 @@ document
       return;
     }
 
-    await axios.post("http://localhost:8080/ocorrencia/adicionar", {
+    await axios.post('http://10.110.12.40:8080/ocorrencia/adicionar', {
       observacoes: descricao,
       statusOcorrencia: statusOcorrencia,
       agente: { id: agenteId },
@@ -203,20 +193,20 @@ function openListAgenteEmOcorrencia() {
   selectAgenteMod.style.display = "none"; // Fecha qualquer outra lista
   backGroudModal.style.display = "block"; // Fecha o fundo escuro
 
-  selectAgenteMod.style.display = "block";
-  backGroudModal.style.display = "none";
+  selectAgenteMod.style.display = 'block'
+  backGroudModal.style.display = 'none'
 
   listAgenteEmOcorrencia();
 }
 
 async function listAgenteEmOcorrencia() {
-  const modal = document.getElementById("modalAgente");
-  let tbody = document.querySelector("#tabelaAgentes tbody");
+  const modal = document.getElementById('modalAgente')
+  let tbody = document.querySelector('#tabelaAgentes tbody')
 
   tbody.innerHTML = "";
 
-  const response = await axios.get("http://localhost:8080/agente/listar");
-  const agentes = response.data;
+  const response = await axios.get('http://10.110.12.40:8080/agente/listar')
+  const agentes = response.data
 
   agentes.forEach((agente) => {
     tbody.innerHTML += `
@@ -225,10 +215,10 @@ async function listAgenteEmOcorrencia() {
         <td>${agente.pessoa.nome}</td>
         <td>${agente.departamento}</td>
       </tr>
-    `;
-  });
+    `
+  })
 
-  modal.style.display = "flex";
+  modal.style.display = 'flex'
 }
 
 function selecionarAgente(tr) {
@@ -306,22 +296,17 @@ async function deletarOcorrencia(id) {
   );
   if (confirmar) {
     try {
-      const resposta = await axios.get(
-        `http://localhost:8080/ocorrencia/listar`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const resposta = await axios.get(`http://localhost:8080/ocorrencia/listar`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
       if (resposta.status !== 200) {
         throw new Error("Erro ao deletar a ocorrência.");
       }
 
-      const ocorrenciaDiv = document.querySelector(
-        `.ocorrencia[data-id="${id}"]`
-      );
+      const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
       ocorrenciaDiv.remove();
       alert("Ocorrência deletada com sucesso!");
     } catch (error) {
@@ -330,15 +315,16 @@ async function deletarOcorrencia(id) {
     }
   }
 }
-//mascara
-const input = document.querySelector("input");
+//mascara 
+const input = document.querySelector('input')
 
-input.addEventListener("keypress", () => {
-  let inputlenght = input.value.length;
+input.addEventListener('keypress', () => {
+  let inputlenght = input.value.length  
 
-  if (inputlenght === 3 || inputlenght === 7) {
-    input.value += ".";
-  } else if (inputlenght === 11) {
-    input.value += "-";
+  if(inputlenght === 3 || inputlenght === 7) {
+    input.value += '.'
+  }else if (inputlenght === 11) {
+    input.value += '-'
   }
-});
+})
+
