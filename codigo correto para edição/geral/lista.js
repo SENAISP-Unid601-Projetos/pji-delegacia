@@ -1,6 +1,6 @@
 getAllOcorrencias()
 async function getAllOcorrencias() {
-  const response = await axios.get("http://localhost:8080/ocorrencia/listar");
+  const response = await axios.get('http://localhost:8080/ocorrencia/listar')
 
   const dados = response.data
 
@@ -60,9 +60,7 @@ async function addEncarregado() {
 async function deletarOcorrencia(id) {
   const confirmar = confirm('Tem certeza de que deseja deletar esta ocorrência?')
   if (confirmar) {
-    const resposta = await axios.delete(
-      `http://localhost:8080/ocorrencia/delete/${id}`
-    );
+    const resposta = await axios.delete(`http://localhost:8080/ocorrencia/delete/${id}`)
     if (resposta.status === 200) {
       const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`)
       ocorrenciaDiv.remove()
@@ -77,7 +75,6 @@ async function alterarStatusOcorrencia(select) {
   const statusOcorrencia = select.value
   const idOcorrencia = select.parentElement.parentElement.getAttribute('data-id')
 
-  await axios.put(`http://localhost:8080/ocorrencia/updateStatus`, {
   await axios.put(`http://localhost:8080/ocorrencia/updateStatus`, {
     id: idOcorrencia,
     statusOcorrencia: statusOcorrencia,
@@ -109,16 +106,16 @@ document.getElementById('form-ocorrencia').addEventListener('submit', async func
     return
   }
 
-    await axios.post("http://localhost:8080/ocorrencia/adicionar", {
-      observacoes: descricao,
-      statusOcorrencia: statusOcorrencia,
-      agente: { id: agenteId },
-    });
+  await axios.post('http://localhost:8080/ocorrencia/adicionar', {
+    observacoes: descricao,
+    statusOcorrencia: statusOcorrencia,
+    agente: { id: agenteId },
+  })
 
-    alert("Ocorrência adicionada com sucesso!");
-    getAllOcorrencias(); // Atualiza a lista de ocorrências
-    openOcorrenciaModal(); // Fecha o modal de ocorrências
-  });
+  alert('Ocorrência adicionada com sucesso!')
+  getAllOcorrencias() // Atualiza a lista de ocorrências
+  openOcorrenciaModal() // Fecha o modal de ocorrências
+})
 
 function selectColorStatusOcorrencia(statusOcorrencia) {
   if (statusOcorrencia == 'Pendente') {
@@ -138,28 +135,23 @@ function inputAgente() {
 
   adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente)
 }
-async function adicionarAgente(
-  nomeAgente,
-  cpfAgente,
-  rgAgente,
-  departamentoAgente
-) {
-  const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
+async function adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente) {
+  const resposta = await axios.post('http://localhost:8080/pessoa/adicionar', {
     nome: nomeAgente,
     cpf: cpfAgente,
     rg: rgAgente,
-  });
+  })
 
   let idPessoa = resposta.data.id
 
-  const resposta1 = await axios.post("http://localhost:8080/agente/adicionar", {
+  const resposta1 = await axios.post('http://localhost:8080/agente/adicionar', {
     pessoa: {
       id: idPessoa,
     },
     departamento: departamentoAgente,
-  });
-  alert("Agente adicionada com sucesso!"); // Atualiza a lista de ocorrências
-  openAgenteModal();
+  })
+  alert('Agente adicionada com sucesso!') // Atualiza a lista de ocorrências
+  openAgenteModal()
 }
 
 function openEncarregadoModal() {
@@ -228,8 +220,8 @@ async function listAgenteEmOcorrencia() {
 
   tbody.innerHTML = ''
 
-  const response = await axios.get("http://localhost:8080/agente/listar");
-  const agentes = response.data;
+  const response = await axios.get('http://localhost:8080/agente/listar')
+  const agentes = response.data
 
   agentes.forEach((agente) => {
     tbody.innerHTML += `
@@ -245,115 +237,85 @@ async function listAgenteEmOcorrencia() {
 }
 
 function selecionarAgente(tr) {
-  const buttonAddAgente = document.querySelector(".btn-agent-Ocorrencia");
-  buttonAddAgente.setAttribute(
-    "data-id",
-    tr.querySelectorAll("td")[0].innerHTML
-  );
+  const buttonAddAgente = document.querySelector('.btn-agent-Ocorrencia')
+  buttonAddAgente.setAttribute('data-id', tr.querySelectorAll('td')[0].innerHTML)
 
-  buttonAddAgente.innerText = `Agente Selecionado: ${
-    tr.querySelectorAll("td")[1].innerText
-  }`;
+  buttonAddAgente.innerText = `Agente Selecionado: ${tr.querySelectorAll('td')[1].innerText}`
 
-  fecharModalAgente();
+  fecharModalAgente()
 }
 
 function selecionarEncarregados(tr) {
-  const buttonAddAgenteEncarregados = document.querySelector(
-    ".btn-encarregado-Agente"
-  );
-  buttonAddAgenteEncarregados.setAttribute(
-    "data-id",
-    tr.querySelectorAll("td")[0].innerHTML
-  );
+  const buttonAddAgenteEncarregados = document.querySelector('.btn-encarregado-Agente')
+  buttonAddAgenteEncarregados.setAttribute('data-id', tr.querySelectorAll('td')[0].innerHTML)
 
   buttonAddAgenteEncarregados.innerText = `Encarregado Selecionado: ${
-    tr.querySelectorAll("td")[1].innerText
-  }`;
+    tr.querySelectorAll('td')[1].innerText
+  }`
 
-  fecharModalEncarregado();
+  fecharModalEncarregado()
 }
 
 function fecharModalAgente() {
-  const modal = document.getElementById("modalAgente");
-  modal.style.display = "none";
-  const listaAgenteMod = document.querySelector(
-    ".contain-form-modal-lista-select"
-  );
-  listaAgenteMod.style.display = "none";
-  const backGroudModal = document.querySelector(
-    ".background-open-modalListaAgente"
-  );
-  backGroudModal.style.display = "none";
+  const modal = document.getElementById('modalAgente')
+  modal.style.display = 'none'
+  const listaAgenteMod = document.querySelector('.contain-form-modal-lista-select')
+  listaAgenteMod.style.display = 'none'
+  const backGroudModal = document.querySelector('.background-open-modalListaAgente')
+  backGroudModal.style.display = 'none'
 }
 
 function fecharModalEncarregado() {
-  const modal = document.getElementById("modalEncarregado");
-  modal.style.display = "none";
-  const listaEncarregadosMod = document.querySelector(
-    ".contain-form-modal-lista-encarregado"
-  );
-  listaEncarregadosMod.style.display = "none";
-  const backGroudModal = document.querySelector(
-    ".background-open-modalListaEncarregado"
-  );
-  backGroudModal.style.display = "none";
+  const modal = document.getElementById('modalEncarregado')
+  modal.style.display = 'none'
+  const listaEncarregadosMod = document.querySelector('.contain-form-modal-lista-encarregado')
+  listaEncarregadosMod.style.display = 'none'
+  const backGroudModal = document.querySelector('.background-open-modalListaEncarregado')
+  backGroudModal.style.display = 'none'
 }
 
 function openListaAgenteModal() {
-  const listaAgenteMod = document.querySelector(".contain-form-modal-lista");
-  const backGroudModal = document.querySelector(
-    ".background-open-modalListaAgente"
-  );
+  const listaAgenteMod = document.querySelector('.contain-form-modal-lista')
+  const backGroudModal = document.querySelector('.background-open-modalListaAgente')
 
-  if (
-    listaAgenteMod.style.display === "none" ||
-    listaAgenteMod.style.display === ""
-  ) {
-    listaAgenteMod.style.display = "block"; // Mostra o modal
-    backGroudModal.style.display = "block"; // Ativa o fundo escuro
-    document.body.style.overflowY = "hidden";
-    listarAgentes(); // chama a função para listar os agentes
+  if (listaAgenteMod.style.display === 'none' || listaAgenteMod.style.display === '') {
+    listaAgenteMod.style.display = 'block' // Mostra o modal
+    backGroudModal.style.display = 'block' // Ativa o fundo escuro
+    document.body.style.overflowY = 'hidden'
+    listarAgentes() // chama a função para listar os agentes
   } else {
-    listaAgenteMod.style.display = "none"; // Esconde o modal
-    backGroudModal.style.display = "none"; // Esconde o fundo escuro
-    document.body.style.overflowY = "scroll";
+    listaAgenteMod.style.display = 'none' // Esconde o modal
+    backGroudModal.style.display = 'none' // Esconde o fundo escuro
+    document.body.style.overflowY = 'scroll'
   }
 }
 
 function openListaEncarregado() {
-  const listaEncarregadosMod = document.querySelector(
-    ".contain-form-modal-lista-encarregado"
-  );
-  const backGroudModal = document.querySelector(
-    ".background-open-modalListaEncarregado"
-  );
+  const listaEncarregadosMod = document.querySelector('.contain-form-modal-lista-encarregado')
+  const backGroudModal = document.querySelector('.background-open-modalListaEncarregado')
 
-  if (
-    listaEncarregadosMod.style.display === "none" ||
-    listaEncarregadosMod.style.display === ""
-  ) {
-    listaEncarregadosMod.style.display = "block"; // Mostra o modal
-    backGroudModal.style.display = "block"; // Ativa o fundo escuro
-    document.body.style.overflowY = "hidden";
-    listarEncarregados(); // chama a função para listar os agentes
+  if (listaEncarregadosMod.style.display === 'none' || listaEncarregadosMod.style.display === '') {
+    listaEncarregadosMod.style.display = 'block' // Mostra o modal
+    backGroudModal.style.display = 'block' // Ativa o fundo escuro
+    document.body.style.overflowY = 'hidden'
+    listarEncarregados() // chama a função para listar os agentes
   } else {
-    listaEncarregadosMod.style.display = "none"; // Esconde o modal
-    backGroudModal.style.display = "none"; // Esconde o fundo escuro
-    document.body.style.overflowY = "scroll";
+    listaEncarregadosMod.style.display = 'none' // Esconde o modal
+    backGroudModal.style.display = 'none' // Esconde o fundo escuro
+    document.body.style.overflowY = 'scroll'
   }
 }
 
 async function listarEncarregados() {
-  const response = await axios.get("http://localhost:8080/encarregado/listar");
-  const encarregados = response.data;
+  const response = await axios.get('http://localhost:8080/encarregado/listar')
+  const encarregados = response.data
 
-  console.log(encarregados);
-  const tabelaCorpo = document.querySelector("#tabela-add-encarregado tbody");
-  tabelaCorpo.innerHTML = "";
-  console.log(tabelaCorpo);
+  console.log(encarregados)
+  const tabelaCorpo = document.querySelector('#tabela-add-encarregado tbody')
+  tabelaCorpo.innerHTML = ''
+  console.log(tabelaCorpo)
   encarregados.forEach((encarregado) => {
-    const { id, nome } = encarregado;
+    const { id, nome } = encarregado
 
     tabelaCorpo.innerHTML += `
       <tr>
@@ -364,13 +326,13 @@ async function listarEncarregados() {
           </div>
         </td>
       </tr>
-    `;
-  });
+    `
+  })
 }
 
 async function listarAgentes() {
-  const response = await axios.get("http:localhost:8080/agente/listar");
-  const agentes = response.data;
+  const response = await axios.get('http:localhost:8080/agente/listar')
+  const agentes = response.data
 
   const tabelaCorpo = document.querySelector('#tabela-corpo')
   tabelaCorpo.innerHTML = ''
@@ -400,31 +362,25 @@ async function listarAgentes() {
 async function deletarAgente(id) {
   const confirmar = confirm('Tem certeza de que deseja deletar este agente?')
   if (confirmar) {
-    const response = await axios.delete(
-      `http://localhost:8080/agente/delete/${id}`
-    );
+    const response = await axios.delete(`http://localhost:8080/agente/delete/${id}`)
     if (response.status === 200) {
-      alert("Agente deletado com sucesso!");
-      listarAgentes(); // Atualiza a lista após a exclusão
+      alert('Agente deletado com sucesso!')
+      listarAgentes() // Atualiza a lista após a exclusão
     } else {
-      alert("Erro ao deletar o agente. Tente novamente.");
+      alert('Erro ao deletar o agente. Tente novamente.')
     }
   }
 }
 
 async function deletarEncarregado(id) {
-  const confirmar = confirm(
-    "Tem certeza de que deseja deletar este encarregado?"
-  );
+  const confirmar = confirm('Tem certeza de que deseja deletar este encarregado?')
   if (confirmar) {
-    const response = await axios.delete(
-      `http://localhost:8080/encarregado/delete/${id}`
-    );
+    const response = await axios.delete(`http://localhost:8080/encarregado/delete/${id}`)
     if (response.status === 200) {
-      alert("Encarregado deletado com sucesso!");
-      listarEncarregados(); // Atualiza a lista após a exclusão
+      alert('Encarregado deletado com sucesso!')
+      listarEncarregados() // Atualiza a lista após a exclusão
     } else {
-      alert("Erro ao deletar o Encarregado. Tente novamente.");
+      alert('Erro ao deletar o Encarregado. Tente novamente.')
     }
   }
 }
@@ -434,9 +390,7 @@ async function deletarOcorrencia(id) {
   const confirmar = confirm('Tem certeza de que deseja deletar esta ocorrência?')
   if (confirmar) {
     try {
-      const resposta = await axios.delete(
-        `http:localhost:8080/ocorrencia/delete/${id}`
-      );
+      const resposta = await axios.delete(`http:localhost:8080/ocorrencia/delete/${id}`)
 
       if (resposta.status === 200) {
         const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`)
