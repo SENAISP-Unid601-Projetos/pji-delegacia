@@ -1,51 +1,59 @@
- * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    margin: 0; /* Remove margens do body */
-    height: 100vh; /* Garante que o body ocupe toda a altura da tela */
-    background-image: url('./imagem/logo-sistema.png');
-    background-size: cover; /* Faz com que a imagem ocupe 100% da tela */
-    background-position: center; /* Centraliza a imagem no fundo */
-    background-repeat: no-repeat; /* Evita repetição */
-    background-attachment: fixed; /* Faz o fundo permanecer fixo ao rolar a página */
-  }
+/* Reseta e configurações básicas */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1c1d1f;
+  color: #fff; /* Cor padrão do texto */
+}
 
-  .btn {
-    position: absolute;
-    left:240px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: inline-block;
-    background-color: hwb(231 17% 15%);
-    color: white;
-    padding: 0.8rem 1.5rem;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-  }
-  
-  .btn:hover {
-    background-color: red;
-  }
-  
-  .highlight-text {
-    position: absolute;
-    left: 40px;
-    top: 50%; 
-    transform: translateY(-120%);
-    font-size: 4rem;
-    color: yellow;
-    text-align: center;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-  }
+/* Contêiner principal */
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
 
-  
+/* Texto e botão agrupados */
+.text-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Texto acima do botão */
+.header-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #e0e0e0;
+}
+
+/* Estilo da logo */
+.logo {
+  max-height: 100vh;
+  object-fit: contain;
+}
+
+/* Botão minimalista */
+.minimal-button {
+  background-color: transparent;
+  border-radius: 7px;
+  border: 2px solid #7a7a7a;
+  color: #7a7a7a;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Efeitos no hover do botão */
+.minimal-button:hover {
+  background-color: #333;
+  color: #fff;
+}
