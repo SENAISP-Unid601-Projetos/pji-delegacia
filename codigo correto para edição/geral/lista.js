@@ -331,7 +331,7 @@ async function listarEncarregados() {
 }
 
 async function listarAgentes() {
-  const response = await axios.get('http:localhost:8080/agente/listar')
+  const response = await axios.get('http://localhost:8080/agente/listar')
   const agentes = response.data
 
   const tabelaCorpo = document.querySelector('#tabela-corpo')
