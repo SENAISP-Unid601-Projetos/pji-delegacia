@@ -1,0 +1,90 @@
+:root {
+    --primary-color: hwb(231 17% 15%);
+    --secondary-color: #ffffff;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+  }
+  
+  .hero {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 1rem 2rem; 
+    position: relative;
+    height: 80px; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+  
+.hero p {
+    font-size: 2rem; 
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+  .btn {
+    position: absolute;
+    left:240px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+    background-color: hwb(231 17% 15%);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: red;
+  }
+  
+  .highlight-text {
+    position: absolute;
+    left: 40px;
+    top: 50%; 
+    transform: translateY(-120%);
+    font-size: 4rem;
+    color: yellow;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: hwb(231 17% 15%);
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0; 
+  }
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-image: url('./imagem/logo-sistema.png');
+    background-size: cover; /* Ajuste da imagem ao tamanho sem cortar */
+    background-position: center center; /* Centraliza horizontal e verticalmente */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+}
+
+  
