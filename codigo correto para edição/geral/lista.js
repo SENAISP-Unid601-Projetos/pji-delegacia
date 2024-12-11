@@ -1,6 +1,8 @@
 getAllOcorrencias();
 async function getAllOcorrencias() {
-  const response = await axios.get("http://localhost:8080/ocorrencia/listar");
+  const response = await axios.get(
+    "http://10.110.12.54:8080/ocorrencia/listar"
+  );
 
   const dados = response.data;
 
@@ -62,7 +64,7 @@ async function addEncarregado() {
   const nome = document.querySelector("#encarregado-nome").value;
 
   const response = await axios.post(
-    "http://localhost:8080/encarregado/adicionar",
+    "http://10.110.12.54:8080/encarregado/adicionar",
     {
       nome: nome,
     }
@@ -77,7 +79,7 @@ async function deletarOcorrencia(id) {
   );
   if (confirmar) {
     const resposta = await axios.delete(
-      `http://localhost:8080/ocorrencia/delete/${id}`
+      `http://10.110.12.54:8080/ocorrencia/delete/${id}`
     );
     if (resposta.status === 200) {
       const ocorrenciaDiv = document.querySelector(
@@ -96,7 +98,7 @@ async function alterarStatusOcorrencia(select) {
   const idOcorrencia =
     select.parentElement.parentElement.getAttribute("data-id");
 
-  await axios.put(`http://localhost:8080/ocorrencia/updateStatus`, {
+  await axios.put(`http://10.110.12.54:8080/ocorrencia/updateStatus`, {
     id: idOcorrencia,
     statusOcorrencia: statusOcorrencia,
   });
@@ -133,7 +135,7 @@ document
       return;
     }
 
-    await axios.post("http://localhost:8080/ocorrencia/adicionar", {
+    await axios.post("http://10.110.12.54:8080/ocorrencia/adicionar", {
       observacoes: descricao,
       statusOcorrencia: statusOcorrencia,
       agente: { id: agenteId },
@@ -170,20 +172,26 @@ async function adicionarAgente(
   rgAgente,
   departamentoAgente
 ) {
-  const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
-    nome: nomeAgente,
-    cpf: cpfAgente,
-    rg: rgAgente,
-  });
+  const resposta = await axios.post(
+    "http://10.110.12.54:8080/pessoa/adicionar",
+    {
+      nome: nomeAgente,
+      cpf: cpfAgente,
+      rg: rgAgente,
+    }
+  );
 
   let idPessoa = resposta.data.id;
 
-  const resposta1 = await axios.post("http://localhost:8080/agente/adicionar", {
-    pessoa: {
-      id: idPessoa,
-    },
-    departamento: departamentoAgente,
-  });
+  const resposta1 = await axios.post(
+    "http://10.110.12.54:8080/agente/adicionar",
+    {
+      pessoa: {
+        id: idPessoa,
+      },
+      departamento: departamentoAgente,
+    }
+  );
   alert("Agente adicionada com sucesso!"); // Atualiza a lista de ocorrências
   openAgenteModal();
 }
@@ -270,7 +278,7 @@ async function listAgenteEmOcorrencia() {
 
   tbody.innerHTML = "";
 
-  const response = await axios.get("http://localhost:8080/agente/listar");
+  const response = await axios.get("http://10.110.12.54:8080/agente/listar");
   const agentes = response.data;
 
   agentes.forEach((agente) => {
@@ -335,7 +343,7 @@ function openListaAgenteModal() {
 }
 
 async function listarAgentes() {
-  const response = await axios.get("http://localhost:8080/agente/listar");
+  const response = await axios.get("http://10.110.12.54:8080/agente/listar");
   const agentes = response.data;
 
   const tabelaCorpo = document.querySelector("#tabela-corpo");
@@ -343,7 +351,7 @@ async function listarAgentes() {
 
   agentes.forEach((agente) => {
     const { id, pessoa, departamento } = agente;
-  
+
     const linhaHTML = `
       <tr>
         <td>${pessoa.nome}</td>
@@ -367,7 +375,7 @@ async function deletarAgente(id) {
   const confirmar = confirm("Tem certeza de que deseja deletar este agente?");
   if (confirmar) {
     const response = await axios.delete(
-      `http://localhost:8080/agente/delete/${id}`
+      `http://10.110.12.54:8080/agente/delete/${id}`
     );
     if (response.status === 200) {
       alert("Agente deletado com sucesso!");
@@ -386,7 +394,7 @@ async function deletarOcorrencia(id) {
   if (confirmar) {
     try {
       const resposta = await axios.delete(
-        `http://localhost:8080/ocorrencia/delete/${id}`
+        `http://10.110.12.54:8080/ocorrencia/delete/${id}`
       );
 
       if (resposta.status === 200) {
