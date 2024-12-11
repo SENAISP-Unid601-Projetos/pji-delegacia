@@ -9,8 +9,6 @@
   </head>
 
   <body>
-
-
     <div class="background-open-modalEncarregado"></div>
     <div class="contain-form-modal-encarregado">
       <form id="form-agente">
@@ -26,14 +24,13 @@
         </div>
         <div class="contain-buttons-modal">
           <button onclick="openEncarregadoModal()">Fechar</button>
-          <button onclick="inputAgente()" id="btnAdicionarAgente" type="button">
+          <button onclick="" id="btnAdicionarEncarregado" type="button">
             Adicionar
           </button>
         </div>
       </form>
     </div>
 
-    
     <div class="background-open-modalAgente"></div>
     <div class="contain-form-modal">
       <form id="form-agente">
@@ -49,7 +46,7 @@
         </div>
         <div class="contain-inputs-modal">
           <label>CPF: </label>
-          <input 
+          <input
             type="text"
             id="cpfAgente"
             placeholder="CPF do Agente"
@@ -86,11 +83,13 @@
       </form>
     </div>
 
-    
-
     <div class="background-open-modalListaAgenteSelect"></div>
     <div class="contain-form-modal-lista-select">
-      <div class="modal-agente" id="modalAgente" style="display: none; overflow:scroll;">
+      <div
+        class="modal-agente"
+        id="modalAgente"
+        style="display: none; overflow: scroll"
+      >
         <div>
           <h2>Clique em um agente para seleciona-lo</h2>
           <table id="tabelaAgentes">
@@ -147,7 +146,7 @@
     </div>
 
     <div class="background-open-modalListaAgente"></div>
-    <div class="contain-form-modal-lista" style="overflow-y: scroll;">
+    <div class="contain-form-modal-lista" style="overflow-y: scroll">
       <div class="fundo"></div>
       <h1>Lista de Agentes</h1>
       <div id="form-lista-agente">
@@ -171,39 +170,42 @@
     </div>
 
     <header>
-      <h1>Listagem de Ocorrências e Agentes.</h1>
+      <div class="contain-logo-marca">
+        <img src="logo-sistema.webp" />
+        <h1>Gestão de ocorrencias</h1>
+      </div>
+      <div class="contain-buttons-header">
+        <button
+          class="button"
+          onclick="openEncarregadoModal()"
+          style="cursor: pointer"
+        >
+          Adicionar Encarregado
+        </button>
+        <button
+          class="button"
+          onclick="openAgenteModal()"
+          style="cursor: pointer"
+        >
+          Adicionar Agente
+        </button>
+        <button
+          class="button"
+          onclick="openOcorrenciaModal()"
+          style="cursor: pointer"
+        >
+          Adicionar Ocorrência
+        </button>
+        <button
+          class="button"
+          onclick="openListaAgenteModal()"
+          style="cursor: pointer"
+        >
+          Lista de Agentes
+        </button>
+      </div>
     </header>
 
-    <div class="button-inicial">
-      <button
-        class="button"
-        onclick="openEncarregadoModal()"
-        style="cursor: pointer"
-      >
-        Adicionar Encarregado
-      </button>
-      <button
-        class="button"
-        onclick="openAgenteModal()"
-        style="cursor: pointer"
-      >
-        Adicionar Agente
-      </button>
-      <button
-        class="button"
-        onclick="openOcorrenciaModal()"
-        style="cursor: pointer"
-      >
-        Adicionar Ocorrência
-      </button>
-      <button
-        class="button"
-        onclick="openListaAgenteModal()"
-        style="cursor: pointer"
-      >
-        Lista de Agentes
-      </button>
-    </div>
     <main>
       <section id="lista">
         <h2>Ocorrências</h2>

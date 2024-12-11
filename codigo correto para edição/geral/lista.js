@@ -1,6 +1,8 @@
 getAllOcorrencias();
 async function getAllOcorrencias() {
-  const response = await axios.get("http://localhost:8080/ocorrencia/listar");
+  const response = await axios.get(
+    "http://localhost:8080/ocorrencia/listar"
+  );
 
   const dados = response.data;
 
@@ -46,7 +48,9 @@ function createCardOcorrencia(dados) {
         </p>
         <p>Observações: ${observacoes}</p>
         <p>Data de Criação: ${dataCriacao}</p>
-        <p>Ultima Atualização: ${dataAtualizacao}</p>
+        <p>Ultima Atualização: ${
+          dataAtualizacao == null ? "" : dataAtualizacao
+        }</p>
         <p>Agente: ${agente.pessoa.nome}</p>
         
         <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})">Deletar</button>
@@ -158,20 +162,26 @@ async function adicionarAgente(
   rgAgente,
   departamentoAgente
 ) {
-  const resposta = await axios.post("http://localhost:8080/pessoa/adicionar", {
-    nome: nomeAgente,
-    cpf: cpfAgente,
-    rg: rgAgente,
-  });
+  const resposta = await axios.post(
+    "http://localhost:8080/pessoa/adicionar",
+    {
+      nome: nomeAgente,
+      cpf: cpfAgente,
+      rg: rgAgente,
+    }
+  );
 
   let idPessoa = resposta.data.id;
 
-  const resposta1 = await axios.post("http://localhost:8080/agente/adicionar", {
-    pessoa: {
-      id: idPessoa,
-    },
-    departamento: departamentoAgente,
-  });
+  const resposta1 = await axios.post(
+    "http://localhost:8080/agente/adicionar",
+    {
+      pessoa: {
+        id: idPessoa,
+      },
+      departamento: departamentoAgente,
+    }
+  );
   alert("Agente adicionada com sucesso!"); // Atualiza a lista de ocorrências
   openAgenteModal();
 }
