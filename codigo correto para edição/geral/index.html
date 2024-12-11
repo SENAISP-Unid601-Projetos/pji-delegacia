@@ -74,6 +74,17 @@
             <option value="Outros">Outros</option>
           </select>
         </div>
+        <div class="contain-inputs-modal">
+          <label>Encarregado:</label>
+          <button
+            type="button"
+            class="btn-agent-Ocorrencia"
+            onclick="openListaEncarregado()"
+            style="cursor: pointer"
+          >
+            Selecionar Encarregado
+          </button>
+        </div>
         <div class="contain-buttons-modal">
           <button onclick="openAgenteModal()">Fechar</button>
           <button onclick="inputAgente()" id="btnAdicionarAgente" type="button">
@@ -81,6 +92,24 @@
           </button>
         </div>
       </form>
+    </div>
+
+    <div class="background-open-modalListaEncarregado"></div>
+    <div class="contain-form-modal-lista-encarregado">
+      <div>
+        <h2>Clique em um encarregado para selecionalo</h2>
+        <table id="tabela-add-encarregado">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Departamento</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <button onclick="fecharModalAgente()">Fechar</button>
     </div>
 
     <div class="background-open-modalListaAgenteSelect"></div>
