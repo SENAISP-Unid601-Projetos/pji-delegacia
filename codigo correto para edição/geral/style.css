@@ -362,6 +362,17 @@ header button {
   display: none;
 }
 
+.background-open-modalListaEncarregado {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3;
+  display: none;
+}
+
 .contain-form-modal-lista {
   position: fixed;
   top: 50%;
@@ -375,6 +386,25 @@ header button {
   max-height: 600px;
   width: 70%;
   max-width: 300px;
+  /* Ajuste conforme necessário */
+  max-width: 600px;
+  display: none;
+
+  /* Inicialmente escondido */
+}
+
+.contain-form-modal-lista-encarregado {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  max-height: 600px;
+  width: 80%;
   /* Ajuste conforme necessário */
   max-width: 600px;
   display: none;
@@ -424,7 +454,55 @@ header button {
   justify-content: space-between;
 }
 
+.tabela-encarregado {
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tabela-encarregado th,
+.tabela-encarregado td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.tabela-encarregado th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.tabela-encarregado tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabela-encarregado tr:hover {
+  background-color: #f1f1f1;
+}
+
+.modal-encarregado {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 600px;
+  padding: 20px 30px;
+  z-index: 3;
+  border-radius: 10px;
+  background: white;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .modal-agente div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal-encarregado div {
   display: flex;
   flex-direction: column;
   align-items: center;
