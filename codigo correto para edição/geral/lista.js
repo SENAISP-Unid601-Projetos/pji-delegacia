@@ -1,7 +1,7 @@
 getAllOcorrencias();
 async function getAllOcorrencias() {
   const response = await axios.get(
-    "http://10.110.12.54:8080/ocorrencia/listar"
+    "http://localhost:8080/ocorrencia/listar"
   );
 
   const dados = response.data;
@@ -66,7 +66,7 @@ async function deletarOcorrencia(id) {
   );
   if (confirmar) {
     const resposta = await axios.delete(
-      `http://10.110.12.54:8080/ocorrencia/delete/${id}`
+      `http://localhost:8080/ocorrencia/delete/${id}`
     );
     if (resposta.status === 200) {
       const ocorrenciaDiv = document.querySelector(
@@ -88,7 +88,7 @@ async function alterarStatusOcorrencia(select) {
   console.log(idOcorrencia);
   console.log(statusOcorrencia);
 
-  await axios.put(`http://10.110.12.54:8080/ocorrencia/updateStatus`, {
+  await axios.put(`http://localhost:8080/ocorrencia/updateStatus`, {
     id: idOcorrencia,
     statusOcorrencia: statusOcorrencia,
   });
@@ -125,7 +125,7 @@ document
       return;
     }
 
-    await axios.post("http://10.110.12.54:8080/ocorrencia/adicionar", {
+    await axios.post("http://localhost:8080/ocorrencia/adicionar", {
       observacoes: descricao,
       statusOcorrencia: statusOcorrencia,
       agente: { id: agenteId },
@@ -163,7 +163,7 @@ async function adicionarAgente(
   departamentoAgente
 ) {
   const resposta = await axios.post(
-    "http://10.110.12.54:8080/pessoa/adicionar",
+    "http://localhost:8080/pessoa/adicionar",
     {
       nome: nomeAgente,
       cpf: cpfAgente,
@@ -174,7 +174,7 @@ async function adicionarAgente(
   let idPessoa = resposta.data.id;
 
   const resposta1 = await axios.post(
-    "http://10.110.12.54:8080/agente/adicionar",
+    "http://localhost:8080/agente/adicionar",
     {
       pessoa: {
         id: idPessoa,
@@ -268,7 +268,7 @@ async function listAgenteEmOcorrencia() {
 
   tbody.innerHTML = "";
 
-  const response = await axios.get("http://10.110.12.54:8080/agente/listar");
+  const response = await axios.get("http://localhost:8080/agente/listar");
   const agentes = response.data;
 
   agentes.forEach((agente) => {
@@ -333,7 +333,7 @@ function openListaAgenteModal() {
 }
 
 async function listarAgentes() {
-  const response = await axios.get("http://10.110.12.54:8080/agente/listar");
+  const response = await axios.get("http://localhost:8080/agente/listar");
   const agentes = response.data;
 
   const tabelaCorpo = document.querySelector("#tabela-corpo");
@@ -363,7 +363,7 @@ async function deletarAgente(id) {
   const confirmar = confirm("Tem certeza de que deseja deletar este agente?");
   if (confirmar) {
     const response = await axios.delete(
-      `http://10.110.12.54:8080/agente/delete/${id}`
+      `http://localhost:8080/agente/delete/${id}`
     );
     if (response.status === 200) {
       alert("Agente deletado com sucesso!");
@@ -382,7 +382,7 @@ async function deletarOcorrencia(id) {
   if (confirmar) {
     try {
       const resposta = await axios.delete(
-        `http://10.110.12.54:8080/ocorrencia/delete/${id}`
+        `http://localhost:8080/ocorrencia/delete/${id}`
       );
 
       if (resposta.status === 200) {
