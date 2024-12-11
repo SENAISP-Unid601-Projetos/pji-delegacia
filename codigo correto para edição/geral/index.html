@@ -17,14 +17,18 @@
           <label>Nome: </label>
           <input
             type="text"
-            id="encarregado_agente"
+            id="encarregado-nome"
             placeholder="Nome do Encarregado"
             required
           />
         </div>
         <div class="contain-buttons-modal">
           <button onclick="openEncarregadoModal()">Fechar</button>
-          <button onclick="" id="btnAdicionarEncarregado" type="button">
+          <button
+            onclick="addEncarregado()"
+            id="btnAdicionarEncarregado"
+            type="button"
+          >
             Adicionar
           </button>
         </div>
@@ -120,7 +124,7 @@
         style="display: none; overflow: scroll"
       >
         <div>
-          <h2>Clique em um agente para selecionalo</h2>
+          <h2>Clique em um agente para seleciona-lo</h2>
           <table id="tabelaAgentes">
             <thead>
               <tr>
