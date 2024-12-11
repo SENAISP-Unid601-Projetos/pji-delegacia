@@ -331,16 +331,18 @@ async function listarAgentes() {
 
   agentes.forEach((agente) => {
     const { id, pessoa, departamento } = agente;
-
+  
     const linhaHTML = `
       <tr>
         <td>${pessoa.nome}</td>
         <td>${pessoa.cpf}</td>
         <td>${departamento}</td>
-        
         <td>
           <div class="div-delete">
-            <button onclick="deletarAgente(${id})" class="btn-deletar"> x </button>
+            <button onclick="deletarAgente(${id})" class="btn-deletar">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXRyYXNoLTIiPjxwYXRoIGQ9Ik0zIDZoMTgiLz48cGF0aCBkPSJNMTkgNnYxNGMwIDEtMSAyLTIgMkg3Yy0xIDAtMi0xLTItMlY2Ii8+PHBhdGggZD0iTTggNlY0YzAtMSAxLTIgMi0yaDRjMSAwIDIgMSAyIDJ2MiIvPjxsaW5lIHgxPSIxMCIgeDI9IjEwIiB5MT0iMTEiIHkyPSIxNyIvPjxsaW5lIHgxPSIxNCIgeDI9IjE0IiB5MT0iMTEiIHkyPSIxNyIvPjwvc3ZnPg==" 
+              alt="Deletar" class="icon-delete"/>
+            </button>
           </div>
         </td>
       </tr>
