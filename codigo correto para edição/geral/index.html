@@ -15,20 +15,11 @@
         <h1>Adicionar Encarregado</h1>
         <div class="contain-inputs-modal-encarregado">
           <label>Nome: </label>
-          <input
-            type="text"
-            id="encarregado-nome"
-            placeholder="Nome do Encarregado"
-            required
-          />
+          <input type="text" id="encarregado-nome" placeholder="Nome do Encarregado" required />
         </div>
         <div class="contain-buttons-modal">
           <button onclick="openEncarregadoModal()">Fechar</button>
-          <button
-            onclick="addEncarregado()"
-            id="btn-encarregado-Agente"
-            type="button"
-          >
+          <button onclick="addEncarregado()" id="btn-encarregado-Agente" type="button">
             Adicionar
           </button>
         </div>
@@ -41,32 +32,15 @@
         <h1>Adicionar Agente</h1>
         <div class="contain-inputs-modal">
           <label>Nome: </label>
-          <input
-            type="text"
-            id="nomeAgente"
-            placeholder="Nome do Agente"
-            required
-          />
+          <input type="text" id="nomeAgente" placeholder="Nome do Agente" required />
         </div>
         <div class="contain-inputs-modal">
           <label>CPF: </label>
-          <input
-            type="text"
-            id="cpfAgente"
-            placeholder="CPF do Agente"
-            required
-            maxlength="14"
-          />
+          <input type="text" id="cpfAgente" placeholder="CPF do Agente" required maxlength="14" />
         </div>
         <div class="contain-inputs-modal">
           <label>RG: </label>
-          <input
-            type="text"
-            id="rgAgente"
-            placeholder="RG do Agente"
-            required
-            maxlength="12"
-          />
+          <input type="text" id="rgAgente" placeholder="RG do Agente" required maxlength="12" />
         </div>
         <div class="contain-inputs-modal">
           <label>Departamento: </label>
@@ -91,9 +65,7 @@
         </div>
         <div class="contain-buttons-modal">
           <button onclick="openAgenteModal()">Fechar</button>
-          <button onclick="inputAgente()" id="btnAdicionarAgente" type="button">
-            Adicionar
-          </button>
+          <button onclick="inputAgente()" id="btnAdicionarAgente" type="button">Adicionar</button>
         </div>
       </form>
     </div>
@@ -117,11 +89,7 @@
 
     <div class="background-open-modalListaAgenteSelect"></div>
     <div class="contain-form-modal-lista-select">
-      <div
-        class="modal-agente"
-        id="modalAgente"
-        style="display: none; overflow: scroll"
-      >
+      <div class="modal-agente" id="modalAgente" style="display: none; overflow: scroll">
         <div>
           <h2>Clique em um agente para seleciona-lo</h2>
           <table id="tabelaAgentes">
@@ -130,6 +98,7 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Departamento</th>
+                <th></th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -207,32 +176,16 @@
         <h1>Gestão de ocorrencias</h1>
       </div>
       <div class="contain-buttons-header">
-        <button
-          class="button"
-          onclick="openEncarregadoModal()"
-          style="cursor: pointer"
-        >
+        <button class="button" onclick="openEncarregadoModal()" style="cursor: pointer">
           Adicionar Encarregado
         </button>
-        <button
-          class="button"
-          onclick="openAgenteModal()"
-          style="cursor: pointer"
-        >
+        <button class="button" onclick="openAgenteModal()" style="cursor: pointer">
           Adicionar Agente
         </button>
-        <button
-          class="button"
-          onclick="openOcorrenciaModal()"
-          style="cursor: pointer"
-        >
+        <button class="button" onclick="openOcorrenciaModal()" style="cursor: pointer">
           Adicionar Ocorrência
         </button>
-        <button
-          class="button"
-          onclick="openListaAgenteModal()"
-          style="cursor: pointer"
-        >
+        <button class="button" onclick="openListaAgenteModal()" style="cursor: pointer">
           Lista de Agentes
         </button>
       </div>

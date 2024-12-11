@@ -229,6 +229,7 @@ async function listAgenteEmOcorrencia() {
         <td>${agente.id}</td>
         <td>${agente.pessoa.nome}</td>
         <td>${agente.departamento}</td>
+        <td><button>Vincular</button></td>
       </tr>
     `
   })
