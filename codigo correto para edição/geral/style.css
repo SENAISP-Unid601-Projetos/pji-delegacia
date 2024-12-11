@@ -1,4 +1,5 @@
-/* Reset básico */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +7,7 @@
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -78,6 +79,7 @@ main {
   padding: 15px;
   border-radius: 8px;
   transition: transform 0.2s ease-in-out;
+  position: relative;
 }
 
 .ocorrencia select {
@@ -247,11 +249,13 @@ footer {
   background-color: hwb(231 17% 15% / 0.466);
 }
 
-.btn-agent-Ocorrencia, .btn-encarregado-Agente {
+.btn-agent-Ocorrencia,
+.btn-encarregado-Agente {
   padding: 10px 15px;
   border-radius: 5px;
   background-color: hwb(0 100% 0% / 0.466);
   border: 1px black solid;
+  font-weight: 700;
 }
 
 header button {
@@ -273,7 +277,6 @@ header button {
   display: grid;
   grid-template-columns: 1fr 3fr;
   align-items: center;
-  padding-left: 80px;
 }
 
 .contain-buttons-modal-selectLista {
@@ -324,10 +327,16 @@ header button {
 }
 
 .btn-ocorrencia-delete {
-  background-color: red;
-  height: 40px;
-  border-radius: 5px;
-  padding: 5px;
+  position: absolute;
+  border: none;
+  cursor: pointer;
+  right: 15px;
+  bottom: 10px;
+  transition: 0.2s;
+}
+
+.btn-ocorrencia-delete:hover {
+  transform: scale(1.1);
 }
 
 .btn-ocorrencia-status {
@@ -412,10 +421,45 @@ header button {
   /* Inicialmente escondido */
 }
 
+.contain-form-modal-lista-encarregado button {
+  float: right;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: solid 1px grey;
+  background: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.contain-form-modal-lista-encarregado button:hover {
+  background-color: rgba(255, 0, 0, 0.593);
+  transform: scale(1.06);
+}
+
+#tabela-add-encarregado {
+  border: 1px solid grey;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tabela-add-encarregado th {
+  background-color: #f4f4f4;
+}
+
+#tabela-add-encarregado td,
+#tabela-add-encarregado th {
+  padding: 10px;
+  border: solid 1px rgb(199, 199, 199);
+}
+
+#tabela-add-encarregado tbody tr:hover {
+  background-color: rgb(233, 233, 233);
+}
+
 /* Tabela */
 .tabela-agentes {
   border-collapse: collapse;
   margin-top: 10px;
+  width: 100%;
 }
 
 .tabela-agentes th,

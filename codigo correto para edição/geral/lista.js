@@ -12,35 +12,47 @@ function createCardOcorrencia(dados) {
   containCards.innerHTML = ''
 
   dados.forEach((ocorrencia) => {
-    const { id, observacoes, statusOcorrencia, dataCriacao, dataAtualizacao, agente } = ocorrencia
+    const {
+      id,
+      observacoes,
+      statusOcorrencia,
+      dataCriacao,
+      dataAtualizacao,
+      agente,
+    } = ocorrencia
 
+    console.log(statusOcorrencia)
     containCards.innerHTML += `
       <div class="ocorrencia" data-id="${id}">
         <div class="contain-header-ocorrencia">
           <h3>Ocorrência${id}</h3>
           <div class="contain-indicator-status-ocorrencia">
-            <div class="bolinha-status ${selectColorStatusOcorrencia(statusOcorrencia)}"></div>
+            <div class="bolinha-status ${selectColorStatusOcorrencia(
+              statusOcorrencia
+            )}"></div>
           </div>
         </div>
         <p>Status: 
           <select onChange="alterarStatusOcorrencia(this)">
             <option value="Pendente" ${
-              statusOcorrencia == 'Pendente' ? 'select' : ''
+              statusOcorrencia == 'Pendente' ? 'selected' : ''
             }>Pendente</option>
             <option value="Em Andamento" ${
-              statusOcorrencia == 'Em Andamento' ? 'select' : ''
+              statusOcorrencia == 'Em Andamento' ? 'selected' : ''
             }>Em Andamento</option>
             <option value="Finalizado" ${
-              statusOcorrencia == 'Finalizado' ? 'select' : ''
+              statusOcorrencia == 'Finalizado' ? 'selected' : ''
             }>Finalizado</option>
           </select>
         </p>
         <p>Observações: ${observacoes}</p>
         <p>Data de Criação: ${dataCriacao}</p>
-        <p>Ultima Atualização: ${dataAtualizacao == null ? '' : dataAtualizacao}</p>
+        <p>Ultima Atualização: ${
+          dataAtualizacao == null ? '' : dataAtualizacao
+        }</p>
         <p>Agente: ${agente.pessoa.nome}</p>
         
-        <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})">Deletar</button>
+        <button class="btn-ocorrencia-delete" onclick="deletarOcorrencia(${id})"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10cmFzaC0yIj48cGF0aCBkPSJNMyA2aDE4Ii8+PHBhdGggZD0iTTE5IDZ2MTRjMCAxLTEgMi0yIDJIN2MtMSAwLTItMS0yLTJWNiIvPjxwYXRoIGQ9Ik04IDZWNGMwLTEgMS0yIDItMmg0YzEgMCAyIDEgMiAydjIiLz48bGluZSB4MT0iMTAiIHgyPSIxMCIgeTE9IjExIiB5Mj0iMTciLz48bGluZSB4MT0iMTQiIHgyPSIxNCIgeTE9IjExIiB5Mj0iMTciLz48L3N2Zz4=" alt=""></button>
         
       </div>
     `
@@ -50,19 +62,31 @@ function createCardOcorrencia(dados) {
 async function addEncarregado() {
   const nome = document.querySelector('#encarregado-nome').value
 
-  const response = await axios.post('http://localhost:8080/encarregado/adicionar', {
-    nome: nome,
-  })
+  const response = await axios.post(
+    'http://localhost:8080/encarregado/adicionar',
+    {
+      nome: nome,
+    }
+  )
 
-  console.log(response.data)
+  alert('Encarregado adicionado!')
+
+  openEncarregadoModal()
 }
 
 async function deletarOcorrencia(id) {
-  const confirmar = confirm('Tem certeza de que deseja deletar esta ocorrência?')
+  const confirmar = confirm(
+    'Tem certeza de que deseja deletar esta ocorrência?'
+  )
   if (confirmar) {
-    const resposta = await axios.delete(`http://localhost:8080/ocorrencia/delete/${id}`)
+    const resposta = await axios.delete(
+      `http://localhost:8080/ocorrencia/delete/${id}`
+    )
+    console.log(resposta)
     if (resposta.status === 200) {
-      const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`)
+      const ocorrenciaDiv = document.querySelector(
+        `.ocorrencia[data-id="${id}"]`
+      )
       ocorrenciaDiv.remove()
       alert('Ocorrência deletada com sucesso!')
     } else {
@@ -73,14 +97,17 @@ async function deletarOcorrencia(id) {
 
 async function alterarStatusOcorrencia(select) {
   const statusOcorrencia = select.value
-  const idOcorrencia = select.parentElement.parentElement.getAttribute('data-id')
+  const idOcorrencia =
+    select.parentElement.parentElement.getAttribute('data-id')
 
   await axios.put(`http://localhost:8080/ocorrencia/updateStatus`, {
     id: idOcorrencia,
     statusOcorrencia: statusOcorrencia,
   })
 
-  alert(`Status da ocorrência ${idOcorrencia} alterado para: ${statusOcorrencia}`)
+  alert(
+    `Status da ocorrência ${idOcorrencia} alterado para: ${statusOcorrencia}`
+  )
 
   const cardOcorrencia = select.closest('.ocorrencia')
   const bolinhaStatus = cardOcorrencia.querySelector('.bolinha-status')
@@ -94,28 +121,32 @@ async function alterarStatusOcorrencia(select) {
   bolinhaStatus.classList.add(selectColorStatusOcorrencia(statusOcorrencia))
 }
 
-document.getElementById('form-ocorrencia').addEventListener('submit', async function (event) {
-  event.preventDefault() // Evita o recarregamento da página
+document
+  .getElementById('form-ocorrencia')
+  .addEventListener('submit', async function (event) {
+    event.preventDefault() // Evita o recarregamento da página
 
-  const descricao = document.querySelector('#descricao').value
-  const statusOcorrencia = document.querySelector('#statusOcorrencia').value
-  const agenteId = document.querySelector('.btn-agent-Ocorrencia').getAttribute('data-id')
+    const descricao = document.querySelector('#descricao').value
+    const statusOcorrencia = document.querySelector('#statusOcorrencia').value
+    const agenteId = document
+      .querySelector('.btn-agent-Ocorrencia')
+      .getAttribute('data-id')
 
-  if (!agenteId) {
-    alert('Por favor, selecione um agente.')
-    return
-  }
+    if (!agenteId) {
+      alert('Por favor, selecione um agente.')
+      return
+    }
 
-  await axios.post('http://localhost:8080/ocorrencia/adicionar', {
-    observacoes: descricao,
-    statusOcorrencia: statusOcorrencia,
-    agente: { id: agenteId },
+    await axios.post('http://localhost:8080/ocorrencia/adicionar', {
+      observacoes: descricao,
+      statusOcorrencia: statusOcorrencia,
+      agente: { id: agenteId },
+    })
+
+    alert('Ocorrência adicionada com sucesso!')
+    getAllOcorrencias() // Atualiza a lista de ocorrências
+    openOcorrenciaModal() // Fecha o modal de ocorrências
   })
-
-  alert('Ocorrência adicionada com sucesso!')
-  getAllOcorrencias() // Atualiza a lista de ocorrências
-  openOcorrenciaModal() // Fecha o modal de ocorrências
-})
 
 function selectColorStatusOcorrencia(statusOcorrencia) {
   if (statusOcorrencia == 'Pendente') {
@@ -136,9 +167,21 @@ function inputAgente() {
     .querySelector('#btn-add-encarregado-agente')
     .getAttribute('data-id')
 
-  adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente, idEncarregado)
+  adicionarAgente(
+    nomeAgente,
+    cpfAgente,
+    rgAgente,
+    departamentoAgente,
+    idEncarregado
+  )
 }
-async function adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente, idEncarregado) {
+async function adicionarAgente(
+  nomeAgente,
+  cpfAgente,
+  rgAgente,
+  departamentoAgente,
+  idEncarregado
+) {
   const resposta = await axios.post('http://localhost:8080/pessoa/adicionar', {
     nome: nomeAgente,
     cpf: cpfAgente,
@@ -166,9 +209,14 @@ async function adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgen
 
 function openEncarregadoModal() {
   let encarregadoMod = document.querySelector('.contain-form-modal-encarregado')
-  let backGroudModal = document.querySelector('.background-open-modalEncarregado')
+  let backGroudModal = document.querySelector(
+    '.background-open-modalEncarregado'
+  )
 
-  if (encarregadoMod.style.display == 'none' || encarregadoMod.style.display == '') {
+  if (
+    encarregadoMod.style.display == 'none' ||
+    encarregadoMod.style.display == ''
+  ) {
     encarregadoMod.style.display = 'flex'
     backGroudModal.style.display = 'block'
     document.body.style.overflowY = 'hidden'
@@ -196,9 +244,14 @@ function openAgenteModal() {
 
 function openOcorrenciaModal() {
   let ocorrenciaMod = document.querySelector('.contain-form-modal-ocorrencia')
-  let backGroudModal = document.querySelector('.background-open-modalOcorrencia')
+  let backGroudModal = document.querySelector(
+    '.background-open-modalOcorrencia'
+  )
 
-  if (ocorrenciaMod.style.display == 'none' || ocorrenciaMod.style.display == '') {
+  if (
+    ocorrenciaMod.style.display == 'none' ||
+    ocorrenciaMod.style.display == ''
+  ) {
     ocorrenciaMod.style.display = 'flex'
     backGroudModal.style.display = 'block'
     document.body.style.overflowY = 'hidden'
@@ -210,8 +263,12 @@ function openOcorrenciaModal() {
 }
 
 function openListAgenteEmOcorrencia() {
-  const selectAgenteMod = document.querySelector('.contain-form-modal-lista-select')
-  const backGroudModal = document.querySelector('.background-open-modalListaAgenteSelect')
+  const selectAgenteMod = document.querySelector(
+    '.contain-form-modal-lista-select'
+  )
+  const backGroudModal = document.querySelector(
+    '.background-open-modalListaAgenteSelect'
+  )
   const selectAgente = document.getElementById('modalAgente')
 
   selectAgente.style.display = 'none' // Fecha o modal de agentes se estiver aberto
@@ -239,6 +296,7 @@ async function listAgenteEmOcorrencia() {
         <td>${agente.id}</td>
         <td>${agente.pessoa.nome}</td>
         <td>${agente.departamento}</td>
+        <td><button>Selecionar</button></td>
       </tr>
     `
   })
@@ -248,16 +306,26 @@ async function listAgenteEmOcorrencia() {
 
 function selecionarAgente(tr) {
   const buttonAddAgente = document.querySelector('.btn-agent-Ocorrencia')
-  buttonAddAgente.setAttribute('data-id', tr.querySelectorAll('td')[0].innerHTML)
+  buttonAddAgente.setAttribute(
+    'data-id',
+    tr.querySelectorAll('td')[0].innerHTML
+  )
 
-  buttonAddAgente.innerText = `Agente Selecionado: ${tr.querySelectorAll('td')[1].innerText}`
+  buttonAddAgente.innerText = `Agente Selecionado: ${
+    tr.querySelectorAll('td')[1].innerText
+  }`
 
   fecharModalAgente()
 }
 
 function selecionarEncarregados(tr) {
-  const buttonAddAgenteEncarregados = document.querySelector('.btn-encarregado-Agente')
-  buttonAddAgenteEncarregados.setAttribute('data-id', tr.querySelectorAll('td')[0].innerHTML)
+  const buttonAddAgenteEncarregados = document.querySelector(
+    '.btn-encarregado-Agente'
+  )
+  buttonAddAgenteEncarregados.setAttribute(
+    'data-id',
+    tr.querySelectorAll('td')[0].innerHTML
+  )
 
   buttonAddAgenteEncarregados.innerText = `Encarregado Selecionado: ${
     tr.querySelectorAll('td')[1].innerText
@@ -269,26 +337,39 @@ function selecionarEncarregados(tr) {
 function fecharModalAgente() {
   const modal = document.getElementById('modalAgente')
   modal.style.display = 'none'
-  const listaAgenteMod = document.querySelector('.contain-form-modal-lista-select')
+  const listaAgenteMod = document.querySelector(
+    '.contain-form-modal-lista-select'
+  )
   listaAgenteMod.style.display = 'none'
-  const backGroudModal = document.querySelector('.background-open-modalListaAgente')
+  const backGroudModal = document.querySelector(
+    '.background-open-modalListaAgente'
+  )
   backGroudModal.style.display = 'none'
 }
 
 function fecharModalEncarregado() {
   const modal = document.querySelector('.contain-form-modal-lista-encarregado')
   modal.style.display = 'none'
-  const listaEncarregadosMod = document.querySelector('.contain-form-modal-lista-encarregado')
+  const listaEncarregadosMod = document.querySelector(
+    '.contain-form-modal-lista-encarregado'
+  )
   listaEncarregadosMod.style.display = 'none'
-  const backGroudModal = document.querySelector('.background-open-modalListaEncarregado')
+  const backGroudModal = document.querySelector(
+    '.background-open-modalListaEncarregado'
+  )
   backGroudModal.style.display = 'none'
 }
 
 function openListaAgenteModal() {
   const listaAgenteMod = document.querySelector('.contain-form-modal-lista')
-  const backGroudModal = document.querySelector('.background-open-modalListaAgente')
+  const backGroudModal = document.querySelector(
+    '.background-open-modalListaAgente'
+  )
 
-  if (listaAgenteMod.style.display === 'none' || listaAgenteMod.style.display === '') {
+  if (
+    listaAgenteMod.style.display === 'none' ||
+    listaAgenteMod.style.display === ''
+  ) {
     listaAgenteMod.style.display = 'block' // Mostra o modal
     backGroudModal.style.display = 'block' // Ativa o fundo escuro
     document.body.style.overflowY = 'hidden'
@@ -301,10 +382,17 @@ function openListaAgenteModal() {
 }
 
 function openListaEncarregado() {
-  const listaEncarregadosMod = document.querySelector('.contain-form-modal-lista-encarregado')
-  const backGroudModal = document.querySelector('.background-open-modalListaEncarregado')
+  const listaEncarregadosMod = document.querySelector(
+    '.contain-form-modal-lista-encarregado'
+  )
+  const backGroudModal = document.querySelector(
+    '.background-open-modalListaEncarregado'
+  )
 
-  if (listaEncarregadosMod.style.display === 'none' || listaEncarregadosMod.style.display === '') {
+  if (
+    listaEncarregadosMod.style.display === 'none' ||
+    listaEncarregadosMod.style.display === ''
+  ) {
     listaEncarregadosMod.style.display = 'block' // Mostra o modal
     backGroudModal.style.display = 'block' // Ativa o fundo escuro
     document.body.style.overflowY = 'hidden'
@@ -330,6 +418,7 @@ async function listarEncarregados() {
       <tr onclick="selecionarEncarregados(this)"=>
         <td>${id}</td> 
         <td>${nome}</td>
+        <td><button style="float: left">Selecionar</button></td>
       </tr>
     `
   })
@@ -367,7 +456,9 @@ async function listarAgentes() {
 async function deletarAgente(id) {
   const confirmar = confirm('Tem certeza de que deseja deletar este agente?')
   if (confirmar) {
-    const response = await axios.delete(`http://localhost:8080/agente/delete/${id}`)
+    const response = await axios.delete(
+      `http://localhost:8080/agente/delete/${id}`
+    )
     if (response.status === 200) {
       alert('Agente deletado com sucesso!')
       listarAgentes() // Atualiza a lista após a exclusão
@@ -391,25 +482,6 @@ async function deletarAgente(id) {
 //}
 
 //delete
-async function deletarOcorrencia(id) {
-  const confirmar = confirm('Tem certeza de que deseja deletar esta ocorrência?')
-  if (confirmar) {
-    try {
-      const resposta = await axios.delete(`http:localhost:8080/ocorrencia/delete/${id}`)
-
-      if (resposta.status === 200) {
-        const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`)
-        ocorrenciaDiv.remove()
-        alert('Ocorrência deletada com sucesso!')
-      } else {
-        throw new Error('Erro ao deletar a ocorrência.')
-      }
-    } catch (error) {
-      console.error('Erro ao deletar:', error)
-      alert('Erro ao deletar a ocorrência. Tente novamente.')
-    }
-  }
-}
 
 const cpfInput = document.querySelector('#cpfAgente')
 const rgInput = document.querySelector('#rgAgente')
