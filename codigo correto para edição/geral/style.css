@@ -454,28 +454,28 @@ header button {
   justify-content: space-between;
 }
 
-.tabela-encarregado {
+.tabela-add-encarregado {
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.tabela-encarregado th,
-.tabela-encarregado td {
+.tabela-add-encarregado th,
+.tabela-add-encarregado td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
 }
 
-.tabela-encarregado th {
+.tabela-add-encarregado th {
   background-color: #f4f4f4;
   font-weight: bold;
 }
 
-.tabela-encarregado tr:nth-child(even) {
+.tabela-add-encarregado tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.tabela-encarregado tr:hover {
+.tabela-add-encarregado tr:hover {
   background-color: #f1f1f1;
 }
 

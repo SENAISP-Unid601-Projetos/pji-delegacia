@@ -74,7 +74,7 @@
     <div class="contain-form-modal-lista-encarregado">
       <div>
         <h2>Clique em um encarregado para selecionalo</h2>
-        <table id="tabela-add-encarregado">
+        <table id="tabela-add-encarregado" id="modalEncarregado">
           <thead>
             <tr>
               <th>ID</th>
@@ -84,7 +84,7 @@
           <tbody></tbody>
         </table>
       </div>
-      <button onclick="fecharModalAgente()">Fechar</button>
+      <button onclick="fecharModalEncarregado()">Fechar</button>
     </div>
 
     <div class="background-open-modalListaAgenteSelect"></div>
@@ -140,7 +140,7 @@
         </div>
 
         <div class="contain-buttons-modal">
-          <button onclick="openOcorrenciaModal()">Fechar</button>
+          <button onclick="openOcorrenciaModal()" type="button">Fechar</button>
           <button id="btnAdicionarOcorrencia">Adicionar</button>
         </div>
       </form>
