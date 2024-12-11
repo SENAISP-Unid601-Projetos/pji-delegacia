@@ -257,7 +257,8 @@ footer {
 header button {
   padding: 10px 15px;
   border-radius: 5px;
-  background-color: hwb(229 91% 3% / 0.466);
+  background-color: rgba(153, 153, 153, 0.466);
+  color: white;
   border: none;
   cursor: pointer;
 }
