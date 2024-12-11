@@ -57,11 +57,17 @@ function createCardOcorrencia(dados) {
 }
 
 async function deletarOcorrencia(id) {
-  const confirmar = confirm("Tem certeza de que deseja deletar esta ocorrência?");
+  const confirmar = confirm(
+    "Tem certeza de que deseja deletar esta ocorrência?"
+  );
   if (confirmar) {
-    const resposta = await axios.delete(`http://localhost:8080/ocorrencia/delete/${id}`);
+    const resposta = await axios.delete(
+      `http://localhost:8080/ocorrencia/delete/${id}`
+    );
     if (resposta.status === 200) {
-      const ocorrenciaDiv = document.querySelector(`.ocorrencia[data-id="${id}"]`);
+      const ocorrenciaDiv = document.querySelector(
+        `.ocorrencia[data-id="${id}"]`
+      );
       ocorrenciaDiv.remove();
       alert("Ocorrência deletada com sucesso!");
     } else {
@@ -126,15 +132,15 @@ document
     openOcorrenciaModal(); // Fecha o modal de ocorrências
   });
 
-  function selectColorStatusOcorrencia(statusOcorrencia) {
-    if (statusOcorrencia == "Pendente") {
-      return "background-orange-indicator";
-    } else if (statusOcorrencia == "Finalizado") {
-      return "background-green-indicator";
-    } else if (statusOcorrencia == "Em Andamento") {
-      return "background-yellow-indicator";
-    }
+function selectColorStatusOcorrencia(statusOcorrencia) {
+  if (statusOcorrencia == "Pendente") {
+    return "background-orange-indicator";
+  } else if (statusOcorrencia == "Finalizado") {
+    return "background-green-indicator";
+  } else if (statusOcorrencia == "Em Andamento") {
+    return "background-yellow-indicator";
   }
+}
 
 function inputAgente() {
   const nomeAgente = document.querySelector("#nomeAgente").value;
@@ -146,9 +152,6 @@ function inputAgente() {
 
   adicionarAgente(nomeAgente, cpfAgente, rgAgente, departamentoAgente);
 }
-
-
-
 async function adicionarAgente(
   nomeAgente,
   cpfAgente,
@@ -171,6 +174,28 @@ async function adicionarAgente(
   });
   alert("Agente adicionada com sucesso!"); // Atualiza a lista de ocorrências
   openAgenteModal();
+}
+
+function openEncarregadoModal() {
+  let encarregadoMod = document.querySelector(
+    ".contain-form-modal-encarregado"
+  );
+  let backGroudModal = document.querySelector(
+    ".background-open-modalEncarregado"
+  );
+
+  if (
+    encarregadoMod.style.display == "none" ||
+    encarregadoMod.style.display == ""
+  ) {
+    encarregadoMod.style.display = "flex";
+    backGroudModal.style.display = "block";
+    document.body.style.overflowY = "hidden";
+  } else {
+    backGroudModal.style.display = "none";
+    encarregadoMod.style.display = "none";
+    document.body.style.overflowY = "scroll";
+  }
 }
 
 function openAgenteModal() {
@@ -305,7 +330,7 @@ async function listarAgentes() {
   tabelaCorpo.innerHTML = "";
 
   agentes.forEach((agente) => {
-    const { id, pessoa, departamento} = agente;
+    const { id, pessoa, departamento } = agente;
 
     const linhaHTML = `
       <tr>
@@ -327,7 +352,9 @@ async function listarAgentes() {
 async function deletarAgente(id) {
   const confirmar = confirm("Tem certeza de que deseja deletar este agente?");
   if (confirmar) {
-    const response = await axios.delete(`http://localhost:8080/agente/delete/${id}`);
+    const response = await axios.delete(
+      `http://localhost:8080/agente/delete/${id}`
+    );
     if (response.status === 200) {
       alert("Agente deletado com sucesso!");
       listarAgentes(); // Atualiza a lista após a exclusão
@@ -364,35 +391,33 @@ async function deletarOcorrencia(id) {
   }
 }
 
+const cpfInput = document.querySelector("#cpfAgente");
+const rgInput = document.querySelector("#rgAgente");
 
-const cpfInput = document.querySelector('#cpfAgente');
-const rgInput = document.querySelector('#rgAgente');
-
-
-cpfInput.addEventListener('input', () => {
-  let value = cpfInput.value.replace(/\D/g, ''); 
+cpfInput.addEventListener("input", () => {
+  let value = cpfInput.value.replace(/\D/g, "");
 
   if (value.length > 3 && value.length <= 6) {
-    value = value.replace(/^(\d{3})(\d+)/, '$1.$2');
+    value = value.replace(/^(\d{3})(\d+)/, "$1.$2");
   } else if (value.length > 6 && value.length <= 9) {
-    value = value.replace(/^(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
+    value = value.replace(/^(\d{3})(\d{3})(\d+)/, "$1.$2.$3");
   } else if (value.length > 9) {
-    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
+    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d+)/, "$1.$2.$3-$4");
   }
 
-  cpfInput.value = value.slice(0, 14); 
+  cpfInput.value = value.slice(0, 14);
 });
 
-rgInput.addEventListener('input', () => {
-  let value = rgInput.value.replace(/\D/g, ''); 
+rgInput.addEventListener("input", () => {
+  let value = rgInput.value.replace(/\D/g, "");
 
   if (value.length > 2 && value.length <= 5) {
-    value = value.replace(/^(\d{2})(\d+)/, '$1.$2');
+    value = value.replace(/^(\d{2})(\d+)/, "$1.$2");
   } else if (value.length > 5 && value.length <= 8) {
-    value = value.replace(/^(\d{2})(\d{3})(\d+)/, '$1.$2.$3');
+    value = value.replace(/^(\d{2})(\d{3})(\d+)/, "$1.$2.$3");
   } else if (value.length > 8) {
-    value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
+    value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d+)/, "$1.$2.$3-$4");
   }
 
-  rgInput.value = value.slice(0, 12); 
+  rgInput.value = value.slice(0, 12);
 });

@@ -10,6 +10,29 @@
 
   <body>
 
+
+    <div class="background-open-modalEncarregado"></div>
+    <div class="contain-form-modal-encarregado">
+      <form id="form-agente">
+        <h1>Adicionar Encarregado</h1>
+        <div class="contain-inputs-modal-encarregado">
+          <label>Nome: </label>
+          <input
+            type="text"
+            id="encarregado_agente"
+            placeholder="Nome do Encarregado"
+            required
+          />
+        </div>
+        <div class="contain-buttons-modal">
+          <button onclick="openEncarregadoModal()">Fechar</button>
+          <button onclick="inputAgente()" id="btnAdicionarAgente" type="button">
+            Adicionar
+          </button>
+        </div>
+      </form>
+    </div>
+
     
     <div class="background-open-modalAgente"></div>
     <div class="contain-form-modal">

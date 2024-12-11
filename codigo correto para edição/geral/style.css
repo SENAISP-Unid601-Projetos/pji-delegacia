@@ -123,6 +123,17 @@ footer {
   display: none;
 }
 
+.background-open-modalEncarregado {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
 .background-open-modalOcorrencia {
   position: fixed;
   top: 0;
@@ -131,6 +142,17 @@ footer {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
+  display: none;
+}
+
+.contain-form-modal-encarregado {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
   display: none;
 }
 
@@ -154,6 +176,15 @@ footer {
   align-items: center;
   z-index: 2;
   display: none;
+}
+
+.contain-form-modal-encarregado form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: white;
+  padding: 20px 40px;
+  border-radius: 5px;
 }
 
 .contain-form-modal form {
@@ -205,13 +236,11 @@ footer {
   border-radius: 5px;
   background-color: hwb(0 100% 0% / 0.466);
   border: 1px black solid;
-
-
 }
 
 .button-inicial {
   padding: 10px 10px;
-
+  cursor: pointer;
 }
 
 .button-inicial button {
@@ -219,12 +248,20 @@ footer {
   border-radius: 5px;
   background-color: hwb(231 17% 15% / 0.466);
   border: none;
+  cursor: pointer;
 }
 
 .contain-inputs-modal {
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
+}
+
+.contain-inputs-modal-encarregado {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
+  padding-left: 80px;
 }
 
 .contain-buttons-modal-selectLista {
@@ -243,6 +280,14 @@ footer {
   padding-right: 10px;
 }
 
+.contain-inputs-modal-encarregado input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid rgb(198, 198, 198);
+  outline: none;
+  font-size: 15px;
+}
+
 .contain-inputs-modal input {
   padding: 10px;
   border-radius: 5px;
@@ -258,7 +303,6 @@ footer {
   height: 50%;
   z-index: 1;
 }
-
 
 .btn-ocorrencia {
   background-color: yellow;
@@ -281,7 +325,6 @@ footer {
   padding: 5px;
 }
 
-
 /* Fundo de tela para o modal */
 .background-open-modalListaAgente {
   position: fixed;
@@ -292,10 +335,9 @@ footer {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;
   display: none;
-  
+
   /* Inicialmente escondido */
 }
-
 
 .background-open-modalListaAgenteSelect {
   position: fixed;
@@ -306,7 +348,6 @@ footer {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;
   display: none;
-  
 }
 
 .contain-form-modal-lista {
@@ -324,18 +365,14 @@ footer {
   /* Ajuste conforme necessário */
   max-width: 600px;
   display: none;
-  
-  /* Inicialmente escondido */
 
+  /* Inicialmente escondido */
 }
 
 /* Tabela */
 .tabela-agentes {
-
   border-collapse: collapse;
   margin-top: 10px;
- 
-
 }
 
 .tabela-agentes th,
@@ -357,8 +394,6 @@ footer {
 .tabela-agentes tr:hover {
   background-color: #f1f1f1;
 }
-
-
 
 .modal-agente {
   display: none;
@@ -394,8 +429,24 @@ footer {
   transition: 0.2s;
 }
 
+.contain-buttons-modal button {
+  width: 100px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  cursor: pointer;
+  background-color: white;
+  transition: 0.2s;
+}
+
+.contain-buttons-modal button:hover {
+  background-color: rgba(255, 0, 0, 0.593);
+  cursor: pointer;
+}
+
 .modal-agente button:hover {
   background-color: rgba(255, 0, 0, 0.593);
+  cursor: pointer;
 }
 
 #modalAgente .modal-content {
@@ -469,13 +520,10 @@ footer {
   background-color: yellow;
 }
 
-.btn-deletar{
+.btn-deletar {
   border-radius: 5px;
   padding: 2px;
   background-color: rgba(53, 96, 124, 0.531);
- 
-
-
 }
 
 .div-delete {
